@@ -2,7 +2,7 @@ package renetik.android.store.json
 
 import renetik.android.core.kotlin.runIf
 import renetik.android.json.parseJsonMap
-import renetik.android.json.toJsonString
+import renetik.android.json.toJson
 import java.io.Closeable
 
 abstract class CSJsonStore(private val isJsonPretty: Boolean = false)
@@ -25,7 +25,7 @@ abstract class CSJsonStore(private val isJsonPretty: Boolean = false)
         if (isBulkSave) return
         val json = data
             .runIf(isJsonPretty) { it.toSortedMap() }
-            .toJsonString(formatted = isJsonPretty)
+            .toJson(formatted = isJsonPretty)
         saveJsonString(json)
     }
 }

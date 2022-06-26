@@ -26,7 +26,7 @@ class CSPreferencesStore(id: String) : CSContext(), CSStore {
 
 	override fun has(key: String) = preferences.contains(key)
 
-	override fun set(key: String, value: String?) = value?.let {
+	override fun set(key: String, string: String?) = string?.let {
 		val editor = preferences.edit()
 		editor.putString(key, it)
 		eventChanged.fire(this@CSPreferencesStore)
@@ -37,20 +37,20 @@ class CSPreferencesStore(id: String) : CSContext(), CSStore {
 		catchAllWarnReturnNull { preferences.getString(key, null) }
 
 	override fun set(key: String, value: Map<String, *>?) =
-		set(key, value?.toJsonString(formatted = isDebug))
+		set(key, value?.toJson(formatted = isDebug))
 
 	override fun getMap(key: String): Map<String, *>? =
 		get(key)?.parseJson<Map<String, *>>()
 
 	// TODO Array can be retrieved and save by using list functions in extensions
 	override fun set(key: String, value: Array<*>?) =
-		set(key, value?.toJsonString(formatted = isDebug))
+		set(key, value?.toJson(formatted = isDebug))
 
 	override fun getArray(key: String): Array<*>? =
 		get(key)?.parseJson<List<*>>()?.toTypedArray()
 
 	override fun set(key: String, value: List<*>?) =
-		set(key, value?.toJsonString(formatted = isDebug))
+		set(key, value?.toJson(formatted = isDebug))
 
 	override fun getList(key: String): List<*>? =
 		get(key)?.parseJson<List<*>>()
@@ -62,7 +62,7 @@ class CSPreferencesStore(id: String) : CSContext(), CSStore {
 			?.let(type::createJsonObjectList)
 
 	override fun <T : CSJsonObject> set(key: String, value: T?) =
-		set(key, value?.toJsonString(formatted = isDebug))
+		set(key, value?.toJson(formatted = isDebug))
 
 	override fun <T : CSJsonObject> getJsonObject(key: String,
 	                                              type: KClass<T>) =

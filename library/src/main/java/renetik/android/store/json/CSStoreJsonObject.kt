@@ -6,15 +6,12 @@ import renetik.android.event.CSEvent.Companion.event
 import renetik.android.json.CSJsonObject
 import renetik.android.json.createJsonObject
 import renetik.android.json.createJsonObjectList
-import renetik.android.json.toJsonString
 import renetik.android.store.CSStore
 import java.io.Closeable
 import kotlin.reflect.KClass
 
 @Suppress("unchecked_cast")
 open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
-
-	override fun toJsonMap(): Map<String, *> = super.data
 
 	override val eventChanged = event<CSStore>()
 	open fun onChanged() = eventChanged.fire(this)
@@ -43,9 +40,9 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 		onChange()
 	}
 
-	override fun set(key: String, value: String?) {
-		if (value != null && data[key] == value) return
-		data[key] = value
+	override fun set(key: String, string: String?) {
+		if (string != null && data[key] == string) return
+		data[key] = string
 		onChange()
 	}
 
@@ -93,15 +90,8 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 			type.createJsonObject(map).also { data[key] = it }
 		}
 
-	override fun toString() = super.toString() + toJsonString(formatted = true)
-
-	override fun equals(other: Any?) =
-		(other as? CSStoreJsonObject)?.let { it.data == data } ?: super.equals(other)
-
-	override fun hashCode() = data.hashCode()
-
-	override fun iterator(): Iterator<Map.Entry<String, Any?>> =
-		super<CSJsonObject>.iterator()
+	override fun toJsonMap(): Map<String, *> = data
+	override fun iterator() = super<CSStore>.iterator()
 
 	protected var isBulkSave = false
 	private var isBulkSaveDirty = false
