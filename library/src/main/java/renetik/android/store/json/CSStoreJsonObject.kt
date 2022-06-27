@@ -1,11 +1,9 @@
 package renetik.android.store.json
 
-import renetik.android.core.kotlin.collections.at
 import renetik.android.core.kotlin.primitives.toArray
 import renetik.android.event.CSEvent.Companion.event
 import renetik.android.json.CSJsonObject
 import renetik.android.json.createJsonObject
-import renetik.android.json.createJsonObjectList
 import renetik.android.store.CSStore
 import java.io.Closeable
 import kotlin.reflect.KClass
@@ -28,7 +26,7 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 		onLoaded()
 	}
 
-	open fun onLoaded() = Unit
+	override fun onLoaded() = Unit
 
 	override fun clear() {
 		super.clear()
@@ -52,15 +50,11 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 		onChange()
 	}
 
-	override fun getMap(key: String) = data[key] as? MutableMap<String, Any?>
-
 	override fun set(key: String, value: Array<*>?) {
 		if (value != null && data[key] == value) return
 		data[key] = value?.toArray()
 		onChange()
 	}
-
-	override fun getArray(key: String): Array<*>? = getList(key)?.toTypedArray()
 
 	override fun set(key: String, value: List<*>?) {
 		if (value != null && data[key] == value) return
@@ -68,27 +62,11 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 		onChange()
 	}
 
-	override fun getList(key: String): List<*>? = data[key] as? MutableList<Any?>
-
-	override fun <T : CSJsonObject> getJsonObjectList(
-		key: String, type: KClass<T>): List<T>? {
-		val isFirstItemJsonObject = ((data[key] as? List<*>)?.at(0) as? T) != null
-		return if (isFirstItemJsonObject) data[key] as List<T> else
-			(data[key] as? List<MutableMap<String, Any?>>)?.let { list ->
-				type.createJsonObjectList(list).also { data[key] = it }
-			}
-	}
-
 	override fun <T : CSJsonObject> set(key: String, value: T?) {
 		if (value != null && data[key] == value) return
 		data[key] = value
 		onChange()
 	}
-
-	override fun <T : CSJsonObject> getJsonObject(key: String, type: KClass<T>): T? =
-		data[key] as? T ?: (data[key] as? MutableMap<String, Any?>)?.let { map ->
-			type.createJsonObject(map).also { data[key] = it }
-		}
 
 	override fun toJsonMap(): Map<String, *> = data
 	override fun iterator() = super<CSStore>.iterator()
@@ -100,6 +78,7 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 		isBulkSave = true
 		return this
 	}
+
 
 	override fun close() {
 		if (isBulkSaveDirty) onChanged()

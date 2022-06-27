@@ -4,7 +4,6 @@ import android.content.Context
 import renetik.android.core.lang.CSHasId
 import renetik.android.core.logging.CSLog.logWarn
 import renetik.android.event.CSEvent
-import renetik.android.json.CSJsonObject
 import renetik.android.json.CSJsonObjectInterface
 import renetik.android.store.json.CSFileJsonStore
 import renetik.android.store.json.CSStoreJsonObject
@@ -35,30 +34,12 @@ interface CSStore : CSPropertyStore,
 
 	val eventChanged: CSEvent<CSStore>
 	val data: Map<String, Any?>
+
 	override fun toJsonMap(): Map<String, *> = data
 
 	override fun iterator(): Iterator<Map.Entry<String, Any?>> = data.iterator()
 
-	fun has(key: String): Boolean = data.containsKey(key)
-
 	fun bulkSave(): Closeable = Closeable { logWarn("Bulk save not implemented") }
-//	fun set(key: String, value: String?)
-//	fun get(key: String): String? = data[key]?.toString()
-
-	fun set(key: String, value: Map<String, *>?)
-	fun getMap(key: String): Map<String, *>?
-
-	fun set(key: String, value: Array<*>?)
-	fun getArray(key: String): Array<*>?
-
-	fun set(key: String, value: List<*>?)
-	fun getList(key: String): List<*>?
-
-	fun <T : CSJsonObject> getJsonObjectList(key: String,
-	                                         type: KClass<T>): List<T>?
-
-	fun <T : CSJsonObject> set(key: String, value: T?)
-	fun <T : CSJsonObject> getJsonObject(key: String, type: KClass<T>): T?
 
 	fun load(store: CSStore)
 	fun clear()
@@ -68,27 +49,6 @@ interface CSStore : CSPropertyStore,
 		clear()
 		load(store)
 	}
-
-//	fun set(key: String, value: Boolean?) = set(key, value?.toString())
-//	fun set(key: String, value: Int?) = set(key, value?.toString())
-//	fun set(key: String, value: Long?) = set(key, value?.toString())
-//	fun set(key: String, value: Double?) = set(key, value?.toString())
-//	fun set(key: String, value: Float?) = set(key, value?.toString())
-
-//	fun getString(key: String, default: String): String = get(key) ?: default
-//	fun getString(key: String): String? = get(key)
-//	fun getBoolean(key: String, default: Boolean): Boolean = get(key)?.toBoolean() ?: default
-//	fun getBoolean(key: String, default: Boolean? = null): Boolean? =
-//		get(key)?.toBoolean() ?: default
-//
-//	fun getInt(key: String, default: Int): Int = get(key)?.asInt() ?: default
-//	fun getInt(key: String, default: Int? = null): Int? = get(key)?.asInt() ?: default
-//	fun getLong(key: String, default: Long): Long = get(key)?.asLong() ?: default
-//	fun getLong(key: String, default: Long? = null): Long? = get(key)?.asLong() ?: default
-//	fun getFloat(key: String, default: Float): Float = get(key)?.asFloat() ?: default
-//	fun getFloat(key: String, default: Float? = null): Float? = get(key)?.asFloat() ?: default
-//	fun getDouble(key: String, default: Double): Double = get(key)?.asDouble() ?: default
-//	fun getDouble(key: String, default: Double? = null): Double? = get(key)?.asDouble() ?: default
 
 	override fun property(key: String, value: String, onChange: ((value: String) -> Unit)?) =
 		CSStringValueStoreEventProperty(this, key, value, listenStoreChanged = false, onChange)
