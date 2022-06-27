@@ -1,4 +1,4 @@
-[![Android CI](https://github.com/renetik/renetik-android-store/workflows/Android_CI/badge.svg)](https://github.com/renetik/renetik-android-store/workflows/Android_CI/badge.svg)
+[![Android CI](https://github.com/renetik/renetik-android-store/workflows/AndroidCI/badge.svg)](https://github.com/renetik/renetik-android-store/workflows/AndroidCI/badge.svg)
 # Renetik Android Store
 Framework to enjoy, improve and speed up your application development while writing readable code.
 Used as library for music production and performance app Renetik Instruments www.renetik.com as well as other projects.
