@@ -13,7 +13,7 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 	open fun onChanged() = eventChanged.fire(this)
 	final override fun load(store: CSStore) = load(store.data)
 
-	private fun onChange() {
+	override fun onChange() {
 		if (!isBulkSave) onChanged()
 		else isBulkSaveDirty = true
 	}
@@ -36,11 +36,18 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 		onChange()
 	}
 
-	override fun set(key: String, string: String?) {
-		if (string != null && data[key] == string) return
-		data[key] = string
-		onChange()
-	}
+//	override fun set(key: String, string: String?) {
+//		if (string != null && data[key] == string) return
+//		data[key] = string
+//		onChange()
+//	}
+
+//	override fun set(key: String, boolean: Boolean?) {
+//		val value = boolean.toJsonType()
+//		if (boolean != null && data[key] == value) return
+//		data[key] =value
+//		onChange()
+//	}
 
 	override fun set(key: String, value: Map<String, *>?) {
 		if (value != null && data[key] == value) return

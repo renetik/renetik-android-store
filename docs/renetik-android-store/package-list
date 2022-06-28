@@ -33,11 +33,11 @@ $dokka.location:renetik.android.store.json/CSStoreJsonObject/eventChanged/#/Poin
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/iterator/#/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/iterator.html
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/load/#kotlin.collections.Map[kotlin.String,kotlin.Any?]/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/load.html
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/load/#renetik.android.store.CSStore/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/load.html
+$dokka.location:renetik.android.store.json/CSStoreJsonObject/onChange/#/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/on-change.html
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/onChanged/#/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/on-changed.html
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/onLoaded/#/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/on-loaded.html
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/set/#kotlin.String#TypeParam(bounds=[renetik.android.json.obj.CSJsonObject])?/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/set.html
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/set/#kotlin.String#kotlin.Array[*]?/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/set.html
-$dokka.location:renetik.android.store.json/CSStoreJsonObject/set/#kotlin.String#kotlin.String?/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/set.html
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/set/#kotlin.String#kotlin.collections.List[*]?/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/set.html
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/set/#kotlin.String#kotlin.collections.Map[kotlin.String,*]?/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/set.html
 $dokka.location:renetik.android.store.json/CSStoreJsonObject/toJsonMap/#/PointingToDeclaration/renetik-android-store/renetik.android.store.json/-c-s-store-json-object/to-json-map.html
