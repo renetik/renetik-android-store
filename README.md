@@ -1,4 +1,4 @@
-<span hidden>Header</span>
+<!---Header--->
 [![Android CI](https://github.com/renetik/renetik-android-store/workflows/Android%20CI/badge.svg)
 ](https://github.com/renetik/renetik-android-store/actions/workflows/android.yml)
 
