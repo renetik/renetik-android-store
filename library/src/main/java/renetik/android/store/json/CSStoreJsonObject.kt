@@ -2,11 +2,9 @@ package renetik.android.store.json
 
 import renetik.android.core.kotlin.primitives.toArray
 import renetik.android.event.CSEvent.Companion.event
-import renetik.android.json.CSJsonObject
-import renetik.android.json.createJsonObject
+import renetik.android.json.obj.CSJsonObject
 import renetik.android.store.CSStore
 import java.io.Closeable
-import kotlin.reflect.KClass
 
 @Suppress("unchecked_cast")
 open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {

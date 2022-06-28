@@ -4,7 +4,7 @@ import android.content.Context
 import renetik.android.core.lang.CSHasId
 import renetik.android.core.logging.CSLog.logWarn
 import renetik.android.event.CSEvent
-import renetik.android.json.CSJsonObjectInterface
+import renetik.android.json.obj.CSJsonObjectInterface
 import renetik.android.store.json.CSFileJsonStore
 import renetik.android.store.json.CSStoreJsonObject
 import renetik.android.store.property.CSPropertyStore
