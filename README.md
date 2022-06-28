@@ -1,4 +1,4 @@
-[comment]: <> (Header)
+# Module renetik-android-store
 [![Android CI](https://github.com/renetik/renetik-android-store/actions/workflows/android.yml/badge.svg)](https://github.com/renetik/renetik-android-store/actions/workflows/android.yml)
 
 # Renetik Android Store
