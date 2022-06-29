@@ -25,7 +25,7 @@ class CSBooleanNullableStoreEventPropertyTest {
 
 	@Test
 	fun testValueJsonAsString() {
-		CSJson.forceString = true
+		CSJson.forceStringInJson = true
 		property.value = false
 		assertEquals(false, property.value)
 		assertEquals(false, _value)
@@ -41,7 +41,7 @@ class CSBooleanNullableStoreEventPropertyTest {
 
 	@Test
 	fun testValue() {
-		CSJson.forceString = false
+		CSJson.forceStringInJson = false
 		property.value = false
 		assertEquals(false, property.value)
 		assertEquals(false, _value)

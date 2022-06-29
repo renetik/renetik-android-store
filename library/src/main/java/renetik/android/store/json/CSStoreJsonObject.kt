@@ -36,19 +36,6 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 		onChange()
 	}
 
-//	override fun set(key: String, string: String?) {
-//		if (string != null && data[key] == string) return
-//		data[key] = string
-//		onChange()
-//	}
-
-//	override fun set(key: String, boolean: Boolean?) {
-//		val value = boolean.toJsonType()
-//		if (boolean != null && data[key] == value) return
-//		data[key] =value
-//		onChange()
-//	}
-
 	override fun set(key: String, value: Map<String, *>?) {
 		if (value != null && data[key] == value) return
 		data[key] = value?.toMap()
