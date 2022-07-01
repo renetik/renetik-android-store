@@ -10,7 +10,7 @@ class CSListValueStoreEventProperty<T : CSHasId>(
     onChange: ((value: List<T>) -> Unit)? = null
 ) : CSValueStoreEventProperty<List<T>>(store, key, listenStoreChanged = false, onChange) {
 
-    override val defaultValue = default
+    override val defaultValue: List<T> = default
     override var _value = load()
 
     override fun get(store: CSStore) = store.get(key)?.split(",")

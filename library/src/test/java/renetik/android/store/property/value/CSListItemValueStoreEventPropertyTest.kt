@@ -6,19 +6,19 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import renetik.android.store.json.CSStringJsonStore
+import renetik.android.store.property.property
 
 private enum class TestEnum {
     First, Second, Third
 }
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest= Config.NONE)
+@Config(manifest = Config.NONE)
 class CSListItemValueStoreEventPropertyTest {
 
     private val store = CSStringJsonStore("{}")
     private var _value: TestEnum? = null
-    private val property = CSListItemValueStoreEventProperty(store, "key",
-        TestEnum.values().toList(), TestEnum.First) {
+    private val property = store.property("key", TestEnum.values(), TestEnum.First) {
         _value = it
     }
 

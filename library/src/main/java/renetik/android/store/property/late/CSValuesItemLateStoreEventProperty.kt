@@ -1,8 +1,8 @@
 package renetik.android.store.property.late
 
+import renetik.android.core.kotlin.toId
 import renetik.android.store.CSStore
 import renetik.android.store.getValue
-import renetik.android.core.kotlin.toId
 
 class CSValuesItemLateStoreEventProperty<T>(
     store: CSStore, key: String,

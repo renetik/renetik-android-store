@@ -6,7 +6,7 @@ import renetik.android.core.kotlin.toId
 
 class CSListItemNullableStoreEventProperty<T>(
     store: CSStore, key: String,
-    val values: List<T>, default: T? = null, onChange: ((value: T?) -> Unit)? = null
+    val values: Iterable<T>, default: T? = null, onChange: ((value: T?) -> Unit)? = null
 ) : CSNullableStoreEventProperty<T>(store,
     key, default, listenStoreChanged = false, onChange) {
     override fun get(store: CSStore) = store.getValue(key, values)
