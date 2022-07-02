@@ -30,4 +30,4 @@ fun CSStore.lateBoolProperty(
 fun <T> CSStore.lateItemProperty(
     key: String, values: Iterable<T>,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    CSValuesItemLateStoreProperty(this, key, values, onChange)
+    CSListItemLateStoreProperty(this, key, values, onChange)
