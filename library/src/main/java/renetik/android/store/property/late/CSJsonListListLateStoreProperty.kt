@@ -1,7 +1,7 @@
 package renetik.android.store.property.late
 
+import renetik.android.json.obj.getJsonListList
 import renetik.android.store.json.CSStoreJsonObject
-import renetik.android.store.json.getJsonListList
 import renetik.android.store.CSStore
 import kotlin.reflect.KClass
 

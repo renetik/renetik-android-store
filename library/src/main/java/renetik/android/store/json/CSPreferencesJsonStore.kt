@@ -2,11 +2,12 @@ package renetik.android.store.json
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import renetik.android.core.CSApplication.Companion.app
 
 class CSPreferencesJsonStore(id: String, isJsonPretty: Boolean = false)
     : CSJsonStore(isJsonPretty) {
-    private val preferences = app.getSharedPreferences(id, Context.MODE_PRIVATE)
+    private val preferences = app.getSharedPreferences(id, MODE_PRIVATE)
     override fun loadJsonString() = preferences.getString("json", "{}")
 
     @SuppressLint("CommitPrefEdits")
