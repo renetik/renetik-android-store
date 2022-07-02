@@ -3,8 +3,11 @@ package renetik.android.store
 import android.content.SharedPreferences
 
 @Suppress("UNCHECKED_CAST")
-fun SharedPreferences.Editor.loadAll(store: CSStore) {
-    for (entry in store.data) {
+fun SharedPreferences.Editor.loadAll(store: CSStore) = loadAll(store.data)
+
+@Suppress("UNCHECKED_CAST")
+fun SharedPreferences.Editor.loadAll(data: Map<String, Any?>) {
+    for (entry in data) {
         val value = entry.value ?: continue
         when (value) {
             is String -> putString(entry.key, value)

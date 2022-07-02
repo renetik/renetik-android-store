@@ -63,15 +63,15 @@ class CSPreferencesStore(id: String) : CSContext(), CSStore {
 	                                              type: KClass<T>) =
 		get(key)?.parseJsonMap()?.let(type::createJsonObject)
 
-	override fun load(store: CSStore) = with(preferences.edit()) {
-		loadAll(store)
+	override fun load(data: Map<String, Any?>) = with(preferences.edit()) {
+		loadAll(data)
 		eventChanged.fire(this@CSPreferencesStore)
 		apply()
 	}
 
-	override fun reload(store: CSStore) = with(preferences.edit()) {
+	override fun reload(data: Map<String, Any?>) = with(preferences.edit()) {
 		clear()
-		loadAll(store)
+		loadAll(data)
 		eventChanged.fire(this@CSPreferencesStore)
 		apply()
 	}

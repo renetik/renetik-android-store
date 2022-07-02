@@ -8,7 +8,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.Config.NONE
 import renetik.android.store.json.CSStoreJsonObject
 import renetik.android.store.json.CSStringJsonStore
-import renetik.android.store.json.property
+import renetik.android.store.property
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest= NONE)

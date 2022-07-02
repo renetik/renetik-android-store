@@ -6,6 +6,7 @@ import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.late.*
 import renetik.android.store.property.nullable.CSBooleanNullableStoreProperty
 import renetik.android.store.property.nullable.CSIntNullableStoreProperty
+import renetik.android.store.property.nullable.CSJsonTypeNullableStoreProperty
 import renetik.android.store.property.nullable.CSListItemNullableStoreProperty
 import renetik.android.store.property.value.*
 import kotlin.reflect.KClass
@@ -79,6 +80,23 @@ fun <T : CSHasId> CSStore.property(
     key: String, array: Array<T>, default: List<T>,
     onChange: ((value: List<T>) -> Unit)? = null): CSStoreProperty<List<T>> =
     property(key, array.asList(), default, onChange)
+
+//json
+fun <T : CSStoreJsonObject> CSStore.property(
+    key: String, listType: KClass<T>, default: List<T>,
+    onApply: ((value: List<T>) -> Unit)? = null
+) = CSJsonListValueStoreProperty(this,
+    key, listType, default, listenStoreChanged = false, onApply)
+
+fun <T : CSStoreJsonObject> CSStore.property(
+    key: String, type: KClass<T>, default: T? = null,
+    onApply: ((value: T?) -> Unit)? = null
+) = CSJsonTypeNullableStoreProperty(this, key, type, default, onApply)
+
+fun <T : CSStoreJsonObject> CSStore.property(
+    key: String, type: KClass<T>, onApply: ((value: T) -> Unit)? = null
+) = CSJsonTypeValueStoreProperty(this, key, type, listenStoreChanged = false, onApply)
+
 
 //Null
 fun CSStore.nullBoolProperty(

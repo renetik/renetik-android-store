@@ -11,7 +11,6 @@ open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
 
 	override val eventChanged = event<CSStore>()
 	open fun onChanged() = eventChanged.fire(this)
-	final override fun load(store: CSStore) = load(store.data)
 
 	override fun onChange() {
 		if (!isBulkSave) onChanged()

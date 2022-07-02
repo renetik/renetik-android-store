@@ -30,78 +30,17 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
 
     fun bulkSave(): Closeable = Closeable { logWarn("Bulk save not implemented") }
 
-    fun load(store: CSStore)
-    fun clear()
-    fun clear(key: String)
-
-    fun reload(store: CSStore) = bulkSave().use {
+    fun load(data: Map<String, Any?>)
+    fun reload(data: Map<String, Any?>) = bulkSave().use {
         clear()
-        load(store)
+        load(data)
     }
 
-//    override fun property(key: String, default: String,
-//                          onChange: ((value: String) -> Unit)?): CSStoreProperty<String> =
-//        CSStringValueStoreProperty(this, key, default, listenStoreChanged = false, onChange)
-//
-//    override fun property(key: String, default: Boolean,
-//                          onChange: ((value: Boolean) -> Unit)?): CSStoreProperty<Boolean> =
-//        CSBooleanValueStoreProperty(this, key, default, onChange)
-//
-//    override fun property(key: String, default: Int,
-//                          onChange: ((value: Int) -> Unit)?): CSStoreProperty<Int> =
-//        CSIntValueStoreProperty(this, key, default, onChange = onChange)
-//
-//    override fun property(key: String, default: Double,
-//                          onChange: ((value: Double) -> Unit)?): CSStoreProperty<Double> =
-//        CSDoubleValueStoreProperty(this, key, default, onChange)
-//
-//    override fun property(key: String, default: Float,
-//                          onChange: ((value: Float) -> Unit)?): CSStoreProperty<Float> =
-//        CSFloatValueStoreProperty(this, key, default, onChange)
-//
-//    override fun property(key: String, default: Long,
-//                          onChange: ((value: Long) -> Unit)?): CSStoreProperty<Long> =
-//        CSLongValueStoreProperty(this, key, default, onChange)
-//
-//    override fun <T> property(
-//        key: String, getValues: () -> List<T>,
-//        getDefault: () -> T, onChange: ((value: T) -> Unit)?): CSStoreProperty<T> =
-//        CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange = onChange)
-//
-//    override fun <T : CSHasId> property(
-//        key: String, values: Iterable<T>, default: List<T>,
-//        onChange: ((value: List<T>) -> Unit)?): CSStoreProperty<List<T>> =
-//        CSListValueStoreProperty(this, key, values, default, onChange)
-//
-//    override fun <T : CSStoreJsonObject> lateProperty(
-//        key: String, listType: KClass<T>,
-//        onApply: ((value: List<T>) -> Unit)?): CSStoreProperty<List<T>> =
-//        CSJsonListLateStoreProperty(this, key, listType, onApply)
-//
-//    override fun lateStringProperty(key: String, onChange: ((value: String) -> Unit)?)
-//            : CSStoreProperty<String> = CSStringLateStoreProperty(this, key, onChange)
-//
-//    override fun lateIntProperty(key: String, onChange: ((value: Int) -> Unit)?)
-//            : CSStoreProperty<Int> = CSIntLateStoreProperty(this, key, onChange)
-//
-//    override fun lateBoolProperty(key: String, onChange: ((value: Boolean) -> Unit)?)
-//            : CSStoreProperty<Boolean> = CSBooleanLateStoreProperty(this, key, onChange)
-//
-//    override fun <T> lateItemProperty(key: String, values: Iterable<T>,
-//                                      onChange: ((value: T) -> Unit)?)
-//            : CSStoreProperty<T> = CSValuesItemLateStoreProperty(this, key, values, onChange)
-//
-//    override fun nullBoolProperty(key: String, default: Boolean?,
-//                                  onChange: ((value: Boolean?) -> Unit)?)
-//            : CSStoreProperty<Boolean?> =
-//        CSBooleanNullableStoreProperty(this, key, default, onChange)
-//
-//    override fun propertyNullInt(key: String, default: Int?, onChange: ((value: Int?) -> Unit)?)
-//            : CSStoreProperty<Int?> = CSIntNullableStoreProperty(this, key, default, onChange)
-//
-//    override fun <T> propertyNullListItem(
-//        key: String, values: Iterable<T>, default: T?, onChange: ((value: T?) -> Unit)?)
-//            : CSStoreProperty<T?> =
-//        CSListItemNullableStoreProperty(this, key, values, default, onChange)
+    fun clear(key: String)
+    fun clear()
 }
+
+fun CSStore.load(store: CSStore) = load(store.data)
+
+fun CSStore.reload(store: CSStore) = reload(store.data)
 
