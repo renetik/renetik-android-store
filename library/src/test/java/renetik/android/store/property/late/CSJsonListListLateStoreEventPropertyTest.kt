@@ -25,7 +25,7 @@ class CSJsonListListLateStoreEventPropertyTest {
 
     @Test
     fun `Value set get`() {
-        val property = CSJsonListListLateStoreEventProperty(store, "property", TestData::class)
+        val property = CSJsonListListLateStoreProperty(store, "property", TestData::class)
         property.value = listOf(
             listOf(TestData("title11"), TestData("title12")),
             listOf(TestData("title21"), TestData("title22")),
@@ -36,7 +36,7 @@ class CSJsonListListLateStoreEventPropertyTest {
 
     @Test
     fun `Save Load`() {
-        val property = CSJsonListListLateStoreEventProperty(store, "property", TestData::class)
+        val property = CSJsonListListLateStoreProperty(store, "property", TestData::class)
         property.value = listOf(
             listOf(TestData("title11"), TestData("title12")),
             listOf(TestData("title21"), TestData("title22")),
@@ -45,7 +45,7 @@ class CSJsonListListLateStoreEventPropertyTest {
         val json = store.toJson(formatted = true)
 
         val store2 = CSStoreJsonObject()
-        val property2 = CSJsonListListLateStoreEventProperty(store2, "property", TestData::class)
+        val property2 = CSJsonListListLateStoreProperty(store2, "property", TestData::class)
         store2.load(json)
 
         assertEquals(property2.value[1][1].title.value, "title22")

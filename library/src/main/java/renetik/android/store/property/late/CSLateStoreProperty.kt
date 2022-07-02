@@ -2,13 +2,13 @@ package renetik.android.store.property.late
 
 import renetik.android.event.property.CSEventPropertyBase
 import renetik.android.store.CSStore
-import renetik.android.store.property.CSStoreEventProperty
+import renetik.android.store.property.CSStoreProperty
 import renetik.android.core.kotlin.CSUnexpectedException.Companion.unexpected
 
-abstract class CSLateStoreEventProperty<T>(
+abstract class CSLateStoreProperty<T>(
     override val store: CSStore,
     override val key: String, onChange: ((value: T) -> Unit)?)
-    : CSEventPropertyBase<T>(onChange), CSStoreEventProperty<T> {
+    : CSEventPropertyBase<T>(onChange), CSStoreProperty<T> {
 
     var _value: T? = null
 

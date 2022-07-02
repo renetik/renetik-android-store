@@ -1,18 +1,17 @@
 package renetik.android.store.property.value
 
-import renetik.android.event.listen
 import renetik.android.event.registration.pause
 import renetik.android.event.property.CSEventPropertyBase
 import renetik.android.event.register
 import renetik.android.store.CSStore
-import renetik.android.store.property.CSStoreEventProperty
+import renetik.android.store.property.CSStoreProperty
 
-abstract class CSValueStoreEventProperty<T>(
+abstract class CSValueStoreProperty<T>(
     final override val store: CSStore,
     final override val key: String,
     val listenStoreChanged: Boolean = false,
     onChange: ((value: T) -> Unit)? = null)
-    : CSEventPropertyBase<T>(onChange), CSStoreEventProperty<T> {
+    : CSEventPropertyBase<T>(onChange), CSStoreProperty<T> {
 
     abstract val defaultValue: T
     protected abstract var _value: T

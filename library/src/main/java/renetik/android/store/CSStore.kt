@@ -7,16 +7,16 @@ import renetik.android.event.CSEvent
 import renetik.android.json.obj.CSJsonObjectInterface
 import renetik.android.store.json.CSFileJsonStore
 import renetik.android.store.json.CSStoreJsonObject
-import renetik.android.store.property.CSHasProperties
+import renetik.android.store.property.CSStoredProperties
 import renetik.android.store.property.late.*
-import renetik.android.store.property.nullable.CSBooleanNullableStoreEventProperty
-import renetik.android.store.property.nullable.CSIntNullableStoreEventProperty
-import renetik.android.store.property.nullable.CSListItemNullableStoreEventProperty
+import renetik.android.store.property.nullable.CSBooleanNullableStoreProperty
+import renetik.android.store.property.nullable.CSIntNullableStoreProperty
+import renetik.android.store.property.nullable.CSListItemNullableStoreProperty
 import renetik.android.store.property.value.*
 import java.io.Closeable
 import kotlin.reflect.KClass
 
-interface CSStore : CSHasProperties,
+interface CSStore : CSStoredProperties,
     Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
 
     companion object {
@@ -49,59 +49,59 @@ interface CSStore : CSHasProperties,
         load(store)
     }
 
-    override fun property(key: String, value: String, onChange: ((value: String) -> Unit)?) =
-        CSStringValueStoreEventProperty(this, key, value, listenStoreChanged = false, onChange)
+    override fun property(key: String, default: String, onChange: ((value: String) -> Unit)?) =
+        CSStringValueStoreProperty(this, key, default, listenStoreChanged = false, onChange)
 
-    override fun property(key: String, value: Boolean, onChange: ((value: Boolean) -> Unit)?) =
-        CSBooleanValueStoreEventProperty(this, key, value, onChange)
+    override fun property(key: String, default: Boolean, onChange: ((value: Boolean) -> Unit)?) =
+        CSBooleanValueStoreProperty(this, key, default, onChange)
 
-    override fun property(key: String, value: Int, onChange: ((value: Int) -> Unit)?) =
-        CSIntValueStoreEventProperty(this, key, value, onChange = onChange)
+    override fun property(key: String, default: Int, onChange: ((value: Int) -> Unit)?) =
+        CSIntValueStoreProperty(this, key, default, onChange = onChange)
 
-    override fun property(key: String, value: Double, onChange: ((value: Double) -> Unit)?) =
-        CSDoubleValueStoreEventProperty(this, key, value, onChange)
+    override fun property(key: String, default: Double, onChange: ((value: Double) -> Unit)?) =
+        CSDoubleValueStoreProperty(this, key, default, onChange)
 
-    override fun property(key: String, value: Float, onChange: ((value: Float) -> Unit)?) =
-        CSFloatValueStoreEventProperty(this, key, value, onChange)
+    override fun property(key: String, default: Float, onChange: ((value: Float) -> Unit)?) =
+        CSFloatValueStoreProperty(this, key, default, onChange)
 
-    override fun property(key: String, value: Long, onChange: ((value: Long) -> Unit)?) =
-        CSLongValueStoreEventProperty(this, key, value, onChange)
+    override fun property(key: String, default: Long, onChange: ((value: Long) -> Unit)?) =
+        CSLongValueStoreProperty(this, key, default, onChange)
 
     override fun <T> property(
         key: String, getValues: () -> List<T>,
         getDefault: () -> T, onChange: ((value: T) -> Unit)?) =
-        CSListItemValueStoreEventProperty(this, key, getValues, getDefault, onChange = onChange)
+        CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange = onChange)
 
     override fun <T : CSHasId> property(
-        key: String, values: Iterable<T>, value: List<T>, onChange: ((value: List<T>) -> Unit)?) =
-        CSListValueStoreEventProperty(this, key, values, value, onChange)
+        key: String, values: Iterable<T>, default: List<T>, onChange: ((value: List<T>) -> Unit)?) =
+        CSListValueStoreProperty(this, key, values, default, onChange)
 
     override fun <T : CSStoreJsonObject> lateProperty(
         key: String, listType: KClass<T>, onApply: ((value: List<T>) -> Unit)?
-    ) = CSJsonListLateStoreEventProperty(this, key, listType, onApply)
+    ) = CSJsonListLateStoreProperty(this, key, listType, onApply)
 
     override fun lateStringProperty(key: String, onChange: ((value: String) -> Unit)?) =
-        CSStringLateStoreEventProperty(this, key, onChange)
+        CSStringLateStoreProperty(this, key, onChange)
 
     override fun lateIntProperty(key: String, onChange: ((value: Int) -> Unit)?) =
-        CSIntLateStoreEventProperty(this, key, onChange)
+        CSIntLateStoreProperty(this, key, onChange)
 
     override fun lateBoolProperty(key: String, onChange: ((value: Boolean) -> Unit)?) =
-        CSBooleanLateStoreEventProperty(this, key, onChange)
+        CSBooleanLateStoreProperty(this, key, onChange)
 
     override fun <T> lateItemProperty(key: String, values: Iterable<T>,
                                       onChange: ((value: T) -> Unit)?) =
-        CSValuesItemLateStoreEventProperty(this, key, values, onChange)
+        CSValuesItemLateStoreProperty(this, key, values, onChange)
 
     override fun nullBoolProperty(key: String, default: Boolean?,
                                   onChange: ((value: Boolean?) -> Unit)?) =
-        CSBooleanNullableStoreEventProperty(this, key, default, onChange)
+        CSBooleanNullableStoreProperty(this, key, default, onChange)
 
     override fun propertyNullInt(key: String, default: Int?, onChange: ((value: Int?) -> Unit)?) =
-        CSIntNullableStoreEventProperty(this, key, default, onChange)
+        CSIntNullableStoreProperty(this, key, default, onChange)
 
     override fun <T> propertyNullListItem(
         key: String, values: Iterable<T>, default: T?, onChange: ((value: T?) -> Unit)?) =
-        CSListItemNullableStoreEventProperty(this, key, values, default, onChange)
+        CSListItemNullableStoreProperty(this, key, values, default, onChange)
 }
 

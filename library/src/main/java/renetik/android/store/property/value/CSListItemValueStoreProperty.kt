@@ -5,13 +5,13 @@ import renetik.android.core.lang.property.CSListValuesProperty
 import renetik.android.store.CSStore
 import renetik.android.store.getValue
 
-class CSListItemValueStoreEventProperty<T>(
+class CSListItemValueStoreProperty<T>(
     store: CSStore, key: String,
     val getValues: () -> List<T>,
     val getDefault: () -> T,
     listenStoreChanged: Boolean = false,
     onChange: ((value: T) -> Unit)? = null
-) : CSValueStoreEventProperty<T>(store, key,
+) : CSValueStoreProperty<T>(store, key,
     listenStoreChanged, onChange), CSListValuesProperty<T> {
 
     override val values: List<T> get() = getValues()

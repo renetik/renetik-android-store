@@ -4,10 +4,10 @@ import renetik.android.core.kotlin.toId
 import renetik.android.store.CSStore
 import renetik.android.store.getValue
 
-class CSValuesItemLateStoreEventProperty<T>(
+class CSValuesItemLateStoreProperty<T>(
     store: CSStore, key: String,
     val values: Iterable<T>, onChange: ((value: T) -> Unit)? = null
-) : CSLateStoreEventProperty<T>(store, key, onChange) {
+) : CSLateStoreProperty<T>(store, key, onChange) {
     constructor(store: CSStore, key: String,
                 values: Array<T>, onChange: ((value: T) -> Unit)? = null)
             : this(store, key, values.asIterable(), onChange)

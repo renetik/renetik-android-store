@@ -15,7 +15,7 @@ class CSStringLateStoreEventPropertyTest {
     @Test
     fun test() {
         var _value = "none"
-        val property = CSStringLateStoreEventProperty(store, "key") { _value = it }
+        val property = CSStringLateStoreProperty(store, "key") { _value = it }
         property.value = "value"
         assertEquals("value", _value)
         assertEquals("value", property.value)

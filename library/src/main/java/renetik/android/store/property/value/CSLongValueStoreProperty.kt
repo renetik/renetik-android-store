@@ -2,10 +2,10 @@ package renetik.android.store.property.value
 
 import renetik.android.store.CSStore
 
-class CSLongValueStoreEventProperty(
+class CSLongValueStoreProperty(
     store: CSStore, key: String, default: Long,
     onChange: ((value: Long) -> Unit)?)
-    : CSValueStoreEventProperty<Long>(store, key, listenStoreChanged = false, onChange) {
+    : CSValueStoreProperty<Long>(store, key, listenStoreChanged = false, onChange) {
     override val defaultValue = default
     override var _value = load()
     override fun get(store: CSStore) = store.getLong(key)

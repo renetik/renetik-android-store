@@ -17,7 +17,7 @@ class CSBooleanLateStoreEventPropertyTest {
     @Test
     fun test() {
         var _value = true
-        val property = CSBooleanLateStoreEventProperty(store, "key") {
+        val property = CSBooleanLateStoreProperty(store, "key") {
             _value = it
         }
         assertTrue(_value)

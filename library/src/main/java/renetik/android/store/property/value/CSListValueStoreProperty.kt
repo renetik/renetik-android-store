@@ -4,11 +4,11 @@ import renetik.android.core.lang.CSHasId
 import renetik.android.store.CSStore
 import renetik.android.core.kotlin.toId
 
-class CSListValueStoreEventProperty<T : CSHasId>(
+class CSListValueStoreProperty<T : CSHasId>(
     store: CSStore, key: String,
     val values: Iterable<T>, val default: List<T>,
     onChange: ((value: List<T>) -> Unit)? = null
-) : CSValueStoreEventProperty<List<T>>(store, key, listenStoreChanged = false, onChange) {
+) : CSValueStoreProperty<List<T>>(store, key, listenStoreChanged = false, onChange) {
 
     override val defaultValue: List<T> = default
     override var _value = load()

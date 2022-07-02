@@ -2,10 +2,10 @@ package renetik.android.store.property.nullable
 
 import renetik.android.store.CSStore
 
-class CSBooleanNullableStoreEventProperty(
+class CSBooleanNullableStoreProperty(
     store: CSStore, key: String, value: Boolean? = null,
     onChange: ((value: Boolean?) -> Unit)? = null)
-    : CSNullableStoreEventProperty<Boolean>(store,
+    : CSNullableStoreProperty<Boolean>(store,
     key, value, listenStoreChanged = false, onChange) {
     override fun get(store: CSStore) = store.getBoolean(key)
     override fun set(store: CSStore, value: Boolean?) {

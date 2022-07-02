@@ -1,11 +1,11 @@
 package renetik.android.store.property.late
 
 import renetik.android.store.CSStore
-import renetik.android.store.property.CSStoreEventProperty
+import renetik.android.store.property.CSStoreProperty
 
-class CSBooleanLateStoreEventProperty(
+class CSBooleanLateStoreProperty(
     store: CSStore, key: String, onChange: ((value: Boolean) -> Unit)? = null)
-    : CSLateStoreEventProperty<Boolean>(store, key, onChange), CSStoreEventProperty<Boolean> {
+    : CSLateStoreProperty<Boolean>(store, key, onChange), CSStoreProperty<Boolean> {
     override fun get() = store.getBoolean(key)
     override fun set(store: CSStore, value: Boolean) = store.set(key, value)
 }

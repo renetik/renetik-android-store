@@ -1,11 +1,11 @@
 package renetik.android.store.property.late
 
 import renetik.android.store.CSStore
-import renetik.android.store.property.CSStoreEventProperty
+import renetik.android.store.property.CSStoreProperty
 
-class CSStringLateStoreEventProperty(
+class CSStringLateStoreProperty(
     store: CSStore, key: String, onChange: ((value: String) -> Unit)?)
-    : CSLateStoreEventProperty<String>(store, key, onChange), CSStoreEventProperty<String> {
+    : CSLateStoreProperty<String>(store, key, onChange), CSStoreProperty<String> {
     override fun get() = store.getString(key)
     override fun set(store: CSStore, value: String) = store.set(key, value)
 }

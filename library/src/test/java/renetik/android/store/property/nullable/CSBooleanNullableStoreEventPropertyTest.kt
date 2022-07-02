@@ -13,7 +13,7 @@ import renetik.android.store.json.CSStringJsonStore
 class CSBooleanNullableStoreEventPropertyTest {
 	private val store = CSStringJsonStore("{}")
 	private var _value: Boolean? = null
-	private val property = CSBooleanNullableStoreEventProperty(store, "key", true) {
+	private val property = CSBooleanNullableStoreProperty(store, "key", true) {
 		_value = it
 	}
 

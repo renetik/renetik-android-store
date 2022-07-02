@@ -1,46 +1,47 @@
 package renetik.android.store.property
 
 import renetik.android.core.lang.CSHasId
-import renetik.android.store.property.value.CSListItemValueStoreEventProperty
-import renetik.android.store.property.value.CSListValueStoreEventProperty
+import renetik.android.event.property.CSEventProperty
+import renetik.android.store.property.value.CSListItemValueStoreProperty
+import renetik.android.store.property.value.CSListValueStoreProperty
 
-fun <T> CSHasProperties.property(
+fun <T> CSStoredProperties.property(
     key: String, values: List<T>, getDefault: () -> T,
     onChange: ((value: T) -> Unit)?) =
     property(key, { values }, getDefault, onChange)
 
-fun <T> CSHasProperties.property(
-    key: String, list: List<T>, value: T,
+fun <T> CSStoredProperties.property(
+    key: String, list: List<T>, default: T,
     onChange: ((value: T) -> Unit)? = null)
-        : CSListItemValueStoreEventProperty<T> =
-    property(key, { list }, { value }, onChange)
+        : CSEventProperty<T> =
+    property(key, { list }, { default }, onChange)
 
-fun <T> CSHasProperties.property(
+fun <T> CSStoredProperties.property(
     key: String, list: List<T>, defaultIndex: Int,
     onChange: ((value: T) -> Unit)? = null)
-        : CSListItemValueStoreEventProperty<T> =
+        : CSEventProperty<T> =
     property(key, list, list[defaultIndex], onChange)
 
-fun <T> CSHasProperties.property(
-    key: String, array: Array<T>, value: T,
+fun <T> CSStoredProperties.property(
+    key: String, array: Array<T>, default: T,
     onChange: ((value: T) -> Unit)? = null)
-        : CSListItemValueStoreEventProperty<T> =
-    property(key, array.asList(), value, onChange)
+        : CSEventProperty<T> =
+    property(key, array.asList(), default, onChange)
 
-fun <T> CSHasProperties.property(
-    key: String, array: Array<T>, valueIndex: Int,
+fun <T> CSStoredProperties.property(
+    key: String, array: Array<T>, defaultIndex: Int,
     onChange: ((value: T) -> Unit)? = null)
-        : CSListItemValueStoreEventProperty<T> =
-    property(key, array.asList(), array[valueIndex], onChange)
+        : CSEventProperty<T> =
+    property(key, array.asList(), array[defaultIndex], onChange)
 
-fun <T> CSHasProperties.property(
-    key: String, getList: () -> List<T>,
-    defaultIndex: Int, onChange: ((value: T) -> Unit)?)
-        : CSListItemValueStoreEventProperty<T> =
+fun <T> CSStoredProperties.property(
+    key: String, getList: () -> List<T>, defaultIndex: Int,
+    onChange: ((value: T) -> Unit)?)
+        : CSEventProperty<T> =
     property(key, getList, { getList()[defaultIndex] }, onChange)
 
-fun <T : CSHasId> CSHasProperties.property(
-    key: String, array: Array<T>, value: List<T>,
+fun <T : CSHasId> CSStoredProperties.property(
+    key: String, array: Array<T>, default: List<T>,
     onChange: ((value: List<T>) -> Unit)? = null)
-        : CSListValueStoreEventProperty<T> =
-    property(key, array.asList(), value, onChange)
+        : CSEventProperty<List<T>> =
+    property(key, array.asList(), default, onChange)

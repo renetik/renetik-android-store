@@ -14,7 +14,7 @@ private enum class TestEnum {
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
-class CSListItemValueStoreEventPropertyTest {
+class CSListItemValueStorePropertyTest {
 
     private val store = CSStringJsonStore("{}")
     private var _value: TestEnum? = null
@@ -33,7 +33,7 @@ class CSListItemValueStoreEventPropertyTest {
         property.value = TestEnum.Second
         Assert.assertEquals(TestEnum.Second, property.value)
         Assert.assertEquals(TestEnum.Second, _value)
-        Assert.assertTrue(store.has(property.key))
+        Assert.assertTrue(store.has("key"))
         Assert.assertEquals("""{"key":"Second"}""", store.jsonString)
     }
 

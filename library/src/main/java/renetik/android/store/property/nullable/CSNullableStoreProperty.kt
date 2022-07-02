@@ -1,19 +1,18 @@
 package renetik.android.store.property.nullable
 
-import renetik.android.event.listen
 import renetik.android.event.registration.pause
 import renetik.android.event.property.CSEventPropertyBase
 import renetik.android.event.register
 import renetik.android.store.CSStore
-import renetik.android.store.property.CSStoreEventProperty
+import renetik.android.store.property.CSStoreProperty
 
-abstract class CSNullableStoreEventProperty<T>(
+abstract class CSNullableStoreProperty<T>(
     final override val store: CSStore,
     final override val key: String,
     val defaultValue: T?,
     val listenStoreChanged: Boolean = false,
     onApply: ((value: T?) -> Unit)? = null)
-    : CSEventPropertyBase<T?>(onApply), CSStoreEventProperty<T?> {
+    : CSEventPropertyBase<T?>(onApply), CSStoreProperty<T?> {
 
     protected var _value: T? = null
     abstract fun get(store: CSStore): T?

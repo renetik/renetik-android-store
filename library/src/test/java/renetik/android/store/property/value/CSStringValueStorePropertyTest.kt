@@ -12,10 +12,10 @@ import renetik.android.store.json.property
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest= NONE)
-class CSStringValueStoreEventPropertyTest {
+class CSStringValueStorePropertyTest {
     private val store = CSStringJsonStore("{}")
     private var _value: String? = null
-    private val property = CSStringValueStoreEventProperty(store, "key", "") {
+    private val property = CSStringValueStoreProperty(store, "key", "") {
         _value = it
     }
 
@@ -40,7 +40,7 @@ class CSStringValueStoreEventPropertyTest {
 
     @Test
     fun testReload() {
-        val property: CSJsonTypeValueStoreEventProperty<CSJsonObjectData> =
+        val property: CSJsonTypeValueStoreProperty<CSJsonObjectData> =
             store.property("key", CSJsonObjectData::class)
         property.value.string.value = "tralala"
 
@@ -52,5 +52,5 @@ class CSStringValueStoreEventPropertyTest {
 }
 
 class CSJsonObjectData : CSStoreJsonObject() {
-    val string = CSStringValueStoreEventProperty(this, "key", "", listenStoreChanged = true)
+    val string = CSStringValueStoreProperty(this, "key", "", listenStoreChanged = true)
 }

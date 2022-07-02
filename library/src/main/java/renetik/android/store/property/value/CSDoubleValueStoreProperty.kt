@@ -2,10 +2,10 @@ package renetik.android.store.property.value
 
 import renetik.android.store.CSStore
 
-class CSDoubleValueStoreEventProperty(
+class CSDoubleValueStoreProperty(
     store: CSStore, key: String, default: Double,
     onChange: ((value: Double) -> Unit)?)
-    : CSValueStoreEventProperty<Double>(store, key, listenStoreChanged = false,onChange) {
+    : CSValueStoreProperty<Double>(store, key, listenStoreChanged = false,onChange) {
     override val defaultValue = default
     override var _value = load()
     override fun get(store: CSStore) = store.getDouble(key)

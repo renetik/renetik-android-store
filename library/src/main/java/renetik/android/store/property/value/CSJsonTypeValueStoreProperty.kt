@@ -1,17 +1,16 @@
 package renetik.android.store.property.value
 
 import renetik.android.event.registration.CSRegistration
-import renetik.android.event.listen
 import renetik.android.store.json.CSStoreJsonObject
 import renetik.android.store.CSStore
 import renetik.android.core.kotlin.reflect.createInstance
 import kotlin.reflect.KClass
 
-class CSJsonTypeValueStoreEventProperty<T : CSStoreJsonObject>(
+class CSJsonTypeValueStoreProperty<T : CSStoreJsonObject>(
     store: CSStore, key: String, val type: KClass<T>,
     listenStoreChanged: Boolean = false,
     onApply: ((value: T) -> Unit)? = null
-) : CSValueStoreEventProperty<T>(store, key, listenStoreChanged, onApply) {
+) : CSValueStoreProperty<T>(store, key, listenStoreChanged, onApply) {
 
     override val defaultValue get() = type.createInstance()!!
 
