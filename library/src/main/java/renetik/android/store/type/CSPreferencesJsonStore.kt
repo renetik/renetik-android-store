@@ -1,7 +1,6 @@
-package renetik.android.store.json
+package renetik.android.store.type
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import renetik.android.core.CSApplication.Companion.app
 

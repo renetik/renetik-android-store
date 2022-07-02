@@ -1,10 +1,10 @@
 package renetik.android.store.property.nullable
 
-import renetik.android.store.json.CSStoreJsonObject
+import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.store.CSStore
 import kotlin.reflect.KClass
 
-class CSJsonTypeNullableStoreProperty<T : CSStoreJsonObject>(
+class CSJsonTypeNullableStoreProperty<T : CSJsonObjectStore>(
     store: CSStore, key: String, val type: KClass<T>,
     val default: T? = null, onApply: ((value: T?) -> Unit)? = null
 ) : CSNullableStoreProperty<T>(store, key, default, listenStoreChanged = false, onApply) {

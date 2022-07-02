@@ -1,4 +1,4 @@
-package renetik.android.store
+package renetik.android.store.type
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,6 +8,8 @@ import renetik.android.event.CSEvent.Companion.event
 import renetik.android.event.owner.CSContext
 import renetik.android.json.*
 import renetik.android.json.obj.CSJsonObject
+import renetik.android.store.CSStore
+import renetik.android.store.loadAll
 import kotlin.reflect.KClass
 
 class CSPreferencesStore(id: String) : CSContext(), CSStore {

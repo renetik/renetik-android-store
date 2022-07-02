@@ -1,4 +1,4 @@
-package renetik.android.store.json
+package renetik.android.store.type
 
 import renetik.android.core.kotlin.runIf
 import renetik.android.json.parseJsonMap
@@ -6,7 +6,7 @@ import renetik.android.json.toJson
 import java.io.Closeable
 
 abstract class CSJsonStore(private val isJsonPretty: Boolean = false)
-    : CSStoreJsonObject(), Closeable {
+    : CSJsonObjectStore(), Closeable {
 
     override val data by lazy { load() }
 

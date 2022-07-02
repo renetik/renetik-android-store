@@ -1,4 +1,4 @@
-package renetik.android.store.json
+package renetik.android.store.type
 
 import renetik.android.core.kotlin.primitives.toArray
 import renetik.android.event.CSEvent.Companion.event
@@ -7,7 +7,7 @@ import renetik.android.store.CSStore
 import java.io.Closeable
 
 @Suppress("unchecked_cast")
-open class CSStoreJsonObject : CSJsonObject(), CSStore, Closeable {
+open class CSJsonObjectStore : CSJsonObject(), CSStore, Closeable {
 
 	override val eventChanged = event<CSStore>()
 	open fun onChanged() = eventChanged.fire(this)

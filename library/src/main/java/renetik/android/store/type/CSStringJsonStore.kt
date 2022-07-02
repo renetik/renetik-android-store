@@ -1,4 +1,4 @@
-package renetik.android.store.json
+package renetik.android.store.type
 
 import renetik.android.core.kotlin.collections.reload
 

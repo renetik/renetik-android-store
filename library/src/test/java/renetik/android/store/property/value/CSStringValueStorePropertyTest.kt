@@ -6,8 +6,8 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.Config.NONE
-import renetik.android.store.json.CSStoreJsonObject
-import renetik.android.store.json.CSStringJsonStore
+import renetik.android.store.type.CSJsonObjectStore
+import renetik.android.store.type.CSStringJsonStore
 import renetik.android.store.property
 
 @RunWith(RobolectricTestRunner::class)
@@ -51,6 +51,6 @@ class CSStringValueStorePropertyTest {
     }
 }
 
-class CSJsonObjectData : CSStoreJsonObject() {
+class CSJsonObjectData : CSJsonObjectStore() {
     val string = CSStringValueStoreProperty(this, "key", "", listenStoreChanged = true)
 }

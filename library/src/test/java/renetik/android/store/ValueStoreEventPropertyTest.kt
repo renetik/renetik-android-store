@@ -5,14 +5,12 @@ import org.junit.Test
 import renetik.android.core.lang.CSHasId
 import renetik.android.event.property.CSEventProperty
 import renetik.android.store.ValueStoreEventPropertyTest.Item.*
-import renetik.android.store.json.CSStoreJsonObject
+import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.store.property.CSStoreProperty
-import renetik.android.store.property.property
-import renetik.android.store.property.value.*
 
 class ValueStoreEventPropertyTest {
 
-    private val store: CSStore = CSStoreJsonObject()
+    private val store: CSStore = CSJsonObjectStore()
 
     @Test
     fun testStringProperty() {

@@ -4,7 +4,7 @@ import android.content.Context
 import renetik.android.core.logging.CSLog.logWarn
 import renetik.android.event.CSEvent
 import renetik.android.json.obj.CSJsonObjectInterface
-import renetik.android.store.json.CSFileJsonStore
+import renetik.android.store.type.CSFileJsonStore
 import java.io.Closeable
 
 interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {

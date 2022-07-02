@@ -6,13 +6,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import renetik.android.store.json.CSStoreJsonObject
+import renetik.android.store.type.CSJsonObjectStore
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest= Config.NONE)
 class CSBooleanLateStoreEventPropertyTest {
 
-    private val store = CSStoreJsonObject()
+    private val store = CSJsonObjectStore()
 
     @Test
     fun test() {

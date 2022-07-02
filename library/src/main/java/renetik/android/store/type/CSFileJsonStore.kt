@@ -1,4 +1,4 @@
-package renetik.android.store.json
+package renetik.android.store.type
 
 import android.content.Context
 import renetik.android.core.java.io.readString
