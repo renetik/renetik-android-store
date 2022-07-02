@@ -2,8 +2,8 @@ package renetik.android.store.property.value
 
 import renetik.android.core.kotlin.toId
 import renetik.android.core.lang.property.CSListValuesProperty
+import renetik.android.json.obj.getValue
 import renetik.android.store.CSStore
-import renetik.android.store.getValue
 
 class CSListItemValueStoreProperty<T>(
     store: CSStore, key: String,
