@@ -6,6 +6,7 @@ import renetik.android.core.lang.CSHasId
 import renetik.android.event.property.CSEventProperty
 import renetik.android.store.ValueStoreEventPropertyTest.Item.*
 import renetik.android.store.json.CSStoreJsonObject
+import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.property
 import renetik.android.store.property.value.*
 
@@ -15,7 +16,7 @@ class ValueStoreEventPropertyTest {
 
     @Test
     fun testStringProperty() {
-        val instance: CSStringValueStoreProperty =
+        val instance: CSStoreProperty<String> =
             store.property("key", default = "initial")
         assertEquals("initial", instance.value)
         instance.value = "new value"
@@ -25,7 +26,7 @@ class ValueStoreEventPropertyTest {
 
     @Test
     fun testBooleanProperty() {
-        val instance: CSBooleanValueStoreProperty =
+        val instance: CSStoreProperty<Boolean> =
             store.property("key", default = false)
         assertEquals(false, instance.value)
         instance.value = true
@@ -35,7 +36,7 @@ class ValueStoreEventPropertyTest {
 
     @Test
     fun testIntProperty() {
-        val instance: CSIntValueStoreProperty =
+        val instance: CSStoreProperty<Int> =
             store.property("key", default = 5)
         assertEquals(5, instance.value)
         instance.value = 345
@@ -45,7 +46,7 @@ class ValueStoreEventPropertyTest {
 
     @Test
     fun testFloatProperty() {
-        val instance: CSFloatValueStoreProperty =
+        val instance: CSStoreProperty<Float> =
             store.property("key", default = 1.5f)
         assertEquals(1.5f, instance.value)
         instance.value = 2.5f
@@ -55,7 +56,7 @@ class ValueStoreEventPropertyTest {
 
     @Test
     fun testDoubleProperty() {
-        val instance: CSDoubleValueStoreProperty =
+        val instance: CSStoreProperty<Double> =
             store.property("key", default = 1.5)
         assertEquals(1.5, instance.value, 0.0)
         instance.value = 2.3

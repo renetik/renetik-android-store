@@ -6,7 +6,7 @@ import renetik.android.store.CSStore
 interface CSStoreProperty<T> : CSEventProperty<T> {
     val store: CSStore
     val key: String
-    fun set(store: CSStore, value: T) /// This set should go to base class
+    fun set(store: CSStore, value: T)
     fun saveTo(store: CSStore) = set(store, value)
     fun save() = set(store, value)
 }
