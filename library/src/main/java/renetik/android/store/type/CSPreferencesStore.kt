@@ -9,7 +9,7 @@ import renetik.android.event.owner.CSContext
 import renetik.android.json.*
 import renetik.android.json.obj.CSJsonObject
 import renetik.android.store.CSStore
-import renetik.android.store.loadAll
+import renetik.android.store.extensions.loadAll
 import kotlin.reflect.KClass
 
 class CSPreferencesStore(id: String) : CSContext(), CSStore {

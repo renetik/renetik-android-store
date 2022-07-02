@@ -8,7 +8,7 @@ import org.robolectric.annotation.Config
 import renetik.android.json.obj.load
 import renetik.android.json.toJson
 import renetik.android.store.type.CSJsonObjectStore
-import renetik.android.store.lateStringProperty
+import renetik.android.store.extensions.lateStringProperty
 
 class TestData() : CSJsonObjectStore() {
     val title = lateStringProperty("title")

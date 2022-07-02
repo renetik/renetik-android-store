@@ -1,6 +1,7 @@
-package renetik.android.store
+package renetik.android.store.extensions
 
 import android.content.SharedPreferences
+import renetik.android.store.CSStore
 
 @Suppress("UNCHECKED_CAST")
 fun SharedPreferences.Editor.loadAll(store: CSStore) = loadAll(store.data)

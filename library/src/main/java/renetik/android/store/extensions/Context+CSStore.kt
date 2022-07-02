@@ -2,7 +2,6 @@ package renetik.android.store.extensions
 
 import android.content.Context
 import renetik.android.store.CSStore.Companion.store
-import renetik.android.store.property
 import renetik.android.store.property.CSStoreProperty
 
 fun Context.property(

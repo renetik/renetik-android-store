@@ -5,6 +5,7 @@ import org.junit.Test
 import renetik.android.core.lang.CSHasId
 import renetik.android.event.property.CSEventProperty
 import renetik.android.store.ValueStoreEventPropertyTest.Item.*
+import renetik.android.store.extensions.property
 import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.store.property.CSStoreProperty
 

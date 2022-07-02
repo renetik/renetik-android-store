@@ -5,8 +5,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import renetik.android.store.extensions.property
 import renetik.android.store.type.CSStringJsonStore
-import renetik.android.store.property
 
 private enum class TestEnum {
     First, Second, Third
