@@ -6,8 +6,9 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import renetik.android.json.obj.load
-import renetik.android.store.json.CSStoreJsonObject
 import renetik.android.json.toJson
+import renetik.android.store.json.CSStoreJsonObject
+import renetik.android.store.lateStringProperty
 
 class TestData() : CSStoreJsonObject() {
     val title = lateStringProperty("title")
@@ -18,7 +19,7 @@ class TestData() : CSStoreJsonObject() {
 }
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest= Config.NONE)
+@Config(manifest = Config.NONE)
 class CSJsonListListLateStoreEventPropertyTest {
 
     private val store = CSStoreJsonObject()
