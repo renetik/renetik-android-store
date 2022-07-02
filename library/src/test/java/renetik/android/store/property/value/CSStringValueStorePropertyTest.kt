@@ -7,6 +7,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.Config.NONE
 import renetik.android.store.extensions.property
+import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.store.type.CSStringJsonStore
 
@@ -40,7 +41,7 @@ class CSStringValueStorePropertyTest {
 
     @Test
     fun testReload() {
-        val property: CSJsonTypeValueStoreProperty<CSJsonObjectData> =
+        val property: CSStoreProperty<CSJsonObjectData> =
             store.property("key", CSJsonObjectData::class)
         property.value.string.value = "tralala"
 
