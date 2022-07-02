@@ -4,7 +4,7 @@ import renetik.android.store.CSStore
 
 open class CSBooleanValueStoreProperty(
     store: CSStore, key: String, default: Boolean,
-    onChange: ((value: Boolean) -> Unit)?)
+    onChange: ((value: Boolean) -> Unit)? = null)
     : CSValueStoreProperty<Boolean>(store, key, listenStoreChanged = false, onChange) {
     override val defaultValue = default
     override var _value = load()
