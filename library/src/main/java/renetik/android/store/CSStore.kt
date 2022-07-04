@@ -22,6 +22,7 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
         }
     }
 
+    val eventLoaded: CSEvent<CSStore>
     val eventChanged: CSEvent<CSStore>
     val data: Map<String, Any?>
 

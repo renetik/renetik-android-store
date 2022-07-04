@@ -7,16 +7,8 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import renetik.android.json.obj.load
 import renetik.android.json.toJson
+import renetik.android.store.TestJsonType
 import renetik.android.store.type.CSJsonObjectStore
-import renetik.android.store.extensions.lateStringProperty
-
-class TestData() : CSJsonObjectStore() {
-    val title = lateStringProperty("title")
-
-    constructor(title: String) : this() {
-        this.title.value(title)
-    }
-}
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
@@ -26,30 +18,30 @@ class CSJsonListListLateStoreEventPropertyTest {
 
     @Test
     fun `Value set get`() {
-        val property = CSJsonListListLateStoreProperty(store, "property", TestData::class)
+        val property = CSJsonListListLateStoreProperty(store, "property", TestJsonType::class)
         property.value = listOf(
-            listOf(TestData("title11"), TestData("title12")),
-            listOf(TestData("title21"), TestData("title22")),
-            listOf(TestData("title31"), TestData("title32")))
+            listOf(TestJsonType("title11"), TestJsonType("title12")),
+            listOf(TestJsonType("title21"), TestJsonType("title22")),
+            listOf(TestJsonType("title31"), TestJsonType("title32")))
 
-        assertEquals(property.value[1][1].title.value, "title22")
+        assertEquals(property.value[1][1].lateString.value, "title22")
     }
 
     @Test
     fun `Save Load`() {
-        val property = CSJsonListListLateStoreProperty(store, "property", TestData::class)
+        val property = CSJsonListListLateStoreProperty(store, "property", TestJsonType::class)
         property.value = listOf(
-            listOf(TestData("title11"), TestData("title12")),
-            listOf(TestData("title21"), TestData("title22")),
-            listOf(TestData("title31"), TestData("title32")))
+            listOf(TestJsonType("title11"), TestJsonType("title12")),
+            listOf(TestJsonType("title21"), TestJsonType("title22")),
+            listOf(TestJsonType("title31"), TestJsonType("title32")))
 
         val json = store.toJson(formatted = true)
 
         val store2 = CSJsonObjectStore()
-        val property2 = CSJsonListListLateStoreProperty(store2, "property", TestData::class)
+        val property2 = CSJsonListListLateStoreProperty(store2, "property", TestJsonType::class)
         store2.load(json)
 
-        assertEquals(property2.value[1][1].title.value, "title22")
+        assertEquals(property2.value[1][1].lateString.value, "title22")
     }
 }
 

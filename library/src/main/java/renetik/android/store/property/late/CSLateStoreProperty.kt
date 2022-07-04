@@ -1,9 +1,9 @@
 package renetik.android.store.property.late
 
+import renetik.android.core.kotlin.CSUnexpectedException.Companion.unexpected
 import renetik.android.event.property.CSEventPropertyBase
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
-import renetik.android.core.kotlin.CSUnexpectedException.Companion.unexpected
 
 abstract class CSLateStoreProperty<T>(
     override val store: CSStore,
@@ -34,5 +34,5 @@ abstract class CSLateStoreProperty<T>(
 
     val isLoaded get() = _value != null
 
-    override fun toString() = "$key $value"
+    override fun toString() = "$key ${get()}"
 }

@@ -9,14 +9,11 @@ class CSListItemValueStoreProperty<T>(
     store: CSStore, key: String,
     val getValues: () -> List<T>,
     val getDefault: () -> T,
-    listenStoreChanged: Boolean = false,
     onChange: ((value: T) -> Unit)? = null
-) : CSValueStoreProperty<T>(store, key,
-    listenStoreChanged, onChange), CSListValuesProperty<T> {
+) : CSValueStoreProperty<T>(store, key,onChange), CSListValuesProperty<T> {
 
     override val values: List<T> get() = getValues()
-    override val defaultValue: T get() = getDefault()
-    override var _value: T = load()
+    override val default: T get() = getDefault()
     override fun get(store: CSStore): T? = store.getValue(key, values)
     override fun set(store: CSStore, value: T) = store.set(key, value.toId())
 }

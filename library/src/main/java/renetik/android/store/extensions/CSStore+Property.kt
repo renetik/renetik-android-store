@@ -8,7 +8,7 @@ import renetik.android.store.property.value.*
 fun CSStore.property(
     key: String, default: String,
     onChange: ArgFunc<String>? = null): CSStoreProperty<String> =
-    CSStringValueStoreProperty(this, key, default, listenStoreChanged = false, onChange)
+    CSStringValueStoreProperty(this, key, default, onChange)
 
 fun CSStore.property(
     key: String, default: Boolean,

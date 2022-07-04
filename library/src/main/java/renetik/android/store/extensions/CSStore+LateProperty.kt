@@ -27,7 +27,7 @@ fun CSStore.lateBoolProperty(
     onChange: ArgFunc<Boolean>? = null): CSStoreProperty<Boolean> =
     CSBooleanLateStoreProperty(this, key, onChange)
 
-fun <T> CSStore.lateItemProperty(
+fun <T> CSStore.lateListItemProperty(
     key: String, values: Iterable<T>,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     CSListItemLateStoreProperty(this, key, values, onChange)

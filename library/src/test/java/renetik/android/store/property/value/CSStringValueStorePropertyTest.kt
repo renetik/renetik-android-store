@@ -7,12 +7,11 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.Config.NONE
 import renetik.android.store.extensions.property
-import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.store.type.CSStringJsonStore
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest= NONE)
+@Config(manifest = NONE)
 class CSStringValueStorePropertyTest {
     private val store = CSStringJsonStore("{}")
     private var _value: String? = null
@@ -41,8 +40,7 @@ class CSStringValueStorePropertyTest {
 
     @Test
     fun testReload() {
-        val property: CSStoreProperty<CSJsonObjectData> =
-            store.property("key", CSJsonObjectData::class)
+        val property = store.property<CSJsonObjectData>("key")
         property.value.string.value = "tralala"
 
         assertEquals("""{"key":{"key":"tralala"}}""", store.jsonString)
@@ -53,5 +51,5 @@ class CSStringValueStorePropertyTest {
 }
 
 class CSJsonObjectData : CSJsonObjectStore() {
-    val string = CSStringValueStoreProperty(this, "key", "", listenStoreChanged = true)
+    val string = CSStringValueStoreProperty(this, "key", "")
 }
