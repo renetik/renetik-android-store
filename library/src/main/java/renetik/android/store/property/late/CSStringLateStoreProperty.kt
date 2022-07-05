@@ -5,7 +5,7 @@ import renetik.android.store.property.CSStoreProperty
 
 class CSStringLateStoreProperty(
     store: CSStore, key: String, onChange: ((value: String) -> Unit)?)
-    : CSLateStoreProperty<String>(store, key, onChange), CSStoreProperty<String> {
+    : CSLateStorePropertyBase<String>(store, key, onChange), CSStoreProperty<String> {
     override fun get() = store.getString(key)
     override fun set(store: CSStore, value: String) = store.set(key, value)
 }

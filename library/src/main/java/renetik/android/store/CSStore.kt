@@ -14,10 +14,10 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
         val Context.store: CSStore
             get() {
                 if (CSStore.store == null)
-                    CSStore.store = storeFactory(applicationContext)
+                    CSStore.store = contextStoreFactory(applicationContext)
                 return CSStore.store!!
             }
-        var storeFactory: (Context) -> CSStore = {
+        var contextStoreFactory: (Context) -> CSStore = {
             CSFileJsonStore(it, "store", isJsonPretty = true)
         }
     }
@@ -25,15 +25,10 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
     val eventLoaded: CSEvent<CSStore>
     val eventChanged: CSEvent<CSStore>
     val data: Map<String, Any?>
-
     fun bulkSave(): Closeable = Closeable { logWarn("Bulk save not implemented") }
-
     fun load(data: Map<String, Any?>)
     fun reload(data: Map<String, Any?>) = bulkSave().use {
         clear()
         load(data)
     }
-
-    fun clear(key: String)
-    fun clear()
 }

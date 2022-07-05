@@ -10,3 +10,9 @@ interface CSStoreProperty<T> : CSEventProperty<T> {
     fun saveTo(store: CSStore) = set(store, value)
     fun save() = set(store, value)
 }
+
+interface CSLateStoreProperty<T> : CSStoreProperty<T> {
+    val isLoaded: Boolean
+}
+
+val CSLateStoreProperty<*>.isNotLoaded: Boolean get() = isLoaded

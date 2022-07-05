@@ -16,15 +16,15 @@ class TestStringJsonTypeTest {
     fun jsonTypeTest() {
         val instance = TestStringJsonType()
         assertEquals("""{}""", instance.toJson())
-        instance.string.value = "string"
+        instance.string = "string"
         assertEquals("""{"stringId":"string"}""", instance.toJson())
-        instance.lateString.value = "lateString"
+        instance.lateString = "lateString"
         assertEquals("""{"stringId":"string","lateStringId":"lateString"}""", instance.toJson())
-        instance.nullString.value = "nullString"
+        instance.nullString = "nullString"
         assertEquals(
             """{"stringId":"string","lateStringId":"lateString","nullStringId":"nullString"}""",
             instance.toJson())
-        instance.nullString.value = null
+        instance.nullString = null
         assertEquals("""{"stringId":"string","lateStringId":"lateString"}""", instance.toJson())
     }
 
@@ -32,33 +32,33 @@ class TestStringJsonTypeTest {
     fun reloadJsonTypeTest() {
         val instance = TestStringJsonType()
         assertEquals("""{}""", instance.toJson())
-        instance.string.value = "string 2"
+        instance.string = "string 2"
         assertEquals("""{"stringId":"string 2"}""", instance.toJson())
         instance.reload(
             """{"stringId":"string 3","lateStringId":"lateString","nullStringId":"nullString"}""")
-        assertEquals("string 3", instance.string.value)
-        assertEquals("lateString", instance.lateString.value)
+        assertEquals("string 3", instance.string)
+        assertEquals("lateString", instance.lateString)
     }
 
     @Test
     fun loadJsonTypeTest() {
         val instance = TestStringJsonType()
         assertEquals("""{}""", instance.toJson())
-        instance.string.value = "string 2"
+        instance.string = "string 2"
         assertEquals("""{"stringId":"string 2"}""", instance.toJson())
         instance.load(
             """{"lateStringId":"lateString"}""")
-        assertEquals("string 2", instance.string.value)
-        assertEquals(null, instance.nullString.value)
-        assertEquals("lateString", instance.lateString.value)
+        assertEquals("string 2", instance.string)
+        assertEquals(null, instance.nullString)
+        assertEquals("lateString", instance.lateString)
     }
 
     @Test
     fun cloneJsonTypeTest() {
         val instance = TestStringJsonType("string 2", "nullString", "lateString")
-        assertEquals("lateString", instance.lateString.value)
+        assertEquals("lateString", instance.lateString)
         val instance2 = instance.clone()
         assertNotSame(instance, instance2)
-        assertEquals("lateString", instance2.lateString.value)
+        assertEquals("lateString", instance2.lateString)
     }
 }

@@ -7,7 +7,7 @@ import renetik.android.store.CSStore
 class CSListItemLateStoreProperty<T>(
     store: CSStore, key: String,
     val values: Iterable<T>, onChange: ((value: T) -> Unit)? = null
-) : CSLateStoreProperty<T>(store, key, onChange) {
+) : CSLateStorePropertyBase<T>(store, key, onChange) {
     constructor(store: CSStore, key: String,
                 values: Array<T>, onChange: ((value: T) -> Unit)? = null)
             : this(store, key, values.asIterable(), onChange)

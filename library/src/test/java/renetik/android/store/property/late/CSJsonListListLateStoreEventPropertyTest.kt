@@ -24,7 +24,7 @@ class CSJsonListListLateStoreEventPropertyTest {
             listOf(TestStringJsonType("title21"), TestStringJsonType("title22")),
             listOf(TestStringJsonType("title31"), TestStringJsonType("title32")))
 
-        assertEquals(property.value[1][1].lateString.value, "title22")
+        assertEquals(property.value[1][1].lateString, "title22")
     }
 
     @Test
@@ -41,7 +41,7 @@ class CSJsonListListLateStoreEventPropertyTest {
         val property2 = CSJsonListListLateStoreProperty(store2, "property", TestStringJsonType::class)
         store2.load(json)
 
-        assertEquals(property2.value[1][1].lateString.value, "title22")
+        assertEquals(property2.value[1][1].lateString, "title22")
     }
 }
 

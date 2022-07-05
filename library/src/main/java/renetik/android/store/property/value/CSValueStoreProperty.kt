@@ -1,5 +1,6 @@
 package renetik.android.store.property.value
 
+import renetik.android.core.lang.lazyVar
 import renetik.android.event.property.CSEventPropertyBase
 import renetik.android.event.register
 import renetik.android.store.CSStore
@@ -13,8 +14,7 @@ abstract class CSValueStoreProperty<T>(
 
     abstract val default: T
     abstract fun get(store: CSStore): T?
-    private var isLoaded = false
-    protected var loadedValue: T? = null
+    protected var loadedValue: T? by lazyVar { get(store) }
 
     init {
         register(store.eventLoaded.listen {
@@ -35,18 +35,11 @@ abstract class CSValueStoreProperty<T>(
     }
 
     override var value: T
-        get() {
-            if (!isLoaded) {
-                loadedValue = get(store)
-                isLoaded = true
-            }
-            return loadedValue ?: default
-        }
+        get() = loadedValue ?: default
         set(value) = value(value)
 
     override fun value(newValue: T, fire: Boolean) {
-        if (loadedValue != newValue)
-            saveValue(newValue, fire)
+        if (loadedValue != newValue) saveValue(newValue, fire)
     }
 
     fun saveValue(newValue: T, fire: Boolean) {
@@ -55,5 +48,5 @@ abstract class CSValueStoreProperty<T>(
         onValueChanged(newValue, fire)
     }
 
-    override fun toString() = "$key $value"
+    override fun toString() = super.toString() + ":$key:$value"
 }
