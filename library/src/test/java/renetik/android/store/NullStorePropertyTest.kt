@@ -88,7 +88,7 @@ class NullStorePropertyTest {
 
         val newString = "new string"
         property.value!!.string.value = newString
-        assertEquals("""{"key":{"stringId":"new string","lateStringId":"string","nullStringId":"string"}}""", store.toJson())
+        assertEquals("""{"key":{"stringId":"new string","nullStringId":"string","lateStringId":"string"}}""", store.toJson())
 //        property.value!!.nullString.value = newString
 //        property.value!!.lateString.value = newString
 
