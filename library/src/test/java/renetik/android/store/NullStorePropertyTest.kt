@@ -68,27 +68,27 @@ class NullStorePropertyTest {
 
     @Test
     fun testListItemValueProperty() {
-        var property = store.nullProperty("key", TestIdItem.values(), defaultIndex = 1)
+        var property = store.nullListItemProperty("key", TestIdItem.values(), defaultIndex = 1)
         property.value = First
         assertEquals("""{"key":"1"}""", store.toJson())
         property.value = null
         assertEquals("""{}""", store.toJson())
         assertEquals(Second, property.value)
-        property = store.reload(store.toJson()).nullProperty("key", TestIdItem.values())
+        property = store.reload(store.toJson()).nullListItemProperty("key", TestIdItem.values())
         assertNull(property.value)
     }
 
     @Test
     fun testJsonProperty() {
-        val property = store.nullProperty("key", TestJsonType("string"))
+        val property = store.nullJsonProperty("key", TestStringJsonType("string"))
         assertEquals("""{}""", store.toJson())
         assertEquals("string", property.value!!.string.value)
         assertEquals("string", property.value!!.nullString.value)
         assertEquals("string", property.value!!.lateString.value)
 
-//        val newString = "new string"
-//        property.value!!.string.value = newString
-//        assertEquals("""{"key":{"stringId":"new string","lateStringId":"string","nullStringId":"string"}}""", store.toJson())
+        val newString = "new string"
+        property.value!!.string.value = newString
+        assertEquals("""{"key":{"stringId":"new string","lateStringId":"string","nullStringId":"string"}}""", store.toJson())
 //        property.value!!.nullString.value = newString
 //        property.value!!.lateString.value = newString
 

@@ -7,11 +7,6 @@ import renetik.android.store.property.late.*
 import renetik.android.store.type.CSJsonObjectStore
 import kotlin.reflect.KClass
 
-fun <T : CSJsonObjectStore> CSStore.lateProperty(
-    key: String, listType: KClass<T>,
-    onChange: ArgFunc<List<T>>? = null): CSStoreProperty<List<T>> =
-    CSJsonListLateStoreProperty(this, key, listType, onChange)
-
 fun CSStore.lateStringProperty(
     key: String,
     onChange: ArgFunc<String>? = null): CSStoreProperty<String> =
@@ -31,3 +26,8 @@ fun <T> CSStore.lateListItemProperty(
     key: String, values: Iterable<T>,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     CSListItemLateStoreProperty(this, key, values, onChange)
+
+fun <T : CSJsonObjectStore> CSStore.lateProperty(
+    key: String, listType: KClass<T>,
+    onChange: ArgFunc<List<T>>? = null): CSStoreProperty<List<T>> =
+    CSJsonListLateStoreProperty(this, key, listType, onChange)

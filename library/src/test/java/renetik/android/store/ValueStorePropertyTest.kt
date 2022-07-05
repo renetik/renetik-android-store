@@ -88,7 +88,7 @@ class ValueStorePropertyTest {
 
     @Test
     fun testJsonTypeValueProperty() {
-        val instance = store.property<TestJsonType>("key")
+        val instance = store.property<TestStringJsonType>("key")
         assertEquals("""{}""", store.toJson())
         assertEquals("string", instance.value.string.value)
         assertNull(instance.value.nullString.value)
@@ -100,7 +100,7 @@ class ValueStorePropertyTest {
         instance.value.nullString.value = newString
         instance.value.lateString.value = newString
 
-        val instance2 = store.reload(store.toJson()).property<TestJsonType>("key")
+        val instance2 = store.reload(store.toJson()).property<TestStringJsonType>("key")
         assertEquals(newString, instance2.value.string.value)
         assertEquals(newString, instance2.value.nullString.value)
         assertEquals(newString, instance2.value.lateString.value)
@@ -108,7 +108,7 @@ class ValueStorePropertyTest {
 
     @Test
     fun testJsonTypeValuePropertyDefault() {
-        val property = store.property("key", TestJsonType("string"))
+        val property = store.property("key", TestStringJsonType("string"))
         assertEquals("""{}""", store.toJson())
         assertEquals("string", property.value.string.value)
         assertEquals("string", property.value.nullString.value)
@@ -122,7 +122,7 @@ class ValueStorePropertyTest {
         property.value.nullString.value = newString
         property.value.lateString.value = newString
 
-        val property2 = store.reload(store.toJson()).property<TestJsonType>("key")
+        val property2 = store.reload(store.toJson()).property<TestStringJsonType>("key")
         assertEquals(newString, property2.value.string.value)
         assertEquals(newString, property2.value.nullString.value)
         assertEquals(newString, property2.value.lateString.value)
@@ -130,17 +130,17 @@ class ValueStorePropertyTest {
 
     @Test
     fun testJsonListValueProperty() {
-        val property = store.property<TestJsonType>("key", mutableListOf())
+        val property = store.property<TestStringJsonType>("key", mutableListOf())
         assertEquals("""{}""", store.toJson())
-        property.value.add(TestJsonType())
-        property.value.add(TestJsonType())
-        property.value.add(TestJsonType().apply { lateString.value = "string" })
+        property.value.add(TestStringJsonType())
+        property.value.add(TestStringJsonType())
+        property.value.add(TestStringJsonType().apply { lateString.value = "string" })
         property.save()
         assertEquals("""{"key":[{},{},{"lateStringId":"string"}]}""", store.toJson())
         property.value.last().lateString.value = "new string"
         property.save()
 
-        val property2 = store.reload(store.toJson()).property<TestJsonType>("key", listOf())
+        val property2 = store.reload(store.toJson()).property<TestStringJsonType>("key", listOf())
         assertEquals("new string", property2.value.last().lateString.value)
     }
 }
