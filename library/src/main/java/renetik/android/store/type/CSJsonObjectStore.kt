@@ -58,9 +58,6 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore, Closeable {
         onChange()
     }
 
-    override fun toJsonMap(): Map<String, *> = data
-    override fun iterator() = super<CSStore>.iterator()
-
     protected var isBulkSave = false
     private var isBulkSaveDirty = false
 
@@ -68,7 +65,6 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore, Closeable {
         isBulkSave = true
         return this
     }
-
 
     override fun close() {
         if (isBulkSaveDirty) onChanged()

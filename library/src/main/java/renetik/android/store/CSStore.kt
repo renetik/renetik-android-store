@@ -26,9 +26,6 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
     val eventChanged: CSEvent<CSStore>
     val data: Map<String, Any?>
 
-    override fun toJsonMap(): Map<String, *> = data
-    override fun iterator(): Iterator<Map.Entry<String, Any?>> = data.iterator()
-
     fun bulkSave(): Closeable = Closeable { logWarn("Bulk save not implemented") }
 
     fun load(data: Map<String, Any?>)
@@ -40,8 +37,3 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
     fun clear(key: String)
     fun clear()
 }
-
-fun CSStore.load(store: CSStore) = load(store.data)
-
-fun CSStore.reload(store: CSStore) = reload(store.data)
-

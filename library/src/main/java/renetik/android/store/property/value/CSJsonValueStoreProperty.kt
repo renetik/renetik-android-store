@@ -9,7 +9,8 @@ import renetik.android.store.CSStore
 import renetik.android.store.type.CSJsonObjectStore
 
 class CSJsonValueStoreProperty<T : CSJsonObjectStore>(
-    store: CSStore, key: String, override val default: T,
+    store: CSStore, key: String,
+    override val default: T,
     onChange: ArgFunc<T>? = null
 ) : CSValueStoreProperty<T>(store, key, onChange) {
 
