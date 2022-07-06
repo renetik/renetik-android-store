@@ -27,6 +27,7 @@ dependencies {
     implementation 'com.renetik.library:renetik-android-store:$renetik-android-version'
 }
 ```
+## Examples
 ```kotlin
 class TestStringJsonType() : CSJsonObjectStore() {
     constructor(value: String) : this(value, value, value)
