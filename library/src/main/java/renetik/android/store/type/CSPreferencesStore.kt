@@ -2,20 +2,19 @@ package renetik.android.store.type
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import renetik.android.core.extensions.content.isDebug
 import renetik.android.core.lang.catchAllWarnReturnNull
 import renetik.android.event.CSEvent.Companion.event
-import renetik.android.event.owner.CSContext
 import renetik.android.json.*
 import renetik.android.json.obj.CSJsonObject
 import renetik.android.store.CSStore
 import renetik.android.store.extensions.loadAll
 import kotlin.reflect.KClass
 
-class CSPreferencesStore(id: String) : CSContext(), CSStore {
-
-    private val preferences = getSharedPreferences(id, Context.MODE_PRIVATE)
+class CSPreferencesStore(val context: Context, id: String = "default") : CSStore {
+    val preferences = context.getSharedPreferences(id, MODE_PRIVATE)
     override val eventLoaded = event<CSStore>()
     override val eventChanged = event<CSStore>()
     override val data: Map<String, Any?> get() = preferences.all
@@ -48,13 +47,13 @@ class CSPreferencesStore(id: String) : CSContext(), CSStore {
     } ?: clear(key)
 
     override fun set(key: String, value: Array<*>?) =
-        set(key, value?.toJson(formatted = isDebug))
+        set(key, value?.toJson(formatted = context.isDebug))
 
     override fun set(key: String, value: List<*>?) =
-        set(key, value?.toJson(formatted = isDebug))
+        set(key, value?.toJson(formatted = context.isDebug))
 
     override fun set(key: String, value: Map<String, *>?) =
-        set(key, value?.toJson(formatted = isDebug))
+        set(key, value?.toJson(formatted = context.isDebug))
 
     @Suppress("unchecked_cast")
     override fun <T : CSJsonObject> getJsonObjectList(key: String, type: KClass<T>) =
@@ -62,7 +61,7 @@ class CSPreferencesStore(id: String) : CSContext(), CSStore {
             ?.let(type::createJsonObjectList)
 
     override fun <T : CSJsonObject> set(key: String, value: T?) =
-        set(key, value?.toJson(formatted = isDebug))
+        set(key, value?.toJson(formatted = context.isDebug))
 
     override fun <T : CSJsonObject> getJsonObject(key: String,
                                                   type: KClass<T>) =

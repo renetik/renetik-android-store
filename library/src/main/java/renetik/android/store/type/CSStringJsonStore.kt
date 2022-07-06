@@ -2,7 +2,7 @@ package renetik.android.store.type
 
 import renetik.android.core.kotlin.collections.reload
 
-class CSStringJsonStore(jsonString: String) : CSJsonStore() {
+class CSStringJsonStore(jsonString: String = "{}") : CSJsonStore() {
     var jsonString: String = jsonString
         set(value) {
             field = value
