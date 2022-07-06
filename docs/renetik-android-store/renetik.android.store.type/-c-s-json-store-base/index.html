@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>CSPreferencesJsonStore</title>
+    <title>CSJsonStoreBase</title>
     <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../";</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
@@ -42,27 +42,27 @@ if(savedDarkMode === true){
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" id="content" pageIds="renetik-android-store::renetik.android.store.type/CSPreferencesJsonStore///PointingToDeclaration//-2084305982">
-  <div class="breadcrumbs"><a href="../../../index.html">renetik-android-store</a><span class="delimiter">/</span><a href="../index.html">renetik.android.store.type</a><span class="delimiter">/</span><a href="index.html">CSPreferencesJsonStore</a></div>
+<div class="main-content" id="content" pageIds="renetik-android-store::renetik.android.store.type/CSJsonStoreBase///PointingToDeclaration//-2084305982">
+  <div class="breadcrumbs"><a href="../../../index.html">renetik-android-store</a><span class="delimiter">/</span><a href="../index.html">renetik.android.store.type</a><span class="delimiter">/</span><a href="index.html">CSJsonStoreBase</a></div>
   <div class="cover ">
-    <h1 class="cover"><span>CSPreferences</span><wbr></wbr><span>Json</span><wbr></wbr><span><span>Store</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">CSPreferencesJsonStore</a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">&quot;store&quot;</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">&quot;default&quot;</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;isPretty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span> : <a href="../-c-s-json-store-base/index.html">CSJsonStoreBase</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <h1 class="cover"><span>CSJson</span><wbr></wbr><span>Store</span><wbr></wbr><span><span>Base</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">CSJsonStoreBase</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isPretty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span> : <a href="../-c-s-json-object-store/index.html">CSJsonObjectStore</a>, <a href="https://developer.android.com/reference/kotlin/java/io/Closeable.html">Closeable</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
     <div class="tabs-section-body">
       <h2 class="tabbedcontent">Constructors</h2>
-      <div class="table" data-togglable="Constructors"><a data-name="-528111096%2FConstructors%2F-2084305982" anchor-label="CSPreferencesJsonStore" id="-528111096%2FConstructors%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
+      <div class="table" data-togglable="Constructors"><a data-name="-1669960156%2FConstructors%2F-2084305982" anchor-label="CSJsonStoreBase" id="-1669960156%2FConstructors%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
         <div class="table-row" data-filterable-current=":renetik-android-store:dokkaHtml/release" data-filterable-set=":renetik-android-store:dokkaHtml/release">
           <div class="main-subrow keyValue TabbedContent">
             <div class=""><span class="inline-flex">
-                <div><a href="-c-s-preferences-json-store.html"><span>CSPreferences</span><wbr></wbr><span>Json</span><wbr></wbr><span><span>Store</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-528111096%2FConstructors%2F-2084305982"></span>
+                <div><a href="-c-s-json-store-base.html"><span>CSJson</span><wbr></wbr><span>Store</span><wbr></wbr><span><span>Base</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1669960156%2FConstructors%2F-2084305982"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-c-s-preferences-json-store.html"><span class="token function">CSPreferencesJsonStore</span></a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">&quot;store&quot;</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">&quot;default&quot;</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;isPretty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-c-s-json-store-base.html"><span class="token function">CSJsonStoreBase</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isPretty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
               </div>
             </div>
           </div>
@@ -384,17 +384,17 @@ if(savedDarkMode === true){
             </div>
           </div>
         </div>
-<a data-name="-1375426777%2FFunctions%2F-2084305982" anchor-label="loadJsonString" id="-1375426777%2FFunctions%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
+<a data-name="-389545054%2FFunctions%2F-2084305982" anchor-label="loadJsonString" id="-389545054%2FFunctions%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
         <div class="table-row" data-filterable-current=":renetik-android-store:dokkaHtml/release" data-filterable-set=":renetik-android-store:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="load-json-string.html"><span>load</span><wbr></wbr><span>Json</span><wbr></wbr><span><span>String</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1375426777%2FFunctions%2F-2084305982"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-389545054%2FFunctions%2F-2084305982"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="load-json-string.html"><span class="token function">loadJsonString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="load-json-string.html"><span class="token function">loadJsonString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
               </div>
             </div>
           </div>
@@ -418,13 +418,13 @@ if(savedDarkMode === true){
         <div class="table-row" data-filterable-current=":renetik-android-store:dokkaHtml/release" data-filterable-set=":renetik-android-store:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
-                <div><a href="../-c-s-json-store-base/on-changed.html"><span>on</span><wbr></wbr><span><span>Changed</span></span></a></div>
+                <div><a href="on-changed.html"><span>on</span><wbr></wbr><span><span>Changed</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="734048100%2FFunctions%2F-2084305982"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-c-s-json-store-base/on-changed.html"><span class="token function">onChanged</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-changed.html"><span class="token function">onChanged</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
               </div>
             </div>
           </div>
@@ -463,28 +463,28 @@ if(savedDarkMode === true){
         <div class="table-row" data-filterable-current=":renetik-android-store:dokkaHtml/release" data-filterable-set=":renetik-android-store:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
-                <div><a href="../-c-s-json-store-base/save.html"><span><span>save</span></span></a></div>
+                <div><a href="save.html"><span><span>save</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="902723972%2FFunctions%2F-2084305982"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-c-s-json-store-base/save.html"><span class="token function">save</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="save.html"><span class="token function">save</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
               </div>
             </div>
           </div>
         </div>
-<a data-name="1219318740%2FFunctions%2F-2084305982" anchor-label="saveJsonString" id="1219318740%2FFunctions%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
+<a data-name="483350329%2FFunctions%2F-2084305982" anchor-label="saveJsonString" id="483350329%2FFunctions%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
         <div class="table-row" data-filterable-current=":renetik-android-store:dokkaHtml/release" data-filterable-set=":renetik-android-store:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="save-json-string.html"><span>save</span><wbr></wbr><span>Json</span><wbr></wbr><span><span>String</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1219318740%2FFunctions%2F-2084305982"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="483350329%2FFunctions%2F-2084305982"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="save-json-string.html"><span class="token function">saveJsonString</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">json<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="save-json-string.html"><span class="token function">saveJsonString</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">json<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
               </div>
             </div>
           </div>
@@ -540,13 +540,13 @@ if(savedDarkMode === true){
         <div class="table-row" data-filterable-current=":renetik-android-store:dokkaHtml/release" data-filterable-set=":renetik-android-store:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
-                <div><a href="../-c-s-json-store-base/data.html"><span><span>data</span></span></a></div>
+                <div><a href="data.html"><span><span>data</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1343793143%2FProperties%2F-2084305982"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><a data-name="1343793143%2FProperties%2F-2084305982" anchor-label="data" id="1343793143%2FProperties%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../-c-s-json-store-base/data.html">data</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><a data-name="1343793143%2FProperties%2F-2084305982" anchor-label="data" id="1343793143%2FProperties%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="data.html">data</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
               </div>
             </div>
           </div>
@@ -596,34 +596,39 @@ if(savedDarkMode === true){
             </div>
           </div>
         </div>
-<a data-name="71005877%2FProperties%2F-2084305982" anchor-label="key" id="71005877%2FProperties%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
+      </div>
+      <h2 class="">Inheritors</h2>
+      <div class="table" data-togglable="Inheritors"><a data-name="-314211381%2FInheritors%2F-2084305982" anchor-label="CSFileJsonStore" id="-314211381%2FInheritors%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
         <div class="table-row" data-filterable-current=":renetik-android-store:dokkaHtml/release" data-filterable-set=":renetik-android-store:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
-                <div><a href="key.html"><span><span>key</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="71005877%2FProperties%2F-2084305982"></span>
+                <div><a href="../-c-s-file-json-store/index.html">CSFileJsonStore</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-314211381%2FInheritors%2F-2084305982"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><a data-name="71005877%2FProperties%2F-2084305982" anchor-label="key" id="71005877%2FProperties%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="key.html">key</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
+            <div></div>
           </div>
         </div>
-<a data-name="870612284%2FProperties%2F-2084305982" anchor-label="preferences" id="870612284%2FProperties%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
+<a data-name="1729289977%2FInheritors%2F-2084305982" anchor-label="CSPreferencesJsonStore" id="1729289977%2FInheritors%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
         <div class="table-row" data-filterable-current=":renetik-android-store:dokkaHtml/release" data-filterable-set=":renetik-android-store:dokkaHtml/release">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
-                <div><a href="preferences.html"><span><span>preferences</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="870612284%2FProperties%2F-2084305982"></span>
+                <div><a href="../-c-s-preferences-json-store/index.html">CSPreferencesJsonStore</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1729289977%2FInheritors%2F-2084305982"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":renetik-android-store:dokkaHtml/release"><a data-name="870612284%2FProperties%2F-2084305982" anchor-label="preferences" id="870612284%2FProperties%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="preferences.html">preferences</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/SharedPreferences.html">SharedPreferences</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="-1606781088%2FInheritors%2F-2084305982" anchor-label="CSStringJsonStore" id="-1606781088%2FInheritors%2F-2084305982" data-filterable-set=":renetik-android-store:dokkaHtml/release"></a>
+        <div class="table-row" data-filterable-current=":renetik-android-store:dokkaHtml/release" data-filterable-set=":renetik-android-store:dokkaHtml/release">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-c-s-string-json-store/index.html">CSStringJsonStore</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1606781088%2FInheritors%2F-2084305982"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
           </div>
         </div>
       </div>
