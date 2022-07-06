@@ -36,9 +36,9 @@ class TestStringJsonType() : CSJsonObjectStore() {
         lateString = value3
     }
 
-    var string by property("stringId", "string")
-    var nullString by nullStringProperty("nullStringId")
-    var lateString by lateStringProperty("lateStringId")
+    var string: String by property("stringId", "string")
+    var nullString: String? by nullStringProperty("nullStringId")
+    var lateString: String by lateStringProperty("lateStringId")
 }
 
 @RunWith(RobolectricTestRunner::class)
