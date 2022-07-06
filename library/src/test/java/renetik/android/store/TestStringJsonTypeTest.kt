@@ -8,7 +8,24 @@ import org.robolectric.RobolectricTestRunner
 import renetik.android.json.obj.clone
 import renetik.android.json.obj.load
 import renetik.android.json.toJson
+import renetik.android.store.extensions.lateStringProperty
+import renetik.android.store.extensions.nullStringProperty
+import renetik.android.store.extensions.property
 import renetik.android.store.extensions.reload
+import renetik.android.store.type.CSJsonObjectStore
+
+class TestStringJsonType() : CSJsonObjectStore() {
+    constructor(value: String) : this(value, value, value)
+    constructor(value1: String, value2: String, value3: String) : this() {
+        string = value1
+        nullString = value2
+        lateString = value3
+    }
+
+    var string by property("stringId", "string")
+    var nullString by nullStringProperty("nullStringId")
+    var lateString by lateStringProperty("lateStringId")
+}
 
 @RunWith(RobolectricTestRunner::class)
 class TestStringJsonTypeTest {
