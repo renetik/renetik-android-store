@@ -6,6 +6,7 @@ import renetik.android.event.cancel
 import renetik.android.event.register
 import renetik.android.event.registration.CSRegistration
 import renetik.android.store.CSStore
+import renetik.android.store.property.save
 import renetik.android.store.type.CSJsonObjectStore
 
 class CSJsonValueStoreProperty<T : CSJsonObjectStore>(

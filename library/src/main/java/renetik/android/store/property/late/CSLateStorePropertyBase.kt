@@ -1,22 +1,33 @@
 package renetik.android.store.property.late
 
-import renetik.android.core.kotlin.CSUnexpectedException.Companion.unexpected
 import renetik.android.core.kotlin.notNull
 import renetik.android.event.property.CSEventPropertyBase
+import renetik.android.event.register
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSLateStoreProperty
 
 abstract class CSLateStorePropertyBase<T>(
-    override val store: CSStore,
+    final override val store: CSStore,
     override val key: String, onChange: ((value: T) -> Unit)?)
     : CSEventPropertyBase<T>(onChange), CSLateStoreProperty<T> {
 
-    var loadedValue: T? = null
+    private var loadedValue: T? = null
+
+    init {
+        register(store.eventLoaded.listen {
+            if (loadedValue != null) {
+                val newValue = get()!!
+                if (loadedValue != newValue) {
+                    loadedValue = newValue
+                    onValueChanged(newValue)
+                }
+            }
+        })
+    }
 
     override var value: T
         get() {
-            if (loadedValue == null) loadedValue = get()
-            if (loadedValue == null) throw unexpected
+            if (loadedValue == null) loadedValue = get()!!
             return loadedValue!!
         }
         set(value) = value(value)
@@ -25,10 +36,9 @@ abstract class CSLateStorePropertyBase<T>(
 
     override fun value(newValue: T, fire: Boolean) {
         if (loadedValue == newValue) return
-        val before = if (store.has(key)) loadedValue else null
         loadedValue = newValue
         set(store, newValue)
-        onValueChanged(newValue, fire && before != null)
+        onValueChanged(newValue, fire)
     }
 
     override val isLoaded get() = loadedValue.notNull

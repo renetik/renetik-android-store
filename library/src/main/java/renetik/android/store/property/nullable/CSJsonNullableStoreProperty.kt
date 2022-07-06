@@ -7,16 +7,9 @@ import renetik.android.event.register
 import renetik.android.event.registration.CSRegistration
 import renetik.android.json.obj.clone
 import renetik.android.store.CSStore
+import renetik.android.store.property.save
 import renetik.android.store.property.value.CSValueStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
-
-//class CSJsonNullableStoreProperty<T : CSJsonObjectStore>(
-//    store: CSStore, key: String, val type: KClass<T>,
-//    default: T? = null, onApply: ((value: T?) -> Unit)? = null
-//) : CSNullableStoreProperty<T>(store, key, default, onApply) {
-//    override fun get(store: CSStore): T? = store.getJsonObject(key, type)
-//    override fun set(store: CSStore, value: T?) = store.set(key, value)
-//}
 
 class CSJsonNullableStoreProperty<T : CSJsonObjectStore>(
     store: CSStore, key: String,
@@ -51,14 +44,3 @@ class CSJsonNullableStoreProperty<T : CSJsonObjectStore>(
         }
         set(value) = value(value)
 }
-
-
-//class CSJsonNullableStorePropertyOld<T : CSJsonObjectStore>(
-//    store: CSStore, key: String, val type: KClass<T>,
-//    override val default: T? = null,
-//    onChange: ((value: T?) -> Unit)? = null)
-//    : CSValueStoreProperty<T?>(store, key, onChange) {
-//    override fun get(store: CSStore) = store.getJsonObject(key, type)
-//    override fun set(store: CSStore, value: T?) =
-//        value?.let { store.set(key, value) } ?: store.clear(key)
-//}

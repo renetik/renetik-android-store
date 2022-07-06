@@ -13,11 +13,11 @@ fun <T : CSJsonObjectStore> CSStore.nullJsonProperty(
     onChange: ArgFunc<T?>? = null): CSStoreProperty<T?> =
     CSJsonNullableStoreProperty(this, key, default, onChange)
 
-fun <T : CSJsonObjectStore> CSStore.nullJsonProperty(
-    key: String, type: KClass<T>,
-    onChange: ArgFunc<T?>? = null): CSStoreProperty<T?> =
-    nullJsonProperty(key, type.createInstance()!!, onChange)
-
-inline fun <reified T : CSJsonObjectStore> CSStore.nullJsonProperty(
-    key: String, noinline onChange: ArgFunc<T?>? = null): CSStoreProperty<T?> =
-    nullJsonProperty(key, T::class, onChange)
+//fun <T : CSJsonObjectStore> CSStore.nullJsonProperty(
+//    key: String, type: KClass<T>,
+//    onChange: ArgFunc<T?>? = null): CSStoreProperty<T?> =
+//    nullJsonProperty(key, type.createInstance()!!, onChange)
+//
+//inline fun <reified T : CSJsonObjectStore> CSStore.nullJsonProperty(
+//    key: String, noinline onChange: ArgFunc<T?>? = null): CSStoreProperty<T?> =
+//    nullJsonProperty(key, T::class, onChange)

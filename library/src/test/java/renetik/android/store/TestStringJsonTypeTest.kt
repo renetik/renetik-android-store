@@ -15,11 +15,11 @@ import renetik.android.store.extensions.reload
 import renetik.android.store.type.CSJsonObjectStore
 
 class TestStringJsonType() : CSJsonObjectStore() {
-    constructor(value: String) : this(value, value, value)
-    constructor(value1: String, value2: String, value3: String) : this() {
-        string = value1
-        nullString = value2
-        lateString = value3
+    constructor(string: String? = null, nullString: String? = null,
+                lateString: String? = null) : this() {
+        string?.let { this.string = it }
+        nullString?.let { this.nullString = it }
+        lateString?.let { this.lateString = it }
     }
 
     var string: String by property("stringId", "string")

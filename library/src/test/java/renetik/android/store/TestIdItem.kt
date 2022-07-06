@@ -3,5 +3,9 @@ package renetik.android.store
 import renetik.android.core.lang.CSHasId
 
 enum class TestIdItem(override val id: String) : CSHasId {
-    First("1"), Second("2"), Third("3"), Fourth("4")
+    First("id1"), Second("id2"), Third("id3"), Fourth("id4");
+
+    companion object {
+        val TestIdItems = values()
+    }
 }

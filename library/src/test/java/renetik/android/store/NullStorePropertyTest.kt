@@ -6,6 +6,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import renetik.android.json.CSJson
 import renetik.android.json.toJson
+import renetik.android.store.TestIdItem.Companion.TestIdItems
 import renetik.android.store.TestIdItem.First
 import renetik.android.store.TestIdItem.Second
 import renetik.android.store.extensions.*
@@ -13,74 +14,83 @@ import renetik.android.store.type.CSJsonObjectStore
 
 @RunWith(RobolectricTestRunner::class)
 class NullStorePropertyTest {
-
     private val store: CSStore = CSJsonObjectStore()
 
     @Test
     fun testStringProperty() {
-        var value by store.nullStringProperty("key", "initial")
+        var value: String? by store.nullStringProperty("key", "initial")
         value = "new value"
         assertEquals("""{"key":"new value"}""", store.toJson())
         value = null
         assertEquals("""{}""", store.toJson())
         assertEquals("initial", value)
-        val value2 by store.reload(store.toJson()).nullStringProperty("key")
+
+        store.reload(store.toJson())
+        val value2: String? by store.nullStringProperty("key")
         assertNull(value2)
     }
 
     @Test
     fun testBooleanProperty() {
         CSJson.forceStringInJson = true
-        var value by store.nullBoolProperty("key")
+        var value: Boolean? by store.nullBoolProperty("key")
         assertNull(value)
         value = true
         assertEquals("""{"key":"true"}""", store.toJson())
-        val instance2 = store.reload(store.toJson())
-            .nullBoolProperty("key")
-        assertEquals(true, value)
+
+        store.reload(store.toJson())
+        val value2: Boolean? by store.nullBoolProperty("key")
+        assertEquals(true, value2)
         CSJson.forceStringInJson = false
     }
 
     @Test
     fun testIntProperty() {
-        var value by store.nullIntProperty("key", 5)
+        var value: Int? by store.nullIntProperty("key", 5)
         value = 10
         assertEquals("""{"key":10}""", store.toJson())
         value = null
         assertEquals("""{}""", store.toJson())
         assertEquals(5, value)
-        val value2 by store.reload(store.toJson()).nullIntProperty("key")
+
+        store.reload(store.toJson())
+        val value2: Int? by store.nullIntProperty("key")
         assertNull(value2)
     }
 
     @Test
     fun testFloatProperty() {
-        var value by store.nullFloatProperty("key", 1.5f)
+        var value: Float? by store.nullFloatProperty("key", 1.5f)
         value = 2.5f
         assertEquals("""{"key":2.5}""", store.toJson())
         value = null
         assertEquals("""{}""", store.toJson())
         assertEquals(1.5f, value)
-        val value2 by store.reload(store.toJson()).nullFloatProperty("key")
+
+        store.reload(store.toJson())
+        val value2: Float? by store.nullFloatProperty("key")
         assertNull(value2)
     }
 
     @Test
     fun testListItemValueProperty() {
-        var value by store.nullListItemProperty("key", TestIdItem.values(), defaultIndex = 1)
+        var value: TestIdItem? by store.nullListItemProperty("key",
+            TestIdItems, defaultIndex = 1)
         value = First
-        assertEquals("""{"key":"1"}""", store.toJson())
+        assertEquals("""{"key":"id1"}""", store.toJson())
         value = null
         assertEquals("""{}""", store.toJson())
         assertEquals(Second, value)
-        val value2 by store.reload(store.toJson()).nullListItemProperty("key", TestIdItem.values())
+
+        store.reload(store.toJson())
+        val value2: TestIdItem? by store.nullListItemProperty("key", TestIdItems)
         assertNull(value2)
     }
 
     @Test
     fun testJsonProperty() {
-        val default = TestStringJsonType().apply { string = "string 2" }
-        var value by store.nullJsonProperty("key", default)
+        val default = TestStringJsonType(string = "string 2")
+        var value: TestStringJsonType? by store.nullJsonProperty("key", default)
         assertEquals("""{}""", store.toJson())
         assertEquals("string 2", value!!.string)
         assertEquals(null, value!!.nullString)
@@ -97,7 +107,8 @@ class NullStorePropertyTest {
         assertEquals(default, value)
         assertNotSame(default, value)
 
-        val value2 by store.reload(store.toJson()).nullJsonProperty("key", default = null)
+        store.reload(store.toJson())
+        val value2: TestStringJsonType? by store.nullJsonProperty("key")
         assertNull(value2)
     }
 }

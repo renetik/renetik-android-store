@@ -22,13 +22,13 @@ abstract class CSValueStoreProperty<T>(
             if (newValue == null) {
                 if (loadedValue != default) {
                     loadedValue = null
-                    onValueChanged(default, true)
+                    onValueChanged(default)
                 }
                 loadedValue = null
             } else {
                 if (loadedValue != newValue) {
                     loadedValue = newValue
-                    onValueChanged(newValue, true)
+                    onValueChanged(newValue)
                 }
             }
         })
