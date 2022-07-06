@@ -65,8 +65,7 @@ class TestStringDataTest {
         assertEquals("""{}""", instance.toJson())
         instance.string = "string 2"
         assertEquals("""{"stringId":"string 2"}""", instance.toJson())
-        instance.load(
-            """{"lateStringId":"lateString"}""")
+        instance.load("""{"lateStringId":"lateString"}""")
         assertEquals("string 2", instance.string)
         assertEquals(null, instance.nullString)
         assertEquals("lateString", instance.lateString)

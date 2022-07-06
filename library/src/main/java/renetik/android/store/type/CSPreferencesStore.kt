@@ -14,7 +14,7 @@ import renetik.android.store.extensions.loadAll
 import kotlin.reflect.KClass
 
 class CSPreferencesStore(val context: Context, id: String = "default") : CSStore {
-    val preferences = context.getSharedPreferences(id, MODE_PRIVATE)
+    val preferences: SharedPreferences = context.getSharedPreferences(id, MODE_PRIVATE)
     override val eventLoaded = event<CSStore>()
     override val eventChanged = event<CSStore>()
     override val data: Map<String, Any?> get() = preferences.all

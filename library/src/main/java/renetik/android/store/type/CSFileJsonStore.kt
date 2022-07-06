@@ -7,7 +7,7 @@ import java.io.File
 
 class CSFileJsonStore(parent: File, id: String, directory: String = "",
                       isJsonPretty: Boolean = false)
-    : CSJsonStore(isJsonPretty) {
+    : CSJsonStoreBase(isJsonPretty) {
 
     constructor(context: Context, id: String, directory: String = "",
                 isJsonPretty: Boolean = false)
