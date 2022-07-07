@@ -36,11 +36,7 @@ class StoreTypesTestData : CSJsonObjectStore() {
     val jsonObject: TestStringData by property("key3")
 }
 
-@RunWith(RobolectricTestRunner::class)
 class StoreTypesTest {
-    @Before
-    fun setupAll() = disableJsonFormat()
-
     @Test
     fun testJsonObjectStore() {
         val store = CSJsonObjectStore()
