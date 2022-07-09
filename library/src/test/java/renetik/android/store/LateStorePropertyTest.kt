@@ -5,7 +5,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import renetik.android.json.CSJson.forceStringInJson
+import renetik.android.json.CSJson.forceString
 import renetik.android.json.toJson
 import renetik.android.store.TestIdItem.Companion.TestIdItems
 import renetik.android.store.TestIdItem.Fourth
@@ -52,7 +52,7 @@ class LateStorePropertyTest {
 
     @Test
     fun testIntProperty() {
-        forceStringInJson = true
+        forceString = true
         var newValue: Int? = null
         var value: Int by store.lateIntProperty("key") { newValue = it }
         value = 34
@@ -62,7 +62,7 @@ class LateStorePropertyTest {
 
         store.reload("""{"key":"56"}""")
         assertEquals(56, newValue)
-        forceStringInJson = false
+        forceString = false
     }
 
     @Test

@@ -2,7 +2,7 @@ package renetik.android.store.property.late
 
 import renetik.android.core.kotlin.notNull
 import renetik.android.event.property.CSEventPropertyBase
-import renetik.android.event.register
+import renetik.android.event.owner.register
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSLateStoreProperty
 

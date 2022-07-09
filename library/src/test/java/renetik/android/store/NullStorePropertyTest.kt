@@ -33,7 +33,7 @@ class NullStorePropertyTest {
 
     @Test
     fun testBooleanProperty() {
-        CSJson.forceStringInJson = true
+        CSJson.forceString = true
         var value: Boolean? by store.nullBoolProperty("key")
         assertNull(value)
         value = true
@@ -42,7 +42,7 @@ class NullStorePropertyTest {
         store.reload(store.toJson())
         val value2: Boolean? by store.nullBoolProperty("key")
         assertEquals(true, value2)
-        CSJson.forceStringInJson = false
+        CSJson.forceString = false
     }
 
     @Test

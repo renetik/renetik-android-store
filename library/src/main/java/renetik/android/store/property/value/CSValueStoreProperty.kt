@@ -2,7 +2,7 @@ package renetik.android.store.property.value
 
 import renetik.android.core.lang.lazyVar
 import renetik.android.event.property.CSEventPropertyBase
-import renetik.android.event.register
+import renetik.android.event.owner.register
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 
