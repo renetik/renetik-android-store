@@ -1,9 +1,9 @@
 package renetik.android.store.property
 
-import renetik.android.event.property.CSEventProperty
+import renetik.android.event.property.CSProperty
 import renetik.android.store.CSStore
 
-interface CSStoreProperty<T> : CSEventProperty<T> {
+interface CSStoreProperty<T> : CSProperty<T> {
     val store: CSStore
     val key: String
     fun set(store: CSStore, value: T)

@@ -1,15 +1,15 @@
 package renetik.android.store.property.late
 
 import renetik.android.core.kotlin.notNull
-import renetik.android.event.property.CSEventPropertyBase
-import renetik.android.event.owner.register
+import renetik.android.event.property.CSPropertyBase
+import renetik.android.event.registrations.register
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSLateStoreProperty
 
 abstract class CSLateStorePropertyBase<T>(
     final override val store: CSStore,
     override val key: String, onChange: ((value: T) -> Unit)?)
-    : CSEventPropertyBase<T>(onChange), CSLateStoreProperty<T> {
+    : CSPropertyBase<T>(onChange), CSLateStoreProperty<T> {
 
     private var loadedValue: T? = null
 
