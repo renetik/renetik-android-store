@@ -1,6 +1,6 @@
 package renetik.android.store.property
 
-import renetik.android.core.CSApplication.Companion.app
+import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.kotlin.unfinished
 import renetik.android.event.property.CSActionInterface
 import renetik.android.store.CSStore.Companion.store

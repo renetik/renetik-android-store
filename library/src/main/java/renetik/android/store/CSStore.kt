@@ -10,11 +10,11 @@ import java.io.Closeable
 interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
 
     companion object {
-        private var store: CSStore? = null
+        var store: CSStore? = null
         val Context.store: CSStore
             get() {
                 if (CSStore.store == null)
-                    CSStore.store = contextStoreFactory(applicationContext)
+                    CSStore.store = contextStoreFactory(this.applicationContext)
                 return CSStore.store!!
             }
         var contextStoreFactory: (Context) -> CSStore = {

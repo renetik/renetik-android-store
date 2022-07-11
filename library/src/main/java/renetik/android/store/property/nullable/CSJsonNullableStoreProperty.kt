@@ -2,8 +2,8 @@ package renetik.android.store.property.nullable
 
 import renetik.android.core.kotlin.kClass
 import renetik.android.core.lang.ArgFunc
-import renetik.android.event.registrations.cancel
-import renetik.android.event.registrations.register
+import renetik.android.event.registration.cancel
+import renetik.android.event.registration.register
 import renetik.android.event.registration.CSRegistration
 import renetik.android.json.obj.clone
 import renetik.android.store.CSStore
