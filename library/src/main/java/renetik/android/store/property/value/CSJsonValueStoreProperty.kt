@@ -2,9 +2,9 @@ package renetik.android.store.property.value
 
 import renetik.android.core.kotlin.kClass
 import renetik.android.core.lang.ArgFunc
+import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.cancel
 import renetik.android.event.registration.register
-import renetik.android.event.registration.CSRegistration
 import renetik.android.store.CSStore
 import renetik.android.store.property.save
 import renetik.android.store.type.CSJsonObjectStore

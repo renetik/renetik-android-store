@@ -17,19 +17,22 @@ fun <T : CSJsonObjectStore> CSStore.property(
 
 inline fun <reified T : CSJsonObjectStore> CSStore.property(
     key: String, default: List<T>,
-    noinline onChange: ArgFunc<List<T>>? = null): CSStoreProperty<List<T>> =
+    noinline onChange: ArgFunc<List<T>>? = null)
+        : CSStoreProperty<List<T>> =
     property(key, T::class, default, onChange)
 
 @JvmName("propertyMutableList")
 fun <T : CSJsonObjectStore> CSStore.property(
     key: String, type: KClass<T>, default: MutableList<T>,
-    onChange: ArgFunc<MutableList<T>>? = null): CSStoreProperty<MutableList<T>> =
+    onChange: ArgFunc<MutableList<T>>? = null)
+        : CSStoreProperty<MutableList<T>> =
     CSJsonMutableListValueStoreProperty(this, key, type, default, onChange)
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.property(
     key: String, default: MutableList<T>,
-    noinline onChange: ArgFunc<MutableList<T>>? = null): CSStoreProperty<MutableList<T>> =
+    noinline onChange: ArgFunc<MutableList<T>>? = null)
+        : CSStoreProperty<MutableList<T>> =
     property(key, T::class, default, onChange)
 
 fun <T : CSJsonObjectStore> CSStore.property(
@@ -43,6 +46,7 @@ fun <T : CSJsonObjectStore> CSStore.property(
     property(key, type.createInstance()!!, onChange)
 
 inline fun <reified T : CSJsonObjectStore> CSStore.property(
-    key: String, noinline onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    key: String, noinline onChange: ArgFunc<T>? = null)
+        : CSStoreProperty<T> =
     property(key, T::class.createInstance()!!, onChange)
 

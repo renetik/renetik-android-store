@@ -1,12 +1,12 @@
 package renetik.android.store.extensions
 
-import renetik.android.core.kotlin.reflect.createInstance
 import renetik.android.core.lang.ArgFunc
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
-import renetik.android.store.property.nullable.*
-import renetik.android.store.type.CSJsonObjectStore
-import kotlin.reflect.KClass
+import renetik.android.store.property.nullable.CSBooleanNullableStoreProperty
+import renetik.android.store.property.nullable.CSFloatNullableStoreProperty
+import renetik.android.store.property.nullable.CSIntNullableStoreProperty
+import renetik.android.store.property.nullable.CSStringNullableStoreProperty
 
 fun CSStore.nullStringProperty(
     key: String, default: String? = null,
