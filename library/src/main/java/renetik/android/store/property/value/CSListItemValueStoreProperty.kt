@@ -11,7 +11,6 @@ class CSListItemValueStoreProperty<T>(
     val getDefault: () -> T,
     onChange: ((value: T) -> Unit)? = null
 ) : CSValueStoreProperty<T>(store, key,onChange), CSListValuesVariable<T> {
-
     override val values: List<T> get() = getValues()
     override val default: T get() = getDefault()
     override fun get(store: CSStore): T? = store.getValue(key, values)

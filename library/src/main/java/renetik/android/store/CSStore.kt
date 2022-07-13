@@ -1,6 +1,7 @@
 package renetik.android.store
 
-import android.content.Context
+import renetik.android.core.lang.CSEnvironment.app
+import renetik.android.core.lang.lazyVar
 import renetik.android.core.logging.CSLog.logWarn
 import renetik.android.event.CSEvent
 import renetik.android.json.obj.CSJsonObjectInterface
@@ -10,17 +11,8 @@ import java.io.Closeable
 interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
 
     companion object {
-        var store: CSStore? by lazyVar {
-            contextStoreFactory()
-        }
-        val Context.store: CSStore
-            get() {
-                if (CSStore.store == null)
-                    CSStore.store = contextStoreFactory(this.applicationContext)
-                return CSStore.store!!
-            }
-        var contextStoreFactory: (Context) -> CSStore = {
-            CSFileJsonStore(it, "store", isJsonPretty = true)
+        var store: CSStore by lazyVar {
+            CSFileJsonStore(app, "store", isJsonPretty = true)
         }
     }
 
