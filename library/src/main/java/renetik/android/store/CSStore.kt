@@ -3,6 +3,7 @@ package renetik.android.store
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.lazyVar
 import renetik.android.core.logging.CSLog.logWarn
+import renetik.android.core.logging.CSLogMessage.Companion.message
 import renetik.android.event.CSEvent
 import renetik.android.json.obj.CSJsonObjectInterface
 import renetik.android.store.type.CSFileJsonStore
@@ -19,7 +20,9 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
     val eventLoaded: CSEvent<CSStore>
     val eventChanged: CSEvent<CSStore>
     val data: Map<String, Any?>
-    fun bulkSave(): Closeable = Closeable { logWarn("Bulk save not implemented") }
+    fun bulkSave(): Closeable =
+        Closeable { logWarn { message("Bulk save not implemented") } }
+
     fun load(data: Map<String, Any?>)
     fun reload(data: Map<String, Any?>) = bulkSave().use {
         clear()
