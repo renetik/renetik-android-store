@@ -1,5 +1,6 @@
 package renetik.android.store.property
 
+import renetik.android.event.common.CSHasDestroy
 import renetik.android.event.property.CSProperty
 import renetik.android.store.CSStore
 

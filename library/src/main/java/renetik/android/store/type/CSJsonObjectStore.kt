@@ -5,7 +5,6 @@ import renetik.android.json.obj.CSJsonObject
 import renetik.android.store.CSStore
 import java.io.Closeable
 
-@Suppress("unchecked_cast")
 open class CSJsonObjectStore : CSJsonObject(), CSStore, Closeable {
     override val eventLoaded = event<CSStore>()
     override val eventChanged = event<CSStore>()
