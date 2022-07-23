@@ -14,6 +14,7 @@ import renetik.android.store.property.save
 import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.test.assertThrows
 
+@Suppress("UNUSED_VALUE", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
 @RunWith(RobolectricTestRunner::class)
 class ValueStorePropertyTest {
     private val store: CSStore = CSJsonObjectStore()

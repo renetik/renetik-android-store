@@ -3,7 +3,6 @@ package renetik.android.store.property.value
 import renetik.android.core.kotlin.kClass
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.registration.CSRegistration
-import renetik.android.event.registration.cancel
 import renetik.android.event.registration.register
 import renetik.android.store.CSStore
 import renetik.android.store.property.save
@@ -24,8 +23,6 @@ class CSJsonValueStoreProperty<T : CSJsonObjectStore>(
         onJsonObjectChanged = registerJsonObjectChanged(newValue)
     }
 
-    private fun registerJsonObjectChanged(value: T): CSRegistration {
-        cancel(onJsonObjectChanged)
-        return register(value.eventChanged.listen { save() })
-    }
+    private fun registerJsonObjectChanged(value: T): CSRegistration =
+        register(onJsonObjectChanged, value.eventChanged.listen { save() })
 }
