@@ -7,11 +7,14 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import renetik.android.core.extensions.content.getString
 import renetik.android.core.java.io.readString
+import renetik.android.core.lang.CSBackground.executor
 import renetik.android.json.toJson
 import renetik.android.store.extensions.load
 import renetik.android.store.extensions.property
 import renetik.android.store.type.*
 import renetik.android.test.context
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit.SECONDS
 
 
 class StoreTypesTestData : CSJsonObjectStore() {
@@ -103,6 +106,7 @@ class StoreTypesTest {
         property.string = "new value"
         property.int = 123
         property.jsonObject.lateString = "new value"
+        executor.awaitTermination(1, SECONDS)
         assertEquals(
             """{"property":{"key1":"new value","key2":123,"key3":{"lateStringId":"new value"}}}""",
             store.file.readString())
