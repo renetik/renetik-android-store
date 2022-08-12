@@ -2,6 +2,10 @@ package renetik.android.store.extensions
 
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestroy
+import renetik.android.event.property.CSProperty
+import renetik.android.event.property.CSSynchronizedProperty
+import renetik.android.event.property.CSSynchronizedPropertyImpl
+import renetik.android.event.property.connect
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 
@@ -49,3 +53,12 @@ fun <T> CSHasDestroy.property(
     key: String, values: Array<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     CSStore.store.property(this, key, values, defaultIndex, onChange)
+
+fun <T> CSHasDestroy.synchronizedProperty(
+    value: T, onChange: ((value: T) -> Unit)? = null): CSSynchronizedProperty<T> =
+    CSSynchronizedPropertyImpl(this, value, onChange)
+
+fun <T> CSHasDestroy.synchronizedProperty(
+    property: CSProperty<T>,
+    onChange: ((value: T) -> Unit)? = null): CSSynchronizedProperty<T> =
+    CSSynchronizedPropertyImpl(this, property.value, onChange).apply { connect(property) }
