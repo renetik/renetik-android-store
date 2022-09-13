@@ -12,16 +12,11 @@ import renetik.android.json.toJson
 import renetik.android.store.extensions.load
 import renetik.android.store.extensions.property
 import renetik.android.store.type.*
-import renetik.android.test.context
+import renetik.android.testing.context
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeUnit.SECONDS
 
-
-class StoreTypesTestData : CSJsonObjectStore() {
-    var string: String by property("key1", default = "initial")
-    var int: Int by property("key2", default = 5)
-    val jsonObject: TestStringData by property("key3")
-}
 
 @RunWith(RobolectricTestRunner::class)
 class StoreTypesTest {
@@ -106,10 +101,10 @@ class StoreTypesTest {
         property.string = "new value"
         property.int = 123
         property.jsonObject.lateString = "new value"
-        executor.awaitTermination(1, SECONDS)
-        assertEquals(
-            """{"property":{"key1":"new value","key2":123,"key3":{"lateStringId":"new value"}}}""",
-            store.file.readString())
+        executor.shutdown(awaitSeconds = 2)
+        val expected =
+            """{"property":{"key1":"new value","key2":123,"key3":{"lateStringId":"new value"}}}"""
+        assertEquals(expected, store.file.readString())
 
         val store2: CSStore = CSFileJsonStore(context, "file")
         val property2: StoreTypesTestData by store2.property("property")
@@ -117,4 +112,9 @@ class StoreTypesTest {
         assertEquals(123, property2.int)
         assertEquals("new value", property2.jsonObject.lateString)
     }
+}
+
+fun ExecutorService.shutdown(awaitSeconds: Long) {
+    shutdown()
+    awaitTermination(awaitSeconds, TimeUnit.SECONDS)
 }

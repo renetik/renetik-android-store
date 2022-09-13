@@ -60,12 +60,14 @@ class CSPreferencesStore(val context: Context, id: String = "default") : CSStore
         (get(key)?.parseJsonList() as? List<MutableMap<String, Any?>>)
             ?.let(type::createJsonObjectList)
 
+    override fun <T : CSJsonObject> setJsonObjectList(key: String, list: List<T>?) =
+        set(key, list?.toJson(formatted = isJsonPretty))
+
+    override fun <T : CSJsonObject> getJsonObject(key: String, type: KClass<T>) =
+        get(key)?.parseJsonMap()?.let(type::createJsonObject)
+
     override fun <T : CSJsonObject> set(key: String, value: T?) =
         set(key, value?.toJson(formatted = isJsonPretty))
-
-    override fun <T : CSJsonObject> getJsonObject(key: String,
-                                                  type: KClass<T>) =
-        get(key)?.parseJsonMap()?.let(type::createJsonObject)
 
     override fun load(data: Map<String, Any?>) = with(preferences.edit()) { load(data) }
 

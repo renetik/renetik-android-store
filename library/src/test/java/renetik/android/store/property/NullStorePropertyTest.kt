@@ -1,4 +1,4 @@
-package renetik.android.store
+package renetik.android.store.property
 
 import org.junit.Assert.*
 import org.junit.Test
@@ -6,12 +6,15 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import renetik.android.json.CSJson
 import renetik.android.json.toJson
+import renetik.android.store.CSStore
+import renetik.android.store.TestIdItem
 import renetik.android.store.TestIdItem.Companion.TestIdItems
 import renetik.android.store.TestIdItem.First
 import renetik.android.store.TestIdItem.Second
+import renetik.android.store.SimpleJsonObjectStore
 import renetik.android.store.extensions.*
 import renetik.android.store.type.CSJsonObjectStore
-import renetik.android.test.assertThrows
+import renetik.android.testing.assertThrows
 
 @RunWith(RobolectricTestRunner::class)
 class NullStorePropertyTest {
@@ -90,8 +93,8 @@ class NullStorePropertyTest {
 
     @Test
     fun testJsonProperty() {
-        val default = TestStringData(string = "string 2")
-        var value: TestStringData? by store.nullJsonProperty("key", default)
+        val default = SimpleJsonObjectStore(string = "string 2")
+        var value: SimpleJsonObjectStore? by store.nullJsonProperty("key", default)
         assertEquals("""{}""", store.toJson())
         assertEquals("string 2", value!!.string)
         assertEquals(null, value!!.nullString)
@@ -109,7 +112,7 @@ class NullStorePropertyTest {
         assertNotSame(default, value)
 
         store.reload(store.toJson())
-        val value2: TestStringData? by store.nullJsonProperty("key")
+        val value2: SimpleJsonObjectStore? by store.nullJsonProperty("key")
         assertNull(value2)
     }
 }

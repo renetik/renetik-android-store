@@ -1,4 +1,4 @@
-package renetik.android.store
+package renetik.android.store.property
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -6,13 +6,15 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import renetik.android.json.toJson
+import renetik.android.store.CSStore
+import renetik.android.store.TestIdItem
 import renetik.android.store.TestIdItem.*
 import renetik.android.store.TestIdItem.Companion.TestIdItems
+import renetik.android.store.SimpleJsonObjectStore
 import renetik.android.store.extensions.property
 import renetik.android.store.extensions.reload
-import renetik.android.store.property.save
 import renetik.android.store.type.CSJsonObjectStore
-import renetik.android.test.assertThrows
+import renetik.android.testing.assertThrows
 
 @Suppress("UNUSED_VALUE", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
 @RunWith(RobolectricTestRunner::class)
@@ -118,7 +120,7 @@ class ValueStorePropertyTest {
 
     @Test
     fun testJsonValueProperty() {
-        val value: TestStringData by store.property("key")
+        val value: SimpleJsonObjectStore by store.property("key")
         assertEquals("""{}""", store.toJson())
         assertEquals("string", value.string)
         assertNull(value.nullString)
@@ -131,7 +133,7 @@ class ValueStorePropertyTest {
         value.lateString = newString
 
         store.reload(store.toJson())
-        val value2: TestStringData by store.property("key")
+        val value2: SimpleJsonObjectStore by store.property("key")
         assertEquals(newString, value2.string)
         assertEquals(newString, value2.nullString)
         assertEquals(newString, value2.lateString)
@@ -139,8 +141,8 @@ class ValueStorePropertyTest {
 
     @Test
     fun testJsonValuePropertyDefault() {
-        val value: TestStringData by store.property("key",
-            TestStringData(string = "string 2"))
+        val value: SimpleJsonObjectStore by store.property("key",
+            SimpleJsonObjectStore(string = "string 2"))
         assertEquals("""{}""", store.toJson())
         assertEquals("string 2", value.string)
         assertEquals(null, value.nullString)
@@ -153,7 +155,7 @@ class ValueStorePropertyTest {
         value.lateString = newString
 
         store.reload(store.toJson())
-        val value2: TestStringData by store.property("key")
+        val value2: SimpleJsonObjectStore by store.property("key")
         assertEquals(newString, value2.string)
         assertEquals(newString, value2.nullString)
         assertEquals(newString, value2.lateString)
@@ -161,18 +163,18 @@ class ValueStorePropertyTest {
 
     @Test
     fun testJsonListValueProperty() {
-        val property = store.property<TestStringData>("key", mutableListOf())
+        val property = store.property<SimpleJsonObjectStore>("key", mutableListOf())
         assertEquals("""{}""", store.toJson())
-        property.value.add(TestStringData())
-        property.value.add(TestStringData())
-        property.value.add(TestStringData(lateString = "string"))
+        property.value.add(SimpleJsonObjectStore())
+        property.value.add(SimpleJsonObjectStore())
+        property.value.add(SimpleJsonObjectStore(lateString = "string"))
         property.save()
         assertEquals("""{"key":[{},{},{"lateStringId":"string"}]}""", store.toJson())
         property.value.last().lateString = "new string"
         property.save()
 
         store.reload(store.toJson())
-        val value: List<TestStringData> by store.property("key", listOf())
+        val value: List<SimpleJsonObjectStore> by store.property("key", listOf())
         assertEquals("new string", value.last().lateString)
     }
 }

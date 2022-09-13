@@ -15,7 +15,7 @@ import renetik.android.store.extensions.CSStore.property
 import renetik.android.store.extensions.reload
 
 @RunWith(RobolectricTestRunner::class)
-class DefaultStore {
+class DefaultStoreTest {
 
     @Before
     fun prepare() {
