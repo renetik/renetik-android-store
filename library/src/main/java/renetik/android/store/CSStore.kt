@@ -1,6 +1,7 @@
 package renetik.android.store
 
 import renetik.android.core.lang.CSEnvironment.app
+import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.lazyVar
 import renetik.android.core.logging.CSLog.logWarn
 import renetik.android.core.logging.CSLogMessage.Companion.message
@@ -13,7 +14,7 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
 
     companion object {
         var store: CSStore by lazyVar {
-            CSFileJsonStore(app, "store", isJsonPretty = true)
+            CSFileJsonStore(app, "store", isJsonPretty = isDebug)
         }
     }
 
