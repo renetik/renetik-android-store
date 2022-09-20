@@ -40,7 +40,7 @@ abstract class CSValueStoreProperty<T>(
         if (loadedValue != newValue) saveValue(newValue, fire)
     }
 
-    fun saveValue(newValue: T, fire: Boolean) {
+    private fun saveValue(newValue: T, fire: Boolean) {
         loadedValue = newValue
         set(store, newValue)
         onValueChanged(newValue, fire)
