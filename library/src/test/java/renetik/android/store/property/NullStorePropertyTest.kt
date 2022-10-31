@@ -14,6 +14,7 @@ import renetik.android.store.TestIdItem.Second
 import renetik.android.store.SimpleJsonObjectStore
 import renetik.android.store.extensions.*
 import renetik.android.store.type.CSJsonObjectStore
+import renetik.android.store.type.CSStringJsonStore
 import renetik.android.testing.assertThrows
 
 @RunWith(RobolectricTestRunner::class)
@@ -114,6 +115,13 @@ class NullStorePropertyTest {
         store.reload(store.toJson())
         val value2: SimpleJsonObjectStore? by store.nullJsonProperty("key")
         assertNull(value2)
+    }
+
+    @Test
+    fun testJsonProperty2() {
+        val store = CSStringJsonStore("""{"key":{"stringId":"string 3"}}""")
+        val value by store.nullJsonProperty<CSJsonObjectStore>("key")
+        assertEquals("""{"stringId":"string 3"}""", value?.toJson())
     }
 }
 

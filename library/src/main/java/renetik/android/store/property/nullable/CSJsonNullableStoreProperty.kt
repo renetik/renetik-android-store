@@ -1,6 +1,5 @@
 package renetik.android.store.property.nullable
 
-import renetik.android.core.kotlin.kClass
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.cancel
@@ -10,14 +9,16 @@ import renetik.android.store.CSStore
 import renetik.android.store.property.save
 import renetik.android.store.property.value.CSValueStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
+import kotlin.reflect.KClass
 
 class CSJsonNullableStoreProperty<T : CSJsonObjectStore>(
-    store: CSStore, key: String,
+    store: CSStore, key: String, val type: KClass<T>,
     override val default: T? = null,
     onChange: ArgFunc<T?>? = null
 ) : CSValueStoreProperty<T?>(store, key, onChange) {
 
-    override fun get(store: CSStore) = default?.let { store.getJsonObject(key, it.kClass) }
+    override fun get(store: CSStore) = store.getJsonObject(key, type)
+
     override fun set(store: CSStore, value: T?) =
         value?.let { store.set(key, it) } ?: store.clear(key)
 

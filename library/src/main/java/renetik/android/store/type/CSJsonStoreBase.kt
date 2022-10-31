@@ -4,10 +4,9 @@ import renetik.android.core.kotlin.runIf
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.json.parseJsonMap
 import renetik.android.json.toJson
-import java.io.Closeable
 
 abstract class CSJsonStoreBase(
-    private val isPretty: Boolean = isDebug) : CSJsonObjectStore(), Closeable {
+    private val isPretty: Boolean = isDebug) : CSJsonObjectStore() {
 
     override val data: MutableMap<String, Any?> by lazy { load() }
     abstract fun loadJsonString(): String?
