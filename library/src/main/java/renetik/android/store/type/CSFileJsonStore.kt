@@ -4,6 +4,7 @@ import android.content.Context
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
 import renetik.android.core.lang.CSBackground.background
+import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
 import java.io.File
 
@@ -18,6 +19,9 @@ class CSFileJsonStore(
     constructor(context: Context, id: String, directory: String = "",
                 isJsonPretty: Boolean = false)
             : this(context.filesDir, id, directory, isJsonPretty)
+
+    constructor(path: String, isJsonPretty: Boolean = false)
+            : this(File(app.filesDir, path), isJsonPretty)
 
     override fun loadJsonString() = file.readString()
     override fun saveJsonString(json: String) {
