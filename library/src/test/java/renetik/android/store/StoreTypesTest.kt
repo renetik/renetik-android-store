@@ -1,20 +1,20 @@
 package renetik.android.store
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import renetik.android.core.extensions.content.getString
 import renetik.android.core.java.io.readString
 import renetik.android.core.lang.CSBackground.executor
+import renetik.android.core.lang.CSTimeConstants.Second
 import renetik.android.json.toJson
 import renetik.android.store.extensions.load
 import renetik.android.store.extensions.property
 import renetik.android.store.type.*
 import renetik.android.testing.context
+import java.lang.Thread.sleep
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeUnit.SECONDS
 
 
@@ -101,7 +101,8 @@ class StoreTypesTest {
         property.string = "new value"
         property.int = 123
         property.jsonObject.lateString = "new value"
-        executor.shutdown(awaitSeconds = 2)
+
+        assertTrue(executor.shutdown(awaitSeconds = 2))
         val expected =
             """{"property":{"key1":"new value","key2":123,"key3":{"lateStringId":"new value"}}}"""
         assertEquals(expected, store.file.readString())
@@ -114,7 +115,9 @@ class StoreTypesTest {
     }
 }
 
-fun ExecutorService.shutdown(awaitSeconds: Long) {
+fun ExecutorService.shutdown(awaitSeconds: Long): Boolean {
     shutdown()
-    awaitTermination(awaitSeconds, TimeUnit.SECONDS)
+    val result = awaitTermination(awaitSeconds, SECONDS)
+    sleep(1 * Second.toLong())
+    return result
 }
