@@ -13,6 +13,7 @@ import java.io.Closeable
 interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
 
     companion object {
+        //TODO: Remove completely and make it just local to app
         var store: CSStore by lazyVar {
             CSFileJsonStore(app, "store", isJsonPretty = isDebug)
         }
