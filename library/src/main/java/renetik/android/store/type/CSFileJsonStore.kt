@@ -6,6 +6,7 @@ import renetik.android.core.java.io.write
 import renetik.android.core.lang.CSBackground.background
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
+import renetik.android.json.CSJson
 import java.io.File
 
 class CSFileJsonStore(
@@ -17,7 +18,7 @@ class CSFileJsonStore(
             : this(File(File(parent, directory), "$id.json"), isJsonPretty)
 
     constructor(context: Context, id: String, directory: String = "",
-                isJsonPretty: Boolean = false)
+                isJsonPretty: Boolean = CSJson.isJsonPretty)
             : this(context.filesDir, id, directory, isJsonPretty)
 
     constructor(path: String, isJsonPretty: Boolean = false)
