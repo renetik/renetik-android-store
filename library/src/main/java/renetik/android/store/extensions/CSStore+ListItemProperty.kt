@@ -18,24 +18,29 @@ fun <T> CSStore.property(
     CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange).parent(parent)
 
 fun <T> CSStore.property(
+    parent: CSHasDestruct, key: String, getValues: () -> List<T>,
+    default: T, onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    property(parent, key, getValues, getDefault = { default }, onChange)
+
+fun <T> CSStore.property(
     key: String, values: List<T>, getDefault: () -> T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(key, { values }, getDefault, onChange)
+    property(key, getValues = { values }, getDefault, onChange)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, values: List<T>, getDefault: () -> T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(parent, key, { values }, getDefault, onChange)
+    property(parent, key, getValues = { values }, getDefault, onChange)
 
 fun <T> CSStore.property(
-    key: String, list: List<T>, default: T,
+    key: String, values: List<T>, default: T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(key, { list }, { default }, onChange)
+    property(key, getValues = { values }, getDefault = { default }, onChange)
 
 fun <T> CSStore.property(
-    parent: CSHasDestruct, key: String, list: List<T>, default: T,
+    parent: CSHasDestruct, key: String, values: List<T>, default: T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(parent, key, { list }, { default }, onChange)
+    property(parent, key, getValues = { values }, getDefault = { default }, onChange)
 
 fun <T> CSStore.property(
     key: String, list: List<T>, defaultIndex: Int,
@@ -48,31 +53,31 @@ fun <T> CSStore.property(
     property(parent, key, list, list[defaultIndex], onChange)
 
 fun <T> CSStore.property(
-    key: String, array: Array<T>, default: T,
+    key: String, values: Array<T>, default: T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(key, array.asList(), default, onChange)
+    property(key, values.asList(), default, onChange)
 
 fun <T> CSStore.property(
-    parent: CSHasDestruct, key: String, array: Array<T>, default: T,
+    parent: CSHasDestruct, key: String, values: Array<T>, default: T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(parent, key, array.asList(), default, onChange)
+    property(parent, key, values.asList(), default, onChange)
 
 fun <T> CSStore.property(
-    key: String, array: Array<T>, defaultIndex: Int,
+    key: String, values: Array<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(key, array.asList(), array[defaultIndex], onChange)
+    property(key, values.asList(), values[defaultIndex], onChange)
 
 fun <T> CSStore.property(
-    parent: CSHasDestruct, key: String, array: Array<T>, defaultIndex: Int,
+    parent: CSHasDestruct, key: String, values: Array<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(parent, key, array.asList(), array[defaultIndex], onChange)
+    property(parent, key, values.asList(), values[defaultIndex], onChange)
 
 fun <T> CSStore.property(
-    key: String, getList: () -> List<T>, defaultIndex: Int,
+    key: String, getValues: () -> List<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(key, getList, { getList()[defaultIndex] }, onChange)
+    property(key, getValues, { getValues()[defaultIndex] }, onChange)
 
 fun <T> CSStore.property(
-    parent: CSHasDestruct, key: String, getList: () -> List<T>, defaultIndex: Int,
+    parent: CSHasDestruct, key: String, getValues: () -> List<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    property(parent, key, getList, { getList()[defaultIndex] }, onChange)
+    property(parent, key, getValues, getDefault = { getValues()[defaultIndex] }, onChange)
