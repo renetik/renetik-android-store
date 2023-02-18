@@ -12,6 +12,6 @@ class CSJsonListValueStoreProperty<T : CSJsonObjectStore>(
     onApply: ((value: List<T>) -> Unit)? = null
 ) : CSValueStoreProperty<List<T>>(store, key, onApply) {
     override fun get(store: CSStore) = store.getJsonObjectList(key, type) ?: this.default
-    override fun set(store: CSStore, value: List<T>) = store.set(key, value)
+    override fun set(store: CSStore, value: List<T>) = store.setJsonObjectList(key, value)
 }
 
