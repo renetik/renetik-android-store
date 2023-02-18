@@ -66,7 +66,7 @@ class CSPreferencesStore(val context: Context, id: String = "default") : CSStore
     override fun <T : CSJsonObject> getJsonObject(key: String, type: KClass<T>) =
         get(key)?.parseJsonMap()?.let(type::createJsonObject)
 
-    override fun <T : CSJsonObject> set(key: String, value: T?) =
+    override fun <T : CSJsonObject> setJsonObject(key: String, value: T?) =
         set(key, value?.toJson(formatted = isJsonPretty))
 
     override fun load(data: Map<String, Any?>) = with(preferences.edit()) { load(data) }

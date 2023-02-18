@@ -15,7 +15,7 @@ class CSJsonValueStoreProperty<T : CSJsonObjectStore>(
 ) : CSValueStoreProperty<T>(store, key, onChange) {
 
     override fun get(store: CSStore) = store.getJsonObject(key, default.kClass)
-    override fun set(store: CSStore, value: T) = store.set(key, value)
+    override fun set(store: CSStore, value: T) = store.setJsonObject(key, value)
     private var onJsonObjectChanged: CSRegistration? = registerJsonObjectChanged(value)
 
     override fun onValueChanged(newValue: T, fire: Boolean) {

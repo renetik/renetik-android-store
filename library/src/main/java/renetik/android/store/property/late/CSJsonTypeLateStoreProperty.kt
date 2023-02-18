@@ -9,5 +9,5 @@ class CSJsonTypeLateStoreProperty<T : CSJsonObjectStore>(
     onChange: ((value: T) -> Unit)? = null)
     : CSLateStorePropertyBase<T>(store, key, onChange) {
     override fun get(): T? = store.getJsonObject(key, type)
-    override fun set(store: CSStore, value: T) = store.set(key, value)
+    override fun set(store: CSStore, value: T) = store.setJsonObject(key, value)
 }

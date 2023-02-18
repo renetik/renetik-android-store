@@ -20,7 +20,7 @@ class CSJsonNullableStoreProperty<T : CSJsonObjectStore>(
     override fun get(store: CSStore) = store.getJsonObject(key, type)
 
     override fun set(store: CSStore, value: T?) =
-        value?.let { store.set(key, it) } ?: store.clear(key)
+        value?.let { store.setJsonObject(key, it) } ?: store.clear(key)
 
     private var onJsonObjectChanged: CSRegistration? = registerJsonObjectChanged(value)
 
