@@ -1,6 +1,6 @@
 package renetik.android.store.type
 
-import renetik.android.core.kotlin.runIf
+import renetik.android.core.kotlin.changeIf
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.json.parseJsonMap
 import renetik.android.json.toJson
@@ -21,7 +21,7 @@ abstract class CSJsonStoreBase(
     fun save() {
         if (isBulkSave) return
         val json = data
-            .runIf(isPretty) { it.toSortedMap() }
+            .changeIf(isPretty) { it.toSortedMap() }
             .toJson(formatted = isPretty)
         saveJsonString(json)
     }
