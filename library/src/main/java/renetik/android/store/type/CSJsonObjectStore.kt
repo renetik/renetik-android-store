@@ -5,7 +5,7 @@ import renetik.android.json.obj.CSJsonObject
 import renetik.android.store.CSStore
 import java.io.Closeable
 
-open class CSJsonObjectStore : CSJsonObject(), CSStore, Closeable {
+open class CSJsonObjectStore : CSJsonObject(), CSStore {
     override val eventLoaded = event<CSStore>()
     override val eventChanged = event<CSStore>()
     override fun onLoaded() = eventLoaded.fire(this)
@@ -18,14 +18,12 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore, Closeable {
     protected var isBulkSave = false
     private var isBulkSaveDirty = false
 
-    override fun bulkSave() = apply {
+    override fun bulkSave(): Closeable {
         isBulkSave = true
-        return this
-    }
-
-    override fun close() {
-        if (isBulkSaveDirty) onChanged()
-        isBulkSaveDirty = false
-        isBulkSave = false
+        return Closeable {
+            isBulkSave = false
+            if (isBulkSaveDirty) onChanged()
+            isBulkSaveDirty = false
+        }
     }
 }
