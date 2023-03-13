@@ -95,6 +95,9 @@ class LateStorePropertyTest {
         assertEquals("""{"key":{}}""", store.toJson())
         assertEquals(newValue, value)
 
+        value.string = "string 2"
+        assertEquals("""{"key":{"stringId":"string 2"}}""", store.toJson())
+
         store.reload("""{"key":{"stringId":"string 1"}}""")
         assertEquals(newValue, SimpleJsonObjectStore().apply { string = "string 1" })
     }
