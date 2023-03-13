@@ -2,7 +2,6 @@ package renetik.android.store.property.nullable
 
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.registration.CSRegistration
-import renetik.android.event.registration.cancel
 import renetik.android.event.registration.register
 import renetik.android.json.obj.clone
 import renetik.android.store.CSStore
@@ -22,21 +21,6 @@ class CSJsonNullableStoreProperty<T : CSJsonObjectStore>(
     override fun set(store: CSStore, value: T?) =
         value?.let { store.setJsonObject(key, it) } ?: store.clear(key)
 
-    private var onJsonObjectChanged: CSRegistration? = registerJsonObjectChanged(value)
-
-    override fun onValueChanged(newValue: T?, fire: Boolean) {
-        super.onValueChanged(newValue, fire)
-        onJsonObjectChanged = registerJsonObjectChanged(newValue)
-    }
-
-    private fun registerJsonObjectChanged(value: T?): CSRegistration? {
-        cancel(onJsonObjectChanged)
-        return register(value?.eventChanged?.listen {
-            loadedValue = value
-            save()
-        })
-    }
-
     override var value: T?
         get() {
             if (loadedValue == null)
@@ -44,4 +28,15 @@ class CSJsonNullableStoreProperty<T : CSJsonObjectStore>(
             return loadedValue
         }
         set(value) = value(value)
+
+    private var onJsonObjectChanged: CSRegistration? = registerJsonObjectChanged(value)
+
+    override fun onValueChanged(newValue: T?, fire: Boolean) {
+        super.onValueChanged(newValue, fire)
+        onJsonObjectChanged = registerJsonObjectChanged(newValue)
+    }
+
+    private fun registerJsonObjectChanged(value: T?) = register(
+        onJsonObjectChanged, value?.eventChanged?.listen { save() }
+    )
 }

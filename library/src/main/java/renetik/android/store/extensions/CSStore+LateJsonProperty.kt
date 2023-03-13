@@ -5,14 +5,14 @@ import renetik.android.store.CSStore
 import renetik.android.store.property.CSLateStoreProperty
 import renetik.android.store.property.late.CSJsonListLateStoreProperty
 import renetik.android.store.property.late.CSJsonListListLateStoreProperty
-import renetik.android.store.property.late.CSJsonTypeLateStoreProperty
+import renetik.android.store.property.late.CSJsonLateStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
 import kotlin.reflect.KClass
 
 fun <T : CSJsonObjectStore> CSStore.lateJsonProperty(
     key: String, listType: KClass<T>,
     onChange: ArgFunc<T>? = null): CSLateStoreProperty<T> =
-    CSJsonTypeLateStoreProperty(this, key, listType, onChange)
+    CSJsonLateStoreProperty(this, key, listType, onChange)
 
 inline fun <reified T : CSJsonObjectStore> CSStore.lateJsonProperty(
     key: String, noinline onChange: ArgFunc<T>? = null): CSLateStoreProperty<T> =

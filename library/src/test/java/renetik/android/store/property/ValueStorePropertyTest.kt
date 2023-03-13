@@ -176,6 +176,10 @@ class ValueStorePropertyTest {
         store.reload(store.toJson())
         val value: List<SimpleJsonObjectStore> by store.property("key", listOf())
         assertEquals("new string", value.last().lateString)
+
+        property.value.last().lateString = "new string 2"
+        property.save()
+        assertEquals("""{"key":[{},{},{"lateStringId":"new string 2"}]}""", store.toJson())
     }
 }
 

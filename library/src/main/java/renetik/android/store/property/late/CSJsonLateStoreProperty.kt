@@ -1,23 +1,20 @@
-package renetik.android.store.property.value
+package renetik.android.store.property.late
 
-import renetik.android.core.kotlin.kClass
-import renetik.android.core.lang.ArgFunc
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.register
 import renetik.android.store.CSStore
 import renetik.android.store.property.save
 import renetik.android.store.type.CSJsonObjectStore
+import kotlin.reflect.KClass
 
-class CSJsonValueStoreProperty<T : CSJsonObjectStore>(
-    store: CSStore, key: String,
-    override val default: T,
-    onChange: ArgFunc<T>? = null
-) : CSValueStoreProperty<T>(store, key, onChange) {
-
-    override fun get(store: CSStore) = store.getJsonObject(key, default.kClass)
+class CSJsonLateStoreProperty<T : CSJsonObjectStore>(
+    store: CSStore, override val key: String, val type: KClass<T>,
+    onChange: ((value: T) -> Unit)? = null
+) : CSLateStorePropertyBase<T>(store, key, onChange) {
+    override fun get(): T? = store.getJsonObject(key, type)
     override fun set(store: CSStore, value: T) = store.setJsonObject(key, value)
 
-    private var onJsonObjectChanged: CSRegistration? = registerJsonObjectChanged(value)
+    private var onJsonObjectChanged: CSRegistration? = null
 
     override fun onValueChanged(newValue: T, fire: Boolean) {
         super.onValueChanged(newValue, fire)

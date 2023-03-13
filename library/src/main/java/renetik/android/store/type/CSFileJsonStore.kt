@@ -10,23 +10,27 @@ import renetik.android.json.CSJson
 import java.io.File
 
 class CSFileJsonStore(
-    val file: File, isJsonPretty: Boolean = isDebug)
-    : CSJsonStoreBase(isJsonPretty) {
+    val file: File, isJsonPretty: Boolean = isDebug
+) : CSJsonStoreBase(isJsonPretty) {
+    var writeImmediately = false
 
-    constructor(parent: File, id: String, directory: String = "",
-                isJsonPretty: Boolean = isDebug)
-            : this(File(File(parent, directory), "$id.json"), isJsonPretty)
+    constructor(
+        parent: File, id: String, directory: String = "",
+        isJsonPretty: Boolean = isDebug
+    ) : this(File(File(parent, directory), "$id.json"), isJsonPretty)
 
-    constructor(context: Context, id: String, directory: String = "",
-                isJsonPretty: Boolean = CSJson.isJsonPretty)
-            : this(context.filesDir, id, directory, isJsonPretty)
+    constructor(
+        context: Context, id: String, directory: String = "",
+        isJsonPretty: Boolean = CSJson.isJsonPretty
+    ) : this(context.filesDir, id, directory, isJsonPretty)
 
     constructor(path: String, isJsonPretty: Boolean = false)
-            : this(File(app.filesDir, path), isJsonPretty)
+        : this(File(app.filesDir, path), isJsonPretty)
 
     override fun loadJsonString() = file.readString()
     override fun saveJsonString(json: String) {
-        background { file.write(json) }
+        if (writeImmediately) file.write(json)
+        else background { file.write(json) }
     }
 }
 
