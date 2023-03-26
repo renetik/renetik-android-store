@@ -1,7 +1,7 @@
 package renetik.android.store
 
 import renetik.android.core.lang.CSEnvironment.app
-import renetik.android.core.lang.lazyVar
+import renetik.android.core.lang.nullableLazyVar
 import renetik.android.core.logging.CSLog.logWarn
 import renetik.android.core.logging.CSLogMessage.Companion.message
 import renetik.android.event.CSEvent
@@ -13,7 +13,7 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
 
     companion object {
         //TODO: Remove completely and make it just local to app
-        var store: CSStore by lazyVar { CSFileJsonStore(app, "store") }
+        var store: CSStore by nullableLazyVar { CSFileJsonStore(app, "store") }
     }
 
     val eventLoaded: CSEvent<CSStore>

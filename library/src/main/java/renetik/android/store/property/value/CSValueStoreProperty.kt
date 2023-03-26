@@ -1,6 +1,6 @@
 package renetik.android.store.property.value
 
-import renetik.android.core.lang.lazyVar
+import renetik.android.core.lang.nullableLazyVar
 import renetik.android.event.property.CSPropertyBase
 import renetik.android.event.registration.register
 import renetik.android.store.CSStore
@@ -14,7 +14,7 @@ abstract class CSValueStoreProperty<T>(
 
     abstract val default: T
     abstract fun get(store: CSStore): T?
-    protected var loadedValue: T? by lazyVar { get(store) }
+    protected var loadedValue: T? by nullableLazyVar { get(store) }
 
     init {
         register(store.eventLoaded.listen {
