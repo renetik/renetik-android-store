@@ -10,7 +10,7 @@ import renetik.android.store.property.late.CSStringLateStoreProperty
 
 fun CSStore.lateStringProperty(
     key: String,
-    onChange: ArgFunc<String>? = null): CSLateStoreProperty<String> =
+    onChange: ArgFunc<String>? = null) =
     CSStringLateStoreProperty(this, key, onChange)
 
 fun CSStore.lateIntProperty(

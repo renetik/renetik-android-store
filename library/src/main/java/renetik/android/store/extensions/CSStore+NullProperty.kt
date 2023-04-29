@@ -10,7 +10,7 @@ import renetik.android.store.property.nullable.CSStringNullableStoreProperty
 
 fun CSStore.nullStringProperty(
     key: String, default: String? = null,
-    onChange: ArgFunc<String?>? = null): CSStoreProperty<String?> =
+    onChange: ArgFunc<String?>? = null) =
     CSStringNullableStoreProperty(this, key, default, onChange)
 
 fun CSStore.nullBoolProperty(
