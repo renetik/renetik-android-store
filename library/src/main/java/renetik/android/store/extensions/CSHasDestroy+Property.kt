@@ -3,8 +3,8 @@ package renetik.android.store.extensions
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.property.CSProperty
-import renetik.android.event.property.CSSynchronizedProperty
-import renetik.android.event.property.CSSynchronizedPropertyImpl
+import renetik.android.event.property.CSSyncProperty
+import renetik.android.event.property.CSSyncPropertyImpl
 import renetik.android.event.property.connect
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
@@ -55,10 +55,10 @@ fun <T> CSHasDestruct.property(
     CSStore.store.property(this, key, values, defaultIndex, onChange)
 
 fun <T> CSHasDestruct.syncProperty(
-    value: T, onChange: ((value: T) -> Unit)? = null): CSSynchronizedProperty<T> =
-    CSSynchronizedPropertyImpl(this, value, onChange)
+    value: T, onChange: ((value: T) -> Unit)? = null): CSSyncProperty<T> =
+    CSSyncPropertyImpl(this, value, onChange)
 
 fun <T> CSHasDestruct.syncProperty(
     property: CSProperty<T>,
-    onChange: ((value: T) -> Unit)? = null): CSSynchronizedProperty<T> =
-    CSSynchronizedPropertyImpl(this, property.value, onChange).apply { connect(property) }
+    onChange: ((value: T) -> Unit)? = null): CSSyncProperty<T> =
+    CSSyncPropertyImpl(this, property.value, onChange).apply { connect(property) }
