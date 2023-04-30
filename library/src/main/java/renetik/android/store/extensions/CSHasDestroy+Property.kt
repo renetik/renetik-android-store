@@ -54,11 +54,11 @@ fun <T> CSHasDestruct.property(
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     CSStore.store.property(this, key, values, defaultIndex, onChange)
 
-fun <T> CSHasDestruct.synchronized(
+fun <T> CSHasDestruct.syncProperty(
     value: T, onChange: ((value: T) -> Unit)? = null): CSSynchronizedProperty<T> =
     CSSynchronizedPropertyImpl(this, value, onChange)
 
-fun <T> CSHasDestruct.synchronized(
+fun <T> CSHasDestruct.syncProperty(
     property: CSProperty<T>,
     onChange: ((value: T) -> Unit)? = null): CSSynchronizedProperty<T> =
     CSSynchronizedPropertyImpl(this, property.value, onChange).apply { connect(property) }
