@@ -36,7 +36,7 @@ class CSFileJsonStore(
         if (writeImmediately) file.write(json)
         else {
             saveRegistration?.cancel()
-            saveRegistration = background(3 * Second) { file.write(json) }
+            saveRegistration = background(1 * Second) { file.write(json) }
         }
     }
 }
