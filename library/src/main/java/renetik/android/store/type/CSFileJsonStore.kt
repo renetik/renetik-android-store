@@ -8,6 +8,7 @@ import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.CSTimeConstants.Second
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.task.CSBackground.background
+import renetik.android.event.registration.task.CSBackground.executor
 import renetik.android.json.CSJson
 import java.io.File
 
