@@ -33,7 +33,7 @@ class CSFileJsonStore(
 
     var saveRegistration: CSRegistration? = null
     override fun saveJsonString(json: String) {
-        if (writeImmediately) file.write(json)
+        if (writeImmediately || executor.isShutdown) file.write(json)
         else {
             saveRegistration?.cancel()
             saveRegistration = background(1 * Second) { file.write(json) }
