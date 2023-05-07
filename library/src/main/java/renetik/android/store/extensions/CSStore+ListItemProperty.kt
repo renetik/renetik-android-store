@@ -7,6 +7,7 @@ import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.value.CSListItemValueStoreProperty
 
+@Deprecated("...")
 fun <T> CSStore.property(
     key: String, getValues: () -> List<T>, getDefault: () -> T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
@@ -22,6 +23,7 @@ fun <T> CSStore.property(
     default: T, onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     property(parent, key, getValues, getDefault = { default }, onChange)
 
+@Deprecated("...")
 fun <T> CSStore.property(
     key: String, values: List<T>, getDefault: () -> T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
@@ -32,6 +34,7 @@ fun <T> CSStore.property(
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     property(parent, key, getValues = { values }, getDefault, onChange)
 
+@Deprecated("...")
 fun <T> CSStore.property(
     key: String, values: List<T>, default: T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
@@ -42,6 +45,7 @@ fun <T> CSStore.property(
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     property(parent, key, getValues = { values }, getDefault = { default }, onChange)
 
+@Deprecated("...")
 fun <T> CSStore.property(
     key: String, list: List<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
@@ -52,6 +56,7 @@ fun <T> CSStore.property(
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     property(parent, key, list, list[defaultIndex], onChange)
 
+@Deprecated("...")
 fun <T> CSStore.property(
     key: String, values: Array<T>, default: T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
@@ -62,6 +67,7 @@ fun <T> CSStore.property(
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     property(parent, key, values.asList(), default, onChange)
 
+@Deprecated("...")
 fun <T> CSStore.property(
     key: String, values: Array<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
@@ -72,6 +78,7 @@ fun <T> CSStore.property(
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
     property(parent, key, values.asList(), values[defaultIndex], onChange)
 
+@Deprecated("...")
 fun <T> CSStore.property(
     key: String, getValues: () -> List<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
