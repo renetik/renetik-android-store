@@ -7,84 +7,92 @@ import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.value.CSListItemValueStoreProperty
 
-@Deprecated("...")
 fun <T> CSStore.property(
     key: String, getValues: () -> List<T>, getDefault: () -> T,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, getValues: () -> List<T>, getDefault: () -> T,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange).parent(parent)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, getValues: () -> List<T>,
-    default: T, onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    default: T, onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(parent, key, getValues, getDefault = { default }, onChange)
 
-@Deprecated("...")
 fun <T> CSStore.property(
     key: String, values: List<T>, getDefault: () -> T,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(key, getValues = { values }, getDefault, onChange)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, values: List<T>, getDefault: () -> T,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(parent, key, getValues = { values }, getDefault, onChange)
 
-@Deprecated("...")
 fun <T> CSStore.property(
     key: String, values: List<T>, default: T,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(key, getValues = { values }, getDefault = { default }, onChange)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, values: List<T>, default: T,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(parent, key, getValues = { values }, getDefault = { default }, onChange)
 
-@Deprecated("...")
 fun <T> CSStore.property(
     key: String, list: List<T>, defaultIndex: Int,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(key, list, list[defaultIndex], onChange)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, list: List<T>, defaultIndex: Int,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(parent, key, list, list[defaultIndex], onChange)
 
-@Deprecated("...")
 fun <T> CSStore.property(
     key: String, values: Array<T>, default: T,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(key, values.asList(), default, onChange)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, values: Array<T>, default: T,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(parent, key, values.asList(), default, onChange)
 
-@Deprecated("...")
 fun <T> CSStore.property(
     key: String, values: Array<T>, defaultIndex: Int,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(key, values.asList(), values[defaultIndex], onChange)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, values: Array<T>, defaultIndex: Int,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(parent, key, values.asList(), values[defaultIndex], onChange)
 
-@Deprecated("...")
 fun <T> CSStore.property(
     key: String, getValues: () -> List<T>, defaultIndex: Int,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(key, getValues, { getValues()[defaultIndex] }, onChange)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, getValues: () -> List<T>, defaultIndex: Int,
-    onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
     property(parent, key, getValues, getDefault = { getValues()[defaultIndex] }, onChange)
