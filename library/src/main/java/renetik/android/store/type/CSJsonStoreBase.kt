@@ -3,11 +3,13 @@ package renetik.android.store.type
 import renetik.android.core.kotlin.changeIf
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.logging.CSLog.logInfo
+import renetik.android.json.CSJson
+import renetik.android.json.CSJson.isJsonPretty
 import renetik.android.json.parseJsonMap
 import renetik.android.json.toJson
 
 abstract class CSJsonStoreBase(
-    private val isPretty: Boolean = isDebug
+    private val isPretty: Boolean = isJsonPretty
 ) : CSJsonObjectStore() {
 
     override val data: MutableMap<String, Any?> by lazy { load() }

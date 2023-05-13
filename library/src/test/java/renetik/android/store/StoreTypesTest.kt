@@ -1,20 +1,27 @@
 package renetik.android.store
 
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import renetik.android.core.extensions.content.getString
 import renetik.android.core.java.io.readString
+import renetik.android.json.CSJson
 import renetik.android.json.toJson
 import renetik.android.store.extensions.load
 import renetik.android.store.extensions.property
 import renetik.android.store.type.*
 import renetik.android.testing.context
 
-
 @RunWith(RobolectricTestRunner::class)
 class StoreTypesTest {
+
+    @Before
+    fun prepare() {
+        CSJson.isJsonPretty = false
+    }
+
     @Test
     fun testJsonObjectStore() {
         val store = CSJsonObjectStore()
