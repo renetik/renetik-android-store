@@ -8,14 +8,14 @@ import org.robolectric.RobolectricTestRunner
 import renetik.android.json.CSJson.forceString
 import renetik.android.json.toJson
 import renetik.android.store.CSStore
+import renetik.android.store.SimpleJsonObjectStore
 import renetik.android.store.TestIdItem
 import renetik.android.store.TestIdItem.Companion.TestIdItems
 import renetik.android.store.TestIdItem.Fourth
 import renetik.android.store.TestIdItem.Second
-import renetik.android.store.SimpleJsonObjectStore
 import renetik.android.store.extensions.*
 import renetik.android.store.type.CSJsonObjectStore
-import renetik.android.testing.assertThrows
+import renetik.android.testing.CSAssert.assertThrows
 
 @RunWith(RobolectricTestRunner::class)
 class LateStorePropertyTest {
@@ -38,7 +38,6 @@ class LateStorePropertyTest {
         assertEquals(newValue, "value 2")
         assertEquals(2, eventCount)
     }
-
 
     @Test
     fun testBooleanProperty() {
@@ -105,15 +104,19 @@ class LateStorePropertyTest {
     @Test
     fun testLateJsonListProperty() {
         var newValue: List<SimpleJsonObjectStore>? = null
-        var value: List<SimpleJsonObjectStore> by store.lateJsonListProperty("key") { newValue = it }
+        var value: List<SimpleJsonObjectStore> by store.lateJsonListProperty("key") {
+            newValue = it
+        }
         value = listOf(SimpleJsonObjectStore(), SimpleJsonObjectStore(lateString = "string 1"))
 
         assertEquals("""{"key":[{},{"lateStringId":"string 1"}]}""", store.toJson())
         assertEquals(newValue, value)
 
         store.reload("""{"key":[{"nullStringId":"string 2"},{}]}""")
-        assertEquals(newValue,
-            listOf(SimpleJsonObjectStore(nullString = "string 2"), SimpleJsonObjectStore()))
+        assertEquals(
+            newValue,
+            listOf(SimpleJsonObjectStore(nullString = "string 2"), SimpleJsonObjectStore())
+        )
     }
 
     @Test
@@ -123,7 +126,8 @@ class LateStorePropertyTest {
             newValue = it
         }
         assertThrows { value.last() }
-        value = listOf(listOf(SimpleJsonObjectStore()), listOf(), listOf(SimpleJsonObjectStore("test")))
+        value =
+            listOf(listOf(SimpleJsonObjectStore()), listOf(), listOf(SimpleJsonObjectStore("test")))
 
         assertEquals("""{"key":[[{}],[],[{"stringId":"test"}]]}""", store.toJson())
         assertEquals(newValue, value)

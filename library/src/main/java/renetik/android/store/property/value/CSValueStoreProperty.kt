@@ -1,6 +1,6 @@
 package renetik.android.store.property.value
 
-import renetik.android.core.lang.nullableLazyVar
+import renetik.android.core.lang.lazy.nullableLazyVar
 import renetik.android.event.property.CSPropertyBase
 import renetik.android.event.registration.register
 import renetik.android.store.CSStore

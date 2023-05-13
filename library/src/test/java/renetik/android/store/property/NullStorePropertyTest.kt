@@ -7,15 +7,15 @@ import org.robolectric.RobolectricTestRunner
 import renetik.android.json.CSJson
 import renetik.android.json.toJson
 import renetik.android.store.CSStore
+import renetik.android.store.SimpleJsonObjectStore
 import renetik.android.store.TestIdItem
 import renetik.android.store.TestIdItem.Companion.TestIdItems
 import renetik.android.store.TestIdItem.First
 import renetik.android.store.TestIdItem.Second
-import renetik.android.store.SimpleJsonObjectStore
 import renetik.android.store.extensions.*
 import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.store.type.CSStringJsonStore
-import renetik.android.testing.assertThrows
+import renetik.android.testing.CSAssert.assertThrows
 
 @RunWith(RobolectricTestRunner::class)
 class NullStorePropertyTest {
@@ -79,8 +79,10 @@ class NullStorePropertyTest {
 
     @Test
     fun testListItemValueProperty() {
-        var value: TestIdItem? by store.nullListItemProperty("key",
-            TestIdItems, defaultIndex = 1)
+        var value: TestIdItem? by store.nullListItemProperty(
+            "key",
+            TestIdItems, defaultIndex = 1
+        )
         value = First
         assertEquals("""{"key":"id1"}""", store.toJson())
         value = null

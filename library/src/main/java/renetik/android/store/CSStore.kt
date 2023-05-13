@@ -1,7 +1,7 @@
 package renetik.android.store
 
 import renetik.android.core.lang.CSEnvironment.app
-import renetik.android.core.lang.nullableLazyVar
+import renetik.android.core.lang.lazy.nullableLazyVar
 import renetik.android.core.logging.CSLog.logWarn
 import renetik.android.event.CSEvent
 import renetik.android.json.obj.CSJsonObjectInterface

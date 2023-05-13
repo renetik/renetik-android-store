@@ -14,7 +14,7 @@ import renetik.android.store.SimpleJsonObjectStore
 import renetik.android.store.extensions.property
 import renetik.android.store.extensions.reload
 import renetik.android.store.type.CSJsonObjectStore
-import renetik.android.testing.assertThrows
+import renetik.android.testing.CSAssert.assertThrows
 
 @Suppress("UNUSED_VALUE", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
 @RunWith(RobolectricTestRunner::class)
