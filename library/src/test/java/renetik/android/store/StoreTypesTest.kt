@@ -101,7 +101,7 @@ class StoreTypesTest {
     @Test
     fun testFileJsonStore() {
         val store = CSFileJsonStore(context, "file")
-        store.writeImmediately = true
+        store.isImmediateWrite = true
         val property: StoreTypesTestData by store.property("property")
         assertEquals(5, property.int)
 

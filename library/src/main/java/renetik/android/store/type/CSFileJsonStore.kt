@@ -8,14 +8,14 @@ import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.CSTimeConstants.Second
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.task.CSBackground.background
-import renetik.android.event.registration.task.CSBackground.executor
+import renetik.android.event.registration.task.CSBackground.isBackgroundOff
 import renetik.android.json.CSJson
 import java.io.File
 
 class CSFileJsonStore(
     val file: File, isJsonPretty: Boolean = isDebug,
 ) : CSJsonStoreBase(isJsonPretty) {
-    var writeImmediately = false
+    var isImmediateWrite = false
 
     constructor(
         parent: File, id: String, directory: String = "",
@@ -32,12 +32,13 @@ class CSFileJsonStore(
 
     override fun loadJsonString() = file.readString()
 
-    var saveRegistration: CSRegistration? = null
+    private var backgroundWriteRegistration: CSRegistration? = null
+
     override fun saveJsonString(json: String) {
-        if (writeImmediately || executor.isShutdown) file.write(json)
+        if (isImmediateWrite || isBackgroundOff) file.write(json)
         else {
-            saveRegistration?.cancel()
-            saveRegistration = background(1 * Second) { file.write(json) }
+            backgroundWriteRegistration?.cancel()
+            backgroundWriteRegistration = background(1 * Second) { file.write(json) }
         }
     }
 }
