@@ -14,21 +14,30 @@ import java.io.File
 
 class CSFileJsonStore(
     val file: File, isJsonPretty: Boolean = isDebug,
+    val isImmediateWrite: Boolean = false
 ) : CSJsonStoreBase(isJsonPretty) {
-    var isImmediateWrite = false
 
     constructor(
         parent: File, id: String, directory: String = "",
-        isJsonPretty: Boolean = isDebug,
-    ) : this(File(File(parent, directory), "$id.json"), isJsonPretty)
+        isJsonPretty: Boolean = isDebug, isImmediateWrite: Boolean = false
+    ) : this(
+        File(File(parent, directory), "$id.json"), isJsonPretty, isImmediateWrite
+    )
 
     constructor(
         context: Context, id: String, directory: String = "",
         isJsonPretty: Boolean = CSJson.isJsonPretty,
-    ) : this(context.filesDir, id, directory, isJsonPretty)
+        isImmediateWrite: Boolean = false
+    ) : this(
+        context.filesDir, id, directory, isJsonPretty, isImmediateWrite
+    )
 
-    constructor(path: String, isJsonPretty: Boolean = false)
-        : this(File(app.filesDir, path), isJsonPretty)
+    constructor(
+        path: String, isJsonPretty: Boolean = false,
+        isImmediateWrite: Boolean = false
+    ) : this(
+        File(app.filesDir, path), isJsonPretty, isImmediateWrite
+    )
 
     override fun loadJsonString() = file.readString()
 
