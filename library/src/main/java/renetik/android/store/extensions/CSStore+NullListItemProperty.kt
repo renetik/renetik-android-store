@@ -16,9 +16,9 @@ fun <T> CSStore.nullListItemProperty(
     nullListItemProperty(key, { values }, getDefault, onChange)
 
 fun <T> CSStore.nullListItemProperty(
-    key: String, list: List<T>, default: T? = null,
+    key: String, values: List<T>, default: T? = null,
     onChange: ArgFunc<T?>? = null): CSStoreProperty<T?> =
-    nullListItemProperty(key, { list }, { default }, onChange)
+    nullListItemProperty(key, { values }, { default }, onChange)
 
 fun <T> CSStore.nullListItemProperty(
     key: String, getList: () -> List<T>, defaultIndex: Int,
