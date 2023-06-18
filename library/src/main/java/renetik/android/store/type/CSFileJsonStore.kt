@@ -18,10 +18,10 @@ class CSFileJsonStore(
 ) : CSJsonStoreBase(isJsonPretty) {
 
     constructor(
-        parent: File, id: String, directory: String = "",
+        parent: File, fileName: String, directory: String = "",
         isJsonPretty: Boolean = isDebug, isImmediateWrite: Boolean = false
     ) : this(
-        File(File(parent, directory), "$id.json"), isJsonPretty, isImmediateWrite
+        File(File(parent, directory), "$fileName.json"), isJsonPretty, isImmediateWrite
     )
 
     constructor(
