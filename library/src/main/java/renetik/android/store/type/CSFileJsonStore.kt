@@ -25,11 +25,11 @@ class CSFileJsonStore(
     )
 
     constructor(
-        context: Context, id: String, directory: String = "",
+        context: Context, fileName: String, directory: String = "",
         isJsonPretty: Boolean = CSJson.isJsonPretty,
         isImmediateWrite: Boolean = false
     ) : this(
-        context.filesDir, id, directory, isJsonPretty, isImmediateWrite
+        context.filesDir, fileName, directory, isJsonPretty, isImmediateWrite
     )
 
     constructor(
