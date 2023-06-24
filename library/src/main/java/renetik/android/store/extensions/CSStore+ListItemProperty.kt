@@ -92,7 +92,7 @@ fun <T> CSStore.property(
     property(key, getValues, { getValues()[defaultIndex] }, onChange)
 
 fun <T> CSStore.property(
-    parent: CSHasDestruct, key: String, getValues: () -> List<T>, defaultIndex: Int,
+    parent: CSHasDestruct, key: String, getValues: () -> List<T>, defaultIndex: Int = 0,
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
     property(parent, key, getValues, getDefault = { getValues()[defaultIndex] }, onChange)
