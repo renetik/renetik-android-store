@@ -1,6 +1,6 @@
 package renetik.android.store.property.value
 
-import renetik.android.core.lang.lazy.nullableLazyVar
+import renetik.android.core.lang.lazy.CSLazyNullableVar.Companion.lazyNullableVar
 import renetik.android.event.property.CSPropertyBase
 import renetik.android.event.registration.register
 import renetik.android.store.CSStore
@@ -9,12 +9,12 @@ import renetik.android.store.property.CSStoreProperty
 abstract class CSValueStoreProperty<T>(
     final override val store: CSStore,
     final override val key: String,
-    onChange: ((value: T) -> Unit)? = null)
-    : CSPropertyBase<T>(onChange), CSStoreProperty<T> {
+    onChange: ((value: T) -> Unit)? = null
+) : CSPropertyBase<T>(onChange), CSStoreProperty<T> {
 
     abstract val default: T
     abstract fun get(store: CSStore): T?
-    protected var loadedValue: T? by nullableLazyVar { get(store) }
+    protected var loadedValue: T? by lazyNullableVar { get(store) }
 
     init {
         register(store.eventLoaded.listen {
