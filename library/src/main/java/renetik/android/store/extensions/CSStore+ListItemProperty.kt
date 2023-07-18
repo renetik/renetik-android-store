@@ -2,7 +2,7 @@ package renetik.android.store.extensions
 
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestruct
-import renetik.android.event.common.parent
+import renetik.android.event.common.registerParent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.value.CSListItemValueStoreProperty
@@ -17,7 +17,7 @@ fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, getValues: () -> List<T>, getDefault: () -> T,
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
-    CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange).parent(parent)
+    CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange).registerParent(parent)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, getValues: () -> List<T>,

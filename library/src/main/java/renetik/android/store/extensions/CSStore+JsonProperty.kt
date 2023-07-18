@@ -3,7 +3,7 @@ package renetik.android.store.extensions
 import renetik.android.core.kotlin.reflect.createInstance
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestruct
-import renetik.android.event.common.parent
+import renetik.android.event.common.registerParent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.value.CSJsonListValueStoreProperty
@@ -23,7 +23,7 @@ inline fun <reified T : CSJsonObjectStore> CSStore.property(
     noinline onChange: ArgFunc<List<T>>? = null)
         : CSStoreProperty<List<T>> =
     CSJsonListValueStoreProperty(this, key, T::class,
-        default, onChange).parent(parent)
+        default, onChange).registerParent(parent)
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.property(
@@ -38,7 +38,7 @@ inline fun <reified T : CSJsonObjectStore> CSStore.property(
     noinline onChange: ArgFunc<MutableList<T>>? = null)
         : CSStoreProperty<MutableList<T>> =
     CSJsonMutableListValueStoreProperty(this, key, T::class,
-        default, onChange).parent(parent)
+        default, onChange).registerParent(parent)
 
 fun <T : CSJsonObjectStore> CSStore.property(
     key: String, default: T,
@@ -48,7 +48,7 @@ fun <T : CSJsonObjectStore> CSStore.property(
 fun <T : CSJsonObjectStore> CSStore.property(
     parent: CSHasDestruct, key: String, default: T,
     onChange: ArgFunc<T>? = null): CSStoreProperty<T> =
-    CSJsonValueStoreProperty(this, key, default, onChange).parent(parent)
+    CSJsonValueStoreProperty(this, key, default, onChange).registerParent(parent)
 
 fun <T : CSJsonObjectStore> CSStore.property(
     key: String, type: KClass<T>,
