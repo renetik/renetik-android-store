@@ -3,9 +3,9 @@ package renetik.android.store.type
 import android.content.Context
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
+import renetik.android.core.kotlin.primitives.second
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
-import renetik.android.core.lang.CSTimeConstants.Second
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.task.CSBackground.background
 import renetik.android.event.registration.task.CSBackground.isBackgroundOff
@@ -47,7 +47,7 @@ class CSFileJsonStore(
         if (isImmediateWrite || isBackgroundOff) file.write(json)
         else {
             backgroundWriteRegistration?.cancel()
-            backgroundWriteRegistration = background(1 * Second) { file.write(json) }
+            backgroundWriteRegistration = background(1.second) { file.write(json) }
         }
     }
 }
