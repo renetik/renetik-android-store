@@ -1,7 +1,7 @@
 package renetik.android.store.type
 
 import renetik.android.core.kotlin.changeIf
-import renetik.android.core.lang.CSHandler.main
+import renetik.android.core.lang.CSHandler.mainHandler
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.later
 import renetik.android.event.registration.task.CSBackground.background
@@ -35,7 +35,7 @@ abstract class CSJsonStoreBase(
                 .toJson(formatted = isPretty)
             if (registration.isActive) {
                 mainLaterRegistration?.cancel()
-                mainLaterRegistration = main.later { saveJsonString(json) }
+                mainLaterRegistration = mainHandler.later { saveJsonString(json) }
             }
         }
     }
