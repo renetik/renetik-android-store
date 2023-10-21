@@ -8,7 +8,7 @@ class CSIntNullableStoreProperty(
     override val default: Int? = null,
     onChange: ((value: Int?) -> Unit)? = null)
     : CSValueStoreProperty<Int?>(store, key, onChange) {
-    override fun get(store: CSStore) = store.getInt(key)
+    override fun get(store: CSStore): Int? = store.getInt(key)
     override fun set(store: CSStore, value: Int?) =
         value?.let { store.set(key, value) } ?: store.clear(key)
 }

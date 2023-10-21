@@ -8,7 +8,7 @@ class CSStringNullableStoreProperty(
     override val default: String? = null,
     onChange: ((value: String?) -> Unit)? = null)
     : CSValueStoreProperty<String?>(store, key, onChange) {
-    override fun get(store: CSStore) = store.getString(key)
+    override fun get(store: CSStore): String? = store.getString(key)
     override fun set(store: CSStore, value: String?) =
         value?.let { store.set(key, value) } ?: store.clear(key)
 }

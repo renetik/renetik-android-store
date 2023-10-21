@@ -1,6 +1,7 @@
 package renetik.android.store.property.late
 
 import renetik.android.store.CSStore
+import renetik.android.store.property.value.CSValueStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
 import kotlin.reflect.KClass
 
