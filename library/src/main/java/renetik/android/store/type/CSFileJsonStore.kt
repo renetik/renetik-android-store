@@ -7,8 +7,8 @@ import renetik.android.core.kotlin.primitives.second
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.event.registration.CSRegistration
+import renetik.android.event.registration.task.CSBackground
 import renetik.android.event.registration.task.CSBackground.background
-import renetik.android.event.registration.task.CSBackground.isBackgroundOff
 import renetik.android.json.CSJson
 import java.io.File
 
@@ -44,7 +44,7 @@ class CSFileJsonStore(
     private var backgroundWriteRegistration: CSRegistration? = null
 
     override fun saveJsonString(json: String) {
-        if (isImmediateWrite || isBackgroundOff) file.write(json)
+        if (isImmediateWrite || CSBackground.isOff) file.write(json)
         else {
             backgroundWriteRegistration?.cancel()
             backgroundWriteRegistration = background(1.second) { file.write(json) }
