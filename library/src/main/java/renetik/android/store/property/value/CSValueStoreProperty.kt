@@ -14,7 +14,12 @@ abstract class CSValueStoreProperty<T>(
 
     abstract val default: T
     abstract fun get(store: CSStore): T?
-    protected var loadedValue: T? by lazyNullableVar { get(store) }
+    protected var loadedValue: T? by lazyNullableVar(
+        didSet = ::onLoadedValueChanged,
+        initializer = { get(store) }
+    )
+
+    open fun onLoadedValueChanged(value: T?) = Unit
 
     init {
         register(store.eventLoaded.listen {

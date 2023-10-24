@@ -20,11 +20,10 @@ inline fun <reified T : CSJsonObjectStore> CSStore.nullJsonProperty(
 
 fun <T : CSJsonObjectStore> CSStore.nullJsonListProperty(
     key: String, listType: KClass<T>,
-    default: List<T>? = null,
     onChange: ((value: List<T>?) -> Unit)? = null
 ): CSStoreProperty<List<T>?> =
-    CSJsonListNullableStoreProperty(this, key, listType, default, onChange)
+    CSJsonListNullableStoreProperty(this, key, listType, onChange)
 
 inline fun <reified T : CSJsonObjectStore> CSStore.nullJsonListProperty(
-    key: String, default: List<T>? = null, noinline onChange: ArgFunc<List<T>?>? = null
-): CSStoreProperty<List<T>?> = nullJsonListProperty(key, T::class, default, onChange)
+    key: String, noinline onChange: ArgFunc<List<T>?>? = null
+): CSStoreProperty<List<T>?> = nullJsonListProperty(key, T::class, onChange)
