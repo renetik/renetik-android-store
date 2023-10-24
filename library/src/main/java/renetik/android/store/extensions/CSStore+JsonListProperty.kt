@@ -12,21 +12,21 @@ import renetik.android.store.type.CSJsonObjectStore
 inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
     key: String, noinline onChange: ArgFunc<List<T>>? = null
 ): CSStoreProperty<List<T>> = CSJsonListValueStoreProperty(
-    this, key, T::class, emptyList(), onChange
+    this, key, T::class, onChange
 )
 
 inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
     parent: CSHasDestruct, key: String,
     noinline onChange: ArgFunc<List<T>>? = null
 ): CSStoreProperty<List<T>> = CSJsonListValueStoreProperty(
-    this, key, T::class, emptyList(), onChange
+    this, key, T::class, onChange
 ).registerParent(parent)
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
     key: String, noinline onChange: ArgFunc<MutableList<T>>? = null
 ): CSStoreProperty<MutableList<T>> = CSJsonMutableListValueStoreProperty(
-    this, key, T::class, mutableListOf(), onChange
+    this, key, T::class, onChange
 )
 
 @JvmName("propertyMutableList")
@@ -34,5 +34,5 @@ inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
     parent: CSHasDestruct, key: String,
     noinline onChange: ArgFunc<MutableList<T>>? = null
 ): CSStoreProperty<MutableList<T>> = CSJsonMutableListValueStoreProperty(
-    this, key, T::class, mutableListOf(), onChange
+    this, key, T::class,onChange
 ).registerParent(parent)

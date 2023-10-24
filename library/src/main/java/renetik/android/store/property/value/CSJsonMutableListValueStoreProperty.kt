@@ -10,9 +10,10 @@ class CSJsonMutableListValueStoreProperty<T : CSJsonObjectStore>(
     store: CSStore,
     key: String,
     val type: KClass<T>,
-    override val default: MutableList<T> = mutableListOf(),
-    onChange: ArgFunc<MutableList<T>>? = null)
-    : CSValueStoreProperty<MutableList<T>>(store, key, onChange) {
+    onChange: ArgFunc<MutableList<T>>? = null
+) : CSValueStoreProperty<MutableList<T>>(store, key, onChange) {
+
+    override val default: MutableList<T> = mutableListOf()
 
     override fun get(store: CSStore) = store.getJsonObjectList(key, type)
         ?.let { mutableListOf<T>().reload(it) } ?: this.default
