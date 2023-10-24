@@ -37,6 +37,6 @@ class CSJsonNullableStoreProperty<T : CSJsonObjectStore>(
     }
 
     private fun registerJsonObjectChanged(value: T?) = register(
-        onJsonObjectChanged, value?.eventChanged?.listen { save() }
+        onJsonObjectChanged, value?.eventChanged?.listen { set(store, value) }
     )
 }

@@ -6,6 +6,7 @@ import renetik.android.store.CSStore
 import renetik.android.store.type.CSJsonObjectStore
 import kotlin.reflect.KClass
 
+// ! Not listening and saving data changes , shall we also here ?
 class CSJsonMutableListValueStoreProperty<T : CSJsonObjectStore>(
     store: CSStore,
     key: String,

@@ -5,7 +5,6 @@ import renetik.android.core.lang.ArgFunc
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.register
 import renetik.android.store.CSStore
-import renetik.android.store.property.save
 import renetik.android.store.type.CSJsonObjectStore
 
 class CSJsonValueStoreProperty<T : CSJsonObjectStore>(
@@ -25,6 +24,6 @@ class CSJsonValueStoreProperty<T : CSJsonObjectStore>(
     }
 
     private fun registerJsonObjectChanged(value: T) = register(
-        onJsonObjectChanged, value.eventChanged.listen { save() }
+        onJsonObjectChanged, value.eventChanged.listen { set(store, value) }
     )
 }
