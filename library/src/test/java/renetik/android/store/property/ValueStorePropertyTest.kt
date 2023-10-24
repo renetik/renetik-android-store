@@ -13,6 +13,7 @@ import renetik.android.store.TestIdItem.Companion.TestIdItems
 import renetik.android.store.SimpleJsonObjectStore
 import renetik.android.store.extensions.property
 import renetik.android.store.extensions.listProperty
+import renetik.android.store.extensions.mutableListProperty
 import renetik.android.store.extensions.reload
 import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.testing.CSAssert.assertThrows
@@ -164,7 +165,7 @@ class ValueStorePropertyTest {
 
     @Test
     fun testJsonListValueProperty() {
-        val property = store.listProperty<SimpleJsonObjectStore>("key", mutableListOf())
+        val property = store.mutableListProperty<SimpleJsonObjectStore>("key", mutableListOf())
         assertEquals("""{}""", store.toJson())
         property.value.add(SimpleJsonObjectStore())
         property.value.add(SimpleJsonObjectStore())

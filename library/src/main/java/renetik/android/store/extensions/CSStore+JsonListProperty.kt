@@ -24,7 +24,7 @@ inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
 ).registerParent(parent)
 
 @JvmName("propertyMutableList")
-inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
+inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
     key: String, default: MutableList<T>,
     noinline onChange: ArgFunc<MutableList<T>>? = null
 ): CSStoreProperty<MutableList<T>> = CSJsonMutableListValueStoreProperty(
@@ -32,7 +32,7 @@ inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
 )
 
 @JvmName("propertyMutableList")
-inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
+inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
     parent: CSHasDestruct, key: String, default: MutableList<T>,
     noinline onChange: ArgFunc<MutableList<T>>? = null
 ): CSStoreProperty<MutableList<T>> = CSJsonMutableListValueStoreProperty(
