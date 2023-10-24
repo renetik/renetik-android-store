@@ -10,31 +10,29 @@ import renetik.android.store.property.value.CSJsonMutableListValueStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
 
 inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
-    key: String, default: List<T>,
-    noinline onChange: ArgFunc<List<T>>? = null
+    key: String, noinline onChange: ArgFunc<List<T>>? = null
 ): CSStoreProperty<List<T>> = CSJsonListValueStoreProperty(
-    this, key, T::class, default, onChange
+    this, key, T::class, emptyList(), onChange
 )
 
 inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
-    parent: CSHasDestruct, key: String, default: List<T>,
+    parent: CSHasDestruct, key: String,
     noinline onChange: ArgFunc<List<T>>? = null
 ): CSStoreProperty<List<T>> = CSJsonListValueStoreProperty(
-    this, key, T::class, default, onChange
+    this, key, T::class, emptyList(), onChange
 ).registerParent(parent)
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
-    key: String, default: MutableList<T>,
-    noinline onChange: ArgFunc<MutableList<T>>? = null
+    key: String, noinline onChange: ArgFunc<MutableList<T>>? = null
 ): CSStoreProperty<MutableList<T>> = CSJsonMutableListValueStoreProperty(
-    this, key, T::class, default, onChange
+    this, key, T::class, mutableListOf(), onChange
 )
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
-    parent: CSHasDestruct, key: String, default: MutableList<T>,
+    parent: CSHasDestruct, key: String,
     noinline onChange: ArgFunc<MutableList<T>>? = null
 ): CSStoreProperty<MutableList<T>> = CSJsonMutableListValueStoreProperty(
-    this, key, T::class, default, onChange
+    this, key, T::class, mutableListOf(), onChange
 ).registerParent(parent)

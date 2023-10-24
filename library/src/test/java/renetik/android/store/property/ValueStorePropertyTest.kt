@@ -165,7 +165,7 @@ class ValueStorePropertyTest {
 
     @Test
     fun testJsonListValueProperty() {
-        val property = store.mutableListProperty<SimpleJsonObjectStore>("key", mutableListOf())
+        val property = store.mutableListProperty<SimpleJsonObjectStore>("key")
         assertEquals("""{}""", store.toJson())
         property.value.add(SimpleJsonObjectStore())
         property.value.add(SimpleJsonObjectStore())
@@ -176,7 +176,7 @@ class ValueStorePropertyTest {
         property.save()
 
         store.reload(store.toJson())
-        val value: List<SimpleJsonObjectStore> by store.listProperty("key", listOf())
+        val value: List<SimpleJsonObjectStore> by store.listProperty("key")
         assertEquals("new string", value.last().lateString)
 
         property.value.last().lateString = "new string 2"
