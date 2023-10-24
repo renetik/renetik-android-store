@@ -8,10 +8,16 @@ import renetik.android.store.property.CSLateStoreProperty
 
 abstract class CSLateStorePropertyBase<T>(
     final override val store: CSStore,
-    override val key: String, onChange: ((value: T) -> Unit)?)
-    : CSPropertyBase<T>(onChange), CSLateStoreProperty<T> {
+    override val key: String, onChange: ((value: T) -> Unit)?
+) : CSPropertyBase<T>(onChange), CSLateStoreProperty<T> {
 
     private var loadedValue: T? = null
+        set(value) {
+            field = value
+            onLoadedValueChanged(value)
+        }
+
+    open fun onLoadedValueChanged(value: T?) = Unit
 
     init {
         register(store.eventLoaded.listen {
