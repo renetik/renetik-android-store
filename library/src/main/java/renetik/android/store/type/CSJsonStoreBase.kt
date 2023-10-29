@@ -1,10 +1,6 @@
 package renetik.android.store.type
 
 import renetik.android.core.kotlin.changeIf
-import renetik.android.core.lang.CSHandler.mainHandler
-import renetik.android.event.registration.CSRegistration
-import renetik.android.event.registration.later
-import renetik.android.event.registration.task.CSBackground.background
 import renetik.android.json.CSJson.isJsonPretty
 import renetik.android.json.parseJsonMap
 import renetik.android.json.toJson
@@ -23,23 +19,11 @@ abstract class CSJsonStoreBase(
         save()
     }
 
-    private var backgroundSaveRegistration: CSRegistration? = null
-    private var mainLaterRegistration: CSRegistration? = null
     fun save() {
         if (isBulkSave) return
-        mainLaterRegistration?.cancel()
-        backgroundSaveRegistration?.cancel()
-        val clone = data.toMap()
-        backgroundSaveRegistration = background { registration -> save(clone, registration) }
-    }
-
-    private fun save(data: Map<String, Any?>, registration: CSRegistration) {
         val json = data
             .changeIf(isPretty) { it.toSortedMap() }
             .toJson(formatted = isPretty)
-        if (registration.isActive) {
-            mainLaterRegistration?.cancel()
-            mainLaterRegistration = mainHandler.later { saveJsonString(json) }
-        }
+        saveJsonString(json)
     }
 }
