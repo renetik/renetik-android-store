@@ -29,14 +29,17 @@ abstract class CSJsonStoreBase(
         if (isBulkSave) return
         mainLaterRegistration?.cancel()
         backgroundSaveRegistration?.cancel()
-        backgroundSaveRegistration = background { registration ->
-            val json = data
-                .changeIf(isPretty) { it.toSortedMap() }
-                .toJson(formatted = isPretty)
-            if (registration.isActive) {
-                mainLaterRegistration?.cancel()
-                mainLaterRegistration = mainHandler.later { saveJsonString(json) }
-            }
+        val clone = data.toMap()
+        backgroundSaveRegistration = background { registration -> save(clone, registration) }
+    }
+
+    private fun save(data: Map<String, Any?>, registration: CSRegistration) {
+        val json = data
+            .changeIf(isPretty) { it.toSortedMap() }
+            .toJson(formatted = isPretty)
+        if (registration.isActive) {
+            mainLaterRegistration?.cancel()
+            mainLaterRegistration = mainHandler.later { saveJsonString(json) }
         }
     }
 }
