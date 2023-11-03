@@ -41,13 +41,21 @@ class CSFileJsonStore(
 
     override fun loadJsonString() = file.readString()
 
+    override fun saveJsonString(json: String) {
+        file.write(json)
+    }
+
     private var backgroundWriteRegistration: CSRegistration? = null
 
-    override fun saveJsonString(json: String) {
-        if (isImmediateWrite || CSBackground.isOff) file.write(json)
+    override fun onSave() {
+        if (isImmediateWrite || CSBackground.isOff)
+            saveJsonString(createJsonString(data))
         else {
+            val dataCopy = data.toMap()
             backgroundWriteRegistration?.cancel()
-            backgroundWriteRegistration = background(1.second) { file.write(json) }
+            backgroundWriteRegistration = background(1.second) {
+                saveJsonString(createJsonString(dataCopy))
+            }
         }
     }
 }
