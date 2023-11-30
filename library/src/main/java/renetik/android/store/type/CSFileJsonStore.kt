@@ -7,8 +7,8 @@ import renetik.android.core.kotlin.primitives.second
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.event.registration.CSRegistration
-import renetik.android.event.registration.task.CSBackground
-import renetik.android.event.registration.task.CSBackground.background
+import renetik.android.event.CSBackground
+import renetik.android.event.CSBackground.background
 import renetik.android.json.CSJson
 import java.io.File
 
