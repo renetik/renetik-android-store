@@ -34,6 +34,14 @@ fun CSStore.nullIntProperty(
 ): CSStoreProperty<Int?> =
     CSIntNullableStoreProperty(this, key, default, onChange)
 
+fun CSStore.nullIntProperty(
+    parent: CSHasDestruct,
+    key: String, default: Int? = null,
+    onChange: ArgFunc<Int?>? = null,
+): CSStoreProperty<Int?> =
+    CSIntNullableStoreProperty(this, key, default, onChange)
+        .registerParent(parent)
+
 fun CSStore.nullFloatProperty(
     key: String, default: Float? = null,
     onChange: ArgFunc<Float?>? = null,
