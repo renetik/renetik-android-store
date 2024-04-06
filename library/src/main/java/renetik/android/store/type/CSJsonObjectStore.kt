@@ -30,7 +30,7 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore {
         }
     }
 
-    override fun pause(func: Func) {
+    override fun operation(func: Func) {
         if (isBulkSave) {
             func()
             return

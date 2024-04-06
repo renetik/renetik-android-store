@@ -24,7 +24,7 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
     fun bulkSave(): Closeable =
         Closeable { logWarn { "Bulk save not implemented" } }
 
-    fun pause(func: Func) = logWarn { "Pause not implemented" }
+    fun operation(func: Func) = logWarn { "Pause not implemented" }
 
     fun load(data: Map<String, Any?>)
     fun reload(data: Map<String, Any?>) = bulkSave().use {
