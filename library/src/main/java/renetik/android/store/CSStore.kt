@@ -1,6 +1,7 @@
 package renetik.android.store
 
 import renetik.android.core.lang.CSEnvironment.app
+import renetik.android.core.lang.Func
 import renetik.android.core.lang.lazy.CSLazyVar.Companion.lazyVar
 import renetik.android.core.logging.CSLog.logWarn
 import renetik.android.event.CSEvent
@@ -18,8 +19,12 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
     val eventLoaded: CSEvent<CSStore>
     val eventChanged: CSEvent<CSStore>
     val data: Map<String, Any?>
+
+    @Deprecated("Use pause")
     fun bulkSave(): Closeable =
         Closeable { logWarn { "Bulk save not implemented" } }
+
+    fun pause(func: Func) = logWarn { "Pause not implemented" }
 
     fun load(data: Map<String, Any?>)
     fun reload(data: Map<String, Any?>) = bulkSave().use {
@@ -27,3 +32,7 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
         load(data)
     }
 }
+
+//fun CSStore.pause(func: Func) {
+//    bulkSave().use { func() }
+//}

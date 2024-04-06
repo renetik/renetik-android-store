@@ -1,5 +1,7 @@
 package renetik.android.store.type
 
+import renetik.android.core.kotlin.unexpected
+import renetik.android.core.lang.Func
 import renetik.android.event.CSEvent.Companion.event
 import renetik.android.json.obj.CSJsonObject
 import renetik.android.store.CSStore
@@ -19,11 +21,24 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore {
     private var isBulkSaveDirty = false
 
     override fun bulkSave(): Closeable {
+        if (isBulkSave) unexpected()
         isBulkSave = true
         return Closeable {
             isBulkSave = false
             if (isBulkSaveDirty) onChanged()
             isBulkSaveDirty = false
         }
+    }
+
+    override fun pause(func: Func) {
+        if (isBulkSave) {
+            func()
+            return
+        }
+        isBulkSave = true
+        func()
+        isBulkSave = false
+        if (isBulkSaveDirty) onChanged()
+        isBulkSaveDirty = false
     }
 }
