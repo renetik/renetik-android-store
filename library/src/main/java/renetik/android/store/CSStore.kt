@@ -32,7 +32,3 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface {
         load(data)
     }
 }
-
-//fun CSStore.pause(func: Func) {
-//    bulkSave().use { func() }
-//}
