@@ -20,6 +20,7 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore {
     protected var isBulkSave = false
     private var isBulkSaveDirty = false
 
+    @Deprecated("Use pause")
     override fun bulkSave(): Closeable {
         if (isBulkSave) unexpected()
         isBulkSave = true
