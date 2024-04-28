@@ -17,8 +17,9 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore {
         else isBulkSaveDirty = true
     }
 
-    protected var isBulkSave = false
     private var isBulkSaveDirty = false
+    var isBulkSave = false
+        private set
 
     @Deprecated("Use pause")
     override fun bulkSave(): Closeable {
