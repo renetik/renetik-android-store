@@ -1,14 +1,12 @@
 package renetik.android.store
 
 import renetik.android.core.lang.CSEnvironment.app
-import renetik.android.core.lang.Func
 import renetik.android.core.lang.lazy.CSLazyVar.Companion.lazyVar
-import renetik.android.core.logging.CSLog.logWarn
 import renetik.android.event.CSEvent
 import renetik.android.event.registration.CSHasChange
 import renetik.android.json.obj.CSJsonObjectInterface
+import renetik.android.store.extensions.operation
 import renetik.android.store.type.CSFileJsonStore
-import java.io.Closeable
 
 interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface, CSHasChange<CSStore> {
 
@@ -22,14 +20,11 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface, CS
     override fun onChange(function: (CSStore) -> Unit) = eventChanged.onChange(function)
     val data: Map<String, Any?>
 
-    @Deprecated("Use pause")
-    fun bulkSave(): Closeable =
-        Closeable { logWarn { "Bulk save not implemented" } }
-
-    fun operation(func: Func) = logWarn { "Pause not implemented" }
+    fun pauseOnChange(): Boolean = false
+    fun resumeOnChange() = Unit
 
     fun load(data: Map<String, Any?>)
-    fun reload(data: Map<String, Any?>) = bulkSave().use {
+    fun reload(data: Map<String, Any?>) = operation {
         clear()
         load(data)
     }
