@@ -47,3 +47,11 @@ fun CSStore.nullFloatProperty(
     onChange: ArgFunc<Float?>? = null,
 ): CSStoreProperty<Float?> =
     CSFloatNullableStoreProperty(this, key, default, onChange)
+
+fun CSStore.nullFloatProperty(
+    parent: CSHasDestruct,
+    key: String, default: Float? = null,
+    onChange: ArgFunc<Float?>? = null,
+): CSStoreProperty<Float?> =
+    CSFloatNullableStoreProperty(this, key, default, onChange)
+        .registerParent(parent)
