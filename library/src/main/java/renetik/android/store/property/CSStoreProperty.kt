@@ -7,4 +7,6 @@ interface CSStoreProperty<T> : CSProperty<T> {
     val store: CSStore
     val key: String
     fun set(store: CSStore, value: T)
+    var filter: ((T?) -> T?)?
+    fun getFiltered(store: CSStore): T?
 }

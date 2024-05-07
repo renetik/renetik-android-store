@@ -14,16 +14,20 @@ abstract class CSValueStoreProperty<T>(
 
     abstract val default: T
     abstract fun get(store: CSStore): T?
+
+    override var filter: ((T?) -> T?)? = null
+    override fun getFiltered(store: CSStore): T? = get(store).let { filter?.invoke(it) ?: it }
+
     protected var loadedValue: T? by lazyNullableVar(
         didSet = ::onLoadedValueChanged,
-        initializer = { get(store) }
+        initializer = { getFiltered(store) }
     )
 
     open fun onLoadedValueChanged(value: T?) = Unit
 
     init {
         register(store.eventLoaded.listen {
-            val newValue = get(store)
+            val newValue = getFiltered(store)
             if (newValue == null) {
                 if (loadedValue != default) {
                     loadedValue = null
