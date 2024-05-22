@@ -9,4 +9,5 @@ interface CSStoreProperty<T> : CSProperty<T> {
     fun set(store: CSStore, value: T)
     var filter: ((T?) -> T?)?
     fun getFiltered(store: CSStore): T?
+//    val isSaved get() = store.has(key)
 }
