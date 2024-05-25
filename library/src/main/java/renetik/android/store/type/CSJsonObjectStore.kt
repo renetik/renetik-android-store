@@ -5,6 +5,12 @@ import renetik.android.json.obj.CSJsonObject
 import renetik.android.store.CSStore
 
 open class CSJsonObjectStore : CSJsonObject(), CSStore {
+
+    companion object {
+        fun CSJsonObjectStore(data: Map<String, Any?>) =
+            CSJsonObjectStore().apply { load(data) }
+    }
+
     override val eventLoaded = event<CSStore>()
     override val eventChanged = event<CSStore>()
     override fun load(data: Map<String, Any?>) = super.load(data)

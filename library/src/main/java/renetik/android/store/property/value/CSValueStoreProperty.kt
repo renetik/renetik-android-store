@@ -55,5 +55,5 @@ abstract class CSValueStoreProperty<T>(
         onValueChanged(newValue, fire)
     }
 
-    override fun toString() = super.toString() + ":$key:$value"
+    override fun toString() = "key:$key ${super.toString()}"
 }
