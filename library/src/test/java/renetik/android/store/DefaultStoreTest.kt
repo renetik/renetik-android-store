@@ -10,7 +10,7 @@ import org.robolectric.RuntimeEnvironment.getApplication
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.json.CSJson
 import renetik.android.json.toJson
-import renetik.android.store.CSStore.Companion.store
+import renetik.android.store.CSStore.Companion.fileStore
 import renetik.android.store.extensions.CSStore.property
 import renetik.android.store.extensions.reload
 
@@ -28,15 +28,15 @@ class DefaultStoreTest {
         var string: String by property("string", "string")
         var bool: Boolean by property("bool", false)
         var int: Int by property("int", 5)
-        assertEquals("""{}""", store.toJson())
+        assertEquals("""{}""", fileStore.toJson())
 
         string = "new value"
         bool = true
         int = 10
         assertEquals("""{"string":"new value","bool":"true","int":"10"}""",
-            store.toJson())
+            fileStore.toJson())
 
-        store.reload("""{"string":"new value 2"}""")
+        fileStore.reload("""{"string":"new value 2"}""")
         assertEquals("new value 2", string)
         assertEquals(false, bool)
         assertEquals(5, int)

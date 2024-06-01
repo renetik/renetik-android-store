@@ -9,7 +9,7 @@ import renetik.android.store.property.value.CSBooleanValueStoreProperty
 object CSStoreAction {
     var actionsDisabled = false
     fun CSHasDestruct.action(id: String): CSActionInterface =
-        object : CSBooleanValueStoreProperty(CSStore.store, id, false) {
+        object : CSBooleanValueStoreProperty(CSStore.fileStore, id, false) {
             override fun get(store: CSStore) =
                 if (!actionsDisabled) store.getBoolean(key) else false
         }.registerParent(this)
