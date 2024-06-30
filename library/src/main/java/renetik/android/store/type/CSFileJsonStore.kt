@@ -6,9 +6,9 @@ import renetik.android.core.java.io.write
 import renetik.android.core.kotlin.primitives.second
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
-import renetik.android.event.registration.CSRegistration
 import renetik.android.event.CSBackground
 import renetik.android.event.CSBackground.background
+import renetik.android.event.registration.CSRegistration
 import renetik.android.json.CSJson
 import java.io.File
 
@@ -24,12 +24,13 @@ class CSFileJsonStore(
         File(File(parent, directory), "$fileName.json"), isJsonPretty, isImmediateWrite
     )
 
+    //TODO... same signature without ...context...
     constructor(
         context: Context, fileName: String, directory: String = "",
         isJsonPretty: Boolean = CSJson.isJsonPretty,
         isImmediateWrite: Boolean = false
     ) : this(
-        context.filesDir, fileName, directory, isJsonPretty, isImmediateWrite
+        app.filesDir, fileName, directory, isJsonPretty, isImmediateWrite
     )
 
     constructor(
@@ -45,6 +46,8 @@ class CSFileJsonStore(
         file.write(json)
     }
 
+    /// This class should has paren onDestory when oparen closed this should be
+    // canceled and written to store on UI thread
     private var backgroundWriteRegistration: CSRegistration? = null
 
     override fun onSave() {
