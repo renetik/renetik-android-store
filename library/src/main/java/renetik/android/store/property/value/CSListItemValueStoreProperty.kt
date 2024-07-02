@@ -7,11 +7,11 @@ import renetik.android.store.CSStore
 
 class CSListItemValueStoreProperty<T>(
     store: CSStore, key: String,
-    val getValues: () -> List<T>,
+    val getValues: () -> Collection<T>,
     val getDefault: () -> T,
     onChange: ((value: T) -> Unit)? = null
 ) : CSValueStoreProperty<T>(store, key,onChange), CSListValuesVariable<T> {
-    override val values: List<T> get() = getValues()
+    override val values: List<T> get() = getValues().toList()
     override val default: T get() = getDefault()
     override fun get(store: CSStore): T? = store.getValue(key, values)
     override fun set(store: CSStore, value: T) = store.set(key, value.toId())

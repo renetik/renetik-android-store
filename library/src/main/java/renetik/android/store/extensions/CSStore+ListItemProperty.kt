@@ -14,7 +14,7 @@ fun <T> CSStore.property(
     CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange)
 
 fun <T> CSStore.property(
-    parent: CSHasDestruct, key: String, getValues: () -> List<T>, getDefault: () -> T,
+    parent: CSHasDestruct, key: String, getValues: () -> Collection<T>, getDefault: () -> T,
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
     CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange).registerParent(parent)
