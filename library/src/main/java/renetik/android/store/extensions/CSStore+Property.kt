@@ -19,7 +19,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: String,
     onChange: ArgFunc<String>? = null,
-) = property(key, default, onChange).apply { listenStoreLoad() }
+) = property(key, default, onChange).listenStore()
 
 fun CSStore.property(
     parent: CSHasDestruct,
@@ -35,7 +35,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Boolean,
     onChange: ArgFunc<Boolean>? = null,
-) = property(key, default, onChange).apply { listenStoreLoad() }
+) = property(key, default, onChange).listenStore()
 
 fun CSStore.property(
     parent: CSHasDestruct,
@@ -51,7 +51,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Int,
     onChange: ArgFunc<Int>? = null
-) = property(key, default, onChange).apply { listenStoreLoad() }
+) = property(key, default, onChange).listenStore()
 
 fun CSStore.property(
     parent: CSHasDestruct,
@@ -67,7 +67,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Double,
     onChange: ArgFunc<Double>? = null,
-) = property(key, default, onChange).apply { listenStoreLoad() }
+) = property(key, default, onChange).listenStore()
 
 fun CSStore.property(
     parent: CSHasDestruct,
@@ -83,7 +83,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Float,
     onChange: ArgFunc<Float>? = null,
-) = property(key, default, onChange).apply { listenStoreLoad() }
+) = property(key, default, onChange).listenStore()
 
 fun CSStore.property(
     parent: CSHasDestruct,

@@ -16,7 +16,7 @@ fun CSStore.lateStringProperty(
 fun CSStore.dataLateStringProperty(
     key: String,
     onChange: ArgFunc<String>? = null
-) = lateStringProperty(key, onChange).apply { listenStoreLoad() }
+) = lateStringProperty(key, onChange).listenStore()
 
 fun CSStore.lateIntProperty(
     key: String,
@@ -27,7 +27,7 @@ fun CSStore.lateIntProperty(
 fun CSStore.dataLateIntProperty(
     key: String,
     onChange: ArgFunc<Int>? = null
-) = lateIntProperty(key, onChange).apply { listenStoreLoad() }
+) = lateIntProperty(key, onChange).listenStore()
 
 fun CSStore.lateBoolProperty(
     key: String,
@@ -45,7 +45,7 @@ fun <T> CSStore.dataLateListItemProperty(
     key: String, values: Iterable<T>,
     onChange: ArgFunc<T>? = null
 ): CSLateStoreProperty<T> =
-    CSListItemLateStoreProperty(this, key, values, onChange).apply { listenStoreLoad() }
+    CSListItemLateStoreProperty(this, key, values, onChange).listenStore()
 
 fun <T> CSStore.lateListItemProperty(
     key: String, values: Array<T>,

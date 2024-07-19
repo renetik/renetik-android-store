@@ -51,7 +51,7 @@ fun <T> CSStore.dataProperty(
     key: String, values: List<T>, default: T,
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> = property(key, values, default, onChange)
-    .apply { listenStoreLoad() }
+    .listenStore()
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, values: List<T>, default: T,
@@ -70,7 +70,7 @@ fun <T> CSStore.dataProperty(
     key: String, list: List<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
-    property(key, list, list[defaultIndex], onChange).apply { listenStoreLoad() }
+    property(key, list, list[defaultIndex], onChange).listenStore()
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, list: List<T>, defaultIndex: Int,

@@ -5,6 +5,7 @@ import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.parent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
+import renetik.android.store.property.listenStore
 import renetik.android.store.property.value.CSJsonListValueStoreProperty
 import renetik.android.store.property.value.CSJsonMutableListValueStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
@@ -17,7 +18,7 @@ inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
 
 inline fun <reified T : CSJsonObjectStore> CSStore.dataListProperty(
     key: String, noinline onChange: ArgFunc<List<T>>? = null
-): CSStoreProperty<List<T>> = listProperty(key, onChange).apply { listenStoreLoad() }
+): CSStoreProperty<List<T>> = listProperty(key, onChange).listenStore()
 
 inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
     parent: CSHasDestruct, key: String,
@@ -33,7 +34,7 @@ inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
 
 inline fun <reified T : CSJsonObjectStore> CSStore.dataMutableListProperty(
     key: String, noinline onChange: ArgFunc<MutableList<T>>? = null
-) = mutableListProperty(key, onChange).listenStoreLoad()
+) = mutableListProperty(key, onChange).listenStore()
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(

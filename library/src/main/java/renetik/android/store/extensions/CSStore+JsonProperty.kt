@@ -6,6 +6,7 @@ import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.parent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
+import renetik.android.store.property.listenStore
 import renetik.android.store.property.value.CSJsonValueStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
 import kotlin.reflect.KClass
@@ -20,7 +21,7 @@ fun <T : CSJsonObjectStore> CSStore.dataProperty(
     key: String, default: T,
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
-    property( key, default, onChange).apply { listenStoreLoad() }
+    property(key, default, onChange).listenStore()
 
 fun <T : CSJsonObjectStore> CSStore.property(
     parent: CSHasDestruct, key: String, default: T,
@@ -49,7 +50,7 @@ inline fun <reified T : CSJsonObjectStore> CSStore.property(
 inline fun <reified T : CSJsonObjectStore> CSStore.dataProperty(
     key: String,
     noinline onChange: ArgFunc<T>? = null
-): CSStoreProperty<T> = property(key, onChange).apply { listenStoreLoad() }
+): CSStoreProperty<T> = property(key, onChange).listenStore()
 
 inline fun <reified T : CSJsonObjectStore> CSStore.property(
     parent: CSHasDestruct, key: String,

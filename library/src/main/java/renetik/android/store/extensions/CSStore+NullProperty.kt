@@ -19,7 +19,7 @@ fun CSStore.nullStringProperty(
 fun CSStore.dataNullStringProperty(
     key: String, default: String? = null,
     onChange: ArgFunc<String?>? = null,
-) = nullStringProperty(key, default, onChange).apply { listenStoreLoad() }
+) = nullStringProperty(key, default, onChange).listenStore()
 
 fun CSStore.nullStringProperty(
     parent: CSHasDestruct,
@@ -38,7 +38,7 @@ fun CSStore.dataNullBoolProperty(
     key: String, default: Boolean? = null,
     onChange: ArgFunc<Boolean?>? = null,
 ): CSStoreProperty<Boolean?> =
-    nullBoolProperty(key, default, onChange).apply { listenStoreLoad() }
+    nullBoolProperty(key, default, onChange).listenStore()
 
 fun CSStore.nullIntProperty(
     key: String, default: Int? = null,

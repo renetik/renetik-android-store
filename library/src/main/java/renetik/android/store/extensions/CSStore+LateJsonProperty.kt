@@ -23,7 +23,7 @@ inline fun <reified T : CSJsonObjectStore> CSStore.lateJsonProperty(
 inline fun <reified T : CSJsonObjectStore> CSStore.dataLateJsonProperty(
     key: String, noinline onChange: ArgFunc<T>? = null
 ): CSLateStoreProperty<T> =
-    lateJsonProperty(key, onChange).apply { listenStoreLoad() }
+    lateJsonProperty(key, onChange).listenStore()
 
 fun <T : CSJsonObjectStore> CSStore.lateJsonListProperty(
     key: String, listType: KClass<T>,

@@ -21,7 +21,7 @@ fun <T : CSHasId> CSStore.dataProperty(
     onChange: ArgFunc<List<T>>? = null
 ): CSStoreProperty<List<T>> = property(
     key, values, default, onChange
-).apply { listenStoreLoad() }
+).listenStore()
 
 fun <T : CSHasId> CSStore.property(
     parent: CSHasDestruct, key: String, values: List<T>, default: List<T>,
