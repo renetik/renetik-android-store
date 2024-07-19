@@ -3,6 +3,7 @@ package renetik.android.store.extensions
 import renetik.android.core.lang.ArgFunc
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
+import renetik.android.store.property.listenStore
 import renetik.android.store.property.nullable.CSListItemNullableStoreProperty
 
 fun <T> CSStore.nullListItemProperty(

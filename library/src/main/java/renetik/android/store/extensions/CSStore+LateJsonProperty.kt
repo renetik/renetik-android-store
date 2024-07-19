@@ -6,6 +6,7 @@ import renetik.android.store.property.CSLateStoreProperty
 import renetik.android.store.property.late.CSJsonLateStoreProperty
 import renetik.android.store.property.late.CSJsonListLateStoreProperty
 import renetik.android.store.property.late.CSJsonListListLateStoreProperty
+import renetik.android.store.property.listenStore
 import renetik.android.store.type.CSJsonObjectStore
 import kotlin.reflect.KClass
 

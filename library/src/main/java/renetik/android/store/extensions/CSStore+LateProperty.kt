@@ -7,6 +7,7 @@ import renetik.android.store.property.late.CSBooleanLateStoreProperty
 import renetik.android.store.property.late.CSIntLateStoreProperty
 import renetik.android.store.property.late.CSListItemLateStoreProperty
 import renetik.android.store.property.late.CSStringLateStoreProperty
+import renetik.android.store.property.listenStore
 
 fun CSStore.lateStringProperty(
     key: String,

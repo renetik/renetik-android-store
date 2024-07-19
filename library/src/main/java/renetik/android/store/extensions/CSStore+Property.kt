@@ -4,6 +4,7 @@ import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.parent
 import renetik.android.store.CSStore
+import renetik.android.store.property.listenStore
 import renetik.android.store.property.value.CSBooleanValueStoreProperty
 import renetik.android.store.property.value.CSDoubleValueStoreProperty
 import renetik.android.store.property.value.CSFloatValueStoreProperty

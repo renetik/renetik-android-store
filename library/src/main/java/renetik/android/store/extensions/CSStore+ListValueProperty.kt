@@ -6,6 +6,7 @@ import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.parent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
+import renetik.android.store.property.listenStore
 import renetik.android.store.property.value.CSListValueStoreProperty
 
 fun <T : CSHasId> CSStore.property(
