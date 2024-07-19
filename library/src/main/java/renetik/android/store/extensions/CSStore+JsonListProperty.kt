@@ -31,10 +31,9 @@ inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
     this, key, T::class, onChange
 )
 
-@JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.dataMutableListProperty(
     key: String, noinline onChange: ArgFunc<MutableList<T>>? = null
-) = mutableListProperty(key, onChange).apply { listenStoreLoad() }
+) = mutableListProperty(key, onChange).listenStoreLoad()
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
