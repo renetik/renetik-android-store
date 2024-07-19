@@ -2,7 +2,7 @@ package renetik.android.store.extensions
 
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestruct
-import renetik.android.event.common.registerParent
+import renetik.android.event.common.parent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.value.CSJsonListValueStoreProperty
@@ -15,12 +15,14 @@ inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
     this, key, T::class, onChange
 )
 
+inline fun <reified T : CSJsonObjectStore> CSStore.dataListProperty(
+    key: String, noinline onChange: ArgFunc<List<T>>? = null
+): CSStoreProperty<List<T>> = listProperty(key, onChange).apply { listenStoreLoad() }
+
 inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
     parent: CSHasDestruct, key: String,
     noinline onChange: ArgFunc<List<T>>? = null
-): CSStoreProperty<List<T>> = CSJsonListValueStoreProperty(
-    this, key, T::class, onChange
-).registerParent(parent)
+) = CSJsonListValueStoreProperty(this, key, T::class, onChange).parent(parent)
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
@@ -30,9 +32,14 @@ inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
 )
 
 @JvmName("propertyMutableList")
+inline fun <reified T : CSJsonObjectStore> CSStore.dataMutableListProperty(
+    key: String, noinline onChange: ArgFunc<MutableList<T>>? = null
+) = mutableListProperty(key, onChange).apply { listenStoreLoad() }
+
+@JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
     parent: CSHasDestruct, key: String,
     noinline onChange: ArgFunc<MutableList<T>>? = null
 ): CSStoreProperty<MutableList<T>> = CSJsonMutableListValueStoreProperty(
-    this, key, T::class,onChange
-).registerParent(parent)
+    this, key, T::class, onChange
+).parent(parent)

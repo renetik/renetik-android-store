@@ -5,7 +5,6 @@ import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.register
 import renetik.android.json.obj.clone
 import renetik.android.store.CSStore
-import renetik.android.store.property.save
 import renetik.android.store.property.value.CSValueStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
 import kotlin.reflect.KClass

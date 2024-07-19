@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package renetik.android.store.property
 
 import renetik.android.event.property.CSProperty
@@ -13,3 +15,5 @@ interface CSStoreProperty<T> : CSProperty<T> {
     fun listenStoreLoad()
     fun trackModified(track: Boolean = true): CSStoreProperty<T> = this
 }
+
+inline fun <T : CSStoreProperty<*>> T.listenStore() = apply { listenStoreLoad() }

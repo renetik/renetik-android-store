@@ -3,7 +3,6 @@ package renetik.android.store.property.late
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.register
 import renetik.android.store.CSStore
-import renetik.android.store.property.save
 import renetik.android.store.type.CSJsonObjectStore
 import kotlin.reflect.KClass
 

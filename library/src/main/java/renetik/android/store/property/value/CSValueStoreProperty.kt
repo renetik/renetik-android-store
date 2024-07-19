@@ -32,7 +32,7 @@ abstract class CSValueStoreProperty<T>(
     }
 
     override fun listenStoreLoad() {
-        this + store.eventLoaded.listen {
+        this + ("store.eventLoaded.listen" to store.eventLoaded.listen {
             val newValue = getFiltered(store)
             if (newValue == null) {
                 if (loadedValue != default) {
@@ -44,7 +44,7 @@ abstract class CSValueStoreProperty<T>(
                 loadedValue = newValue
                 onValueChanged(newValue)
             }
-        }
+        })
     }
 
     override var value: T

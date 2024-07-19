@@ -3,7 +3,7 @@ package renetik.android.store.extensions
 import renetik.android.core.kotlin.reflect.createInstance
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestruct
-import renetik.android.event.common.registerParent
+import renetik.android.event.common.parent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.value.CSJsonValueStoreProperty
@@ -16,11 +16,17 @@ fun <T : CSJsonObjectStore> CSStore.property(
 ): CSStoreProperty<T> =
     CSJsonValueStoreProperty(this, key, default, onChange)
 
+fun <T : CSJsonObjectStore> CSStore.dataProperty(
+    key: String, default: T,
+    onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> =
+    property( key, default, onChange).apply { listenStoreLoad() }
+
 fun <T : CSJsonObjectStore> CSStore.property(
     parent: CSHasDestruct, key: String, default: T,
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
-    CSJsonValueStoreProperty(this, key, default, onChange).registerParent(parent)
+    CSJsonValueStoreProperty(this, key, default, onChange).parent(parent)
 
 fun <T : CSJsonObjectStore> CSStore.property(
     key: String, type: KClass<T>,
@@ -39,6 +45,11 @@ inline fun <reified T : CSJsonObjectStore> CSStore.property(
     noinline onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
     property(key, T::class.createInstance()!!, onChange)
+
+inline fun <reified T : CSJsonObjectStore> CSStore.dataProperty(
+    key: String,
+    noinline onChange: ArgFunc<T>? = null
+): CSStoreProperty<T> = property(key, onChange).apply { listenStoreLoad() }
 
 inline fun <reified T : CSJsonObjectStore> CSStore.property(
     parent: CSHasDestruct, key: String,

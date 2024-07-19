@@ -2,7 +2,8 @@ package renetik.android.store.property.late
 
 import renetik.android.core.kotlin.notNull
 import renetik.android.event.property.CSPropertyBase
-import renetik.android.event.registration.register
+import renetik.android.event.registration.plus
+import renetik.android.event.util.CSLater.later
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSLateStoreProperty
 
@@ -24,7 +25,11 @@ abstract class CSLateStorePropertyBase<T>(
         get().let { filter?.invoke(it) ?: it }
 
     init {
-        register(store.eventLoaded.listen {
+        later { if (parent != null) listenStoreLoad() }
+    }
+
+    override fun listenStoreLoad() {
+        this + ("store.eventLoaded.listen" to store.eventLoaded.listen {
             if (loadedValue != null) {
                 val newValue = getFiltered(store)!!
                 if (loadedValue != newValue) {
