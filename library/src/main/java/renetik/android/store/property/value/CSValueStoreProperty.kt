@@ -2,7 +2,8 @@ package renetik.android.store.property.value
 
 import renetik.android.core.lang.lazy.CSLazyNullableVar.Companion.lazyNullableVar
 import renetik.android.event.property.CSPropertyBase
-import renetik.android.event.registration.register
+import renetik.android.event.registration.plus
+import renetik.android.event.util.CSLater.later
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 
@@ -16,7 +17,8 @@ abstract class CSValueStoreProperty<T>(
     abstract fun get(store: CSStore): T?
 
     override var filter: ((T?) -> T?)? = null
-    override fun getFiltered(store: CSStore): T? = get(store).let { filter?.invoke(it) ?: it }
+    override fun getFiltered(store: CSStore): T? =
+        get(store).let { filter?.invoke(it) ?: it }
 
     protected var loadedValue: T? by lazyNullableVar(
         didSet = ::onLoadedValueChanged,
@@ -26,7 +28,11 @@ abstract class CSValueStoreProperty<T>(
     open fun onLoadedValueChanged(value: T?) = Unit
 
     init {
-        register(store.eventLoaded.listen {
+        later { if (parent != null) listenStoreLoad() }
+    }
+
+    override fun listenStoreLoad() {
+        this + store.eventLoaded.listen {
             val newValue = getFiltered(store)
             if (newValue == null) {
                 if (loadedValue != default) {
@@ -38,7 +44,7 @@ abstract class CSValueStoreProperty<T>(
                 loadedValue = newValue
                 onValueChanged(newValue)
             }
-        })
+        }
     }
 
     override var value: T
