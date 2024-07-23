@@ -13,7 +13,14 @@ import renetik.android.store.TestIdItem
 import renetik.android.store.TestIdItem.Companion.TestIdItems
 import renetik.android.store.TestIdItem.Fourth
 import renetik.android.store.TestIdItem.Second
-import renetik.android.store.extensions.*
+import renetik.android.store.extensions.dataLateJsonProperty
+import renetik.android.store.extensions.dataLateStringProperty
+import renetik.android.store.extensions.lateBoolProperty
+import renetik.android.store.extensions.lateIntProperty
+import renetik.android.store.extensions.lateJsonListListProperty
+import renetik.android.store.extensions.lateJsonListProperty
+import renetik.android.store.extensions.lateListItemProperty
+import renetik.android.store.extensions.reload
 import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.testing.CSAssert.assertThrows
 
@@ -25,7 +32,7 @@ class LateStorePropertyTest {
     fun testStringProperty() {
         var eventCount = 0
         var newValue: String? = null
-        var value: String by store.lateStringProperty("key") {
+        var value: String by store.dataLateStringProperty("key") {
             newValue = it
             eventCount += 1
         }
@@ -43,6 +50,7 @@ class LateStorePropertyTest {
     fun testBooleanProperty() {
         var newValue: Boolean? = null
         var value: Boolean by store.lateBoolProperty("key") { newValue = it }
+            .listenStore()
         value = false
 
         assertEquals("""{"key":false}""", store.toJson())
@@ -56,7 +64,7 @@ class LateStorePropertyTest {
     fun testIntProperty() {
         forceString = true
         var newValue: Int? = null
-        var value: Int by store.lateIntProperty("key") { newValue = it }
+        var value: Int by store.lateIntProperty("key") { newValue = it }.listenStore()
         value = 34
 
         assertEquals("""{"key":"34"}""", store.toJson())
@@ -74,7 +82,7 @@ class LateStorePropertyTest {
         var value: TestIdItem by store.lateListItemProperty("key", TestIdItems) {
             newValue = it
             eventCount += 1
-        }
+        }.listenStore()
         value = Fourth
 
         assertEquals("""{"key":"id4"}""", store.toJson())
@@ -88,7 +96,9 @@ class LateStorePropertyTest {
     @Test
     fun testJsonProperty() {
         var newValue: SimpleJsonObjectStore? = null
-        var value: SimpleJsonObjectStore by store.lateJsonProperty("key") { newValue = it }
+        var value: SimpleJsonObjectStore by store.dataLateJsonProperty("key") {
+            newValue = it
+        }
         value = SimpleJsonObjectStore()
 
         assertEquals("""{"key":{}}""", store.toJson())
@@ -106,8 +116,10 @@ class LateStorePropertyTest {
         var newValue: List<SimpleJsonObjectStore>? = null
         var value: List<SimpleJsonObjectStore> by store.lateJsonListProperty("key") {
             newValue = it
-        }
-        value = listOf(SimpleJsonObjectStore(), SimpleJsonObjectStore(lateString = "string 1"))
+        }.listenStore()
+        value = listOf(
+            SimpleJsonObjectStore(), SimpleJsonObjectStore(lateString = "string 1")
+        )
 
         assertEquals("""{"key":[{},{"lateStringId":"string 1"}]}""", store.toJson())
         assertEquals(newValue, value)
@@ -115,19 +127,24 @@ class LateStorePropertyTest {
         store.reload("""{"key":[{"nullStringId":"string 2"},{}]}""")
         assertEquals(
             newValue,
-            listOf(SimpleJsonObjectStore(nullString = "string 2"), SimpleJsonObjectStore())
+            listOf(
+                SimpleJsonObjectStore(nullString = "string 2"), SimpleJsonObjectStore()
+            )
         )
     }
 
     @Test
     fun testLateJsonListListProperty() {
         var newValue: List<List<SimpleJsonObjectStore>>? = null
-        var value: List<List<SimpleJsonObjectStore>> by store.lateJsonListListProperty("key") {
-            newValue = it
-        }
+        var value: List<List<SimpleJsonObjectStore>> by store.lateJsonListListProperty(
+            "key", onChange = { newValue = it }
+        ).listenStore()
         assertThrows { value.last() }
         value =
-            listOf(listOf(SimpleJsonObjectStore()), listOf(), listOf(SimpleJsonObjectStore("test")))
+            listOf(
+                listOf(SimpleJsonObjectStore()), listOf(),
+                listOf(SimpleJsonObjectStore("test"))
+            )
 
         assertEquals("""{"key":[[{}],[],[{"stringId":"test"}]]}""", store.toJson())
         assertEquals(newValue, value)

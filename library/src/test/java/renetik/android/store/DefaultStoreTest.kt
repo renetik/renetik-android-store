@@ -11,7 +11,7 @@ import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.json.CSJson
 import renetik.android.json.toJson
 import renetik.android.store.CSStore.Companion.fileStore
-import renetik.android.store.extensions.property
+import renetik.android.store.extensions.dataProperty
 import renetik.android.store.extensions.reload
 
 @RunWith(RobolectricTestRunner::class)
@@ -25,9 +25,9 @@ class DefaultStoreTest {
 
     @Test
     fun defaultStoreTest() {
-        var string: String by fileStore.property("string", "string")
-        var bool: Boolean by fileStore.property("bool", false)
-        var int: Int by fileStore.property("int", 5, null)
+        var string: String by fileStore.dataProperty("string", "string")
+        var bool: Boolean by fileStore.dataProperty("bool", false)
+        var int: Int by fileStore.dataProperty("int", 5)
         assertEquals("""{}""", fileStore.toJson())
 
         string = "new value"
