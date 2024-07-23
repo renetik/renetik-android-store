@@ -16,7 +16,6 @@ fun <T : CSHasId> CSStore.property(
     this, key, values, default, onChange = onChange
 )
 
-
 fun <T : CSHasId> CSStore.dataProperty(
     key: String, values: List<T>, default: List<T>,
     onChange: ArgFunc<List<T>>? = null
@@ -29,7 +28,7 @@ fun <T : CSHasId> CSStore.property(
     onChange: ArgFunc<List<T>>? = null
 ): CSStoreProperty<List<T>> = CSListValueStoreProperty(
     this, key, values, default, onChange = onChange
-).parent(parent)
+).parent(parent).listenStore()
 
 fun <T : CSHasId> CSStore.property(
     key: String, array: Array<T>, default: List<T>,

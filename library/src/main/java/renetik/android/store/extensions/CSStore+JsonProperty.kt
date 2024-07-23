@@ -27,7 +27,8 @@ fun <T : CSJsonObjectStore> CSStore.property(
     parent: CSHasDestruct, key: String, default: T,
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
-    CSJsonValueStoreProperty(this, key, default, onChange).parent(parent)
+    CSJsonValueStoreProperty(this, key, default, onChange)
+        .parent(parent).listenStore()
 
 fun <T : CSJsonObjectStore> CSStore.property(
     key: String, type: KClass<T>,

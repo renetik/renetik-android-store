@@ -26,7 +26,7 @@ fun CSStore.nullStringProperty(
     key: String, default: String? = null,
     onChange: ArgFunc<String?>? = null,
 ) = CSStringNullableStoreProperty(this, key, default, onChange)
-    .parent(parent)
+    .parent(parent).listenStore()
 
 fun CSStore.nullBoolProperty(
     key: String, default: Boolean? = null,
@@ -58,7 +58,7 @@ fun CSStore.nullIntProperty(
     onChange: ArgFunc<Int?>? = null,
 ): CSStoreProperty<Int?> =
     CSIntNullableStoreProperty(this, key, default, onChange)
-        .parent(parent)
+        .parent(parent).listenStore()
 
 fun CSStore.nullFloatProperty(
     key: String, default: Float? = null,
@@ -72,4 +72,4 @@ fun CSStore.nullFloatProperty(
     onChange: ArgFunc<Float?>? = null,
 ): CSStoreProperty<Float?> =
     CSFloatNullableStoreProperty(this, key, default, onChange)
-        .parent(parent)
+        .parent(parent).listenStore()

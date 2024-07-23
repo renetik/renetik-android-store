@@ -16,12 +16,11 @@ fun <T> CSStore.property(
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, getValues: () -> Collection<T>,
-    getDefault: () -> T,
-    onChange: ArgFunc<T>? = null
+    getDefault: () -> T, onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
     CSListItemValueStoreProperty(
         this, key, getValues, getDefault, onChange
-    ).parent(parent)
+    ).parent(parent).listenStore()
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, getValues: () -> List<T>,

@@ -23,7 +23,8 @@ inline fun <reified T : CSJsonObjectStore> CSStore.dataListProperty(
 inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
     parent: CSHasDestruct, key: String,
     noinline onChange: ArgFunc<List<T>>? = null
-) = CSJsonListValueStoreProperty(this, key, T::class, onChange).parent(parent)
+) = CSJsonListValueStoreProperty(this, key, T::class, onChange)
+    .parent(parent).listenStore()
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
@@ -42,4 +43,4 @@ inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
     noinline onChange: ArgFunc<MutableList<T>>? = null
 ): CSStoreProperty<MutableList<T>> = CSJsonMutableListValueStoreProperty(
     this, key, T::class, onChange
-).parent(parent)
+).parent(parent).listenStore()

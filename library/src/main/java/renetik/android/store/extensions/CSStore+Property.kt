@@ -26,7 +26,8 @@ fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: String,
     onChange: ArgFunc<String>? = null,
-) = CSStringValueStoreProperty(this, key, default, onChange).parent(parent)
+) = CSStringValueStoreProperty(this, key, default, onChange)
+    .parent(parent).listenStore()
 
 fun CSStore.property(
     key: String, default: Boolean,
@@ -42,7 +43,8 @@ fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: Boolean,
     onChange: ArgFunc<Boolean>? = null,
-) = CSBooleanValueStoreProperty(this, key, default, onChange).parent(parent)
+) = CSBooleanValueStoreProperty(this, key, default, onChange)
+    .parent(parent).listenStore()
 
 fun CSStore.property(
     key: String, default: Int,
@@ -58,7 +60,8 @@ fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: Int,
     onChange: ArgFunc<Int>? = null,
-) = CSIntValueStoreProperty(this, key, default, onChange).parent(parent)
+) = CSIntValueStoreProperty(this, key, default, onChange)
+    .parent(parent).listenStore()
 
 fun CSStore.property(
     key: String, default: Double,
@@ -74,7 +77,8 @@ fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: Double,
     onChange: ArgFunc<Double>? = null,
-) = CSDoubleValueStoreProperty(this, key, default, onChange).parent(parent)
+) = CSDoubleValueStoreProperty(this, key, default, onChange)
+    .parent(parent).listenStore()
 
 fun CSStore.property(
     key: String, default: Float,
@@ -90,7 +94,8 @@ fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: Float,
     onChange: ArgFunc<Float>? = null,
-) = CSFloatValueStoreProperty(this, key, default, onChange).parent(parent)
+) = CSFloatValueStoreProperty(this, key, default, onChange)
+    .parent(parent).listenStore()
 
 fun CSStore.property(
     key: String, default: Long,
@@ -101,4 +106,5 @@ fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: Long,
     onChange: ArgFunc<Long>? = null,
-) = CSLongValueStoreProperty(this, key, default, onChange).parent(parent)
+) = CSLongValueStoreProperty(this, key, default, onChange)
+    .parent(parent).listenStore()

@@ -3,7 +3,6 @@ package renetik.android.store.property.value
 import renetik.android.core.lang.lazy.CSLazyNullableVar.Companion.lazyNullableVar
 import renetik.android.event.property.CSPropertyBase
 import renetik.android.event.registration.plus
-import renetik.android.event.util.CSLater.later
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 
@@ -26,10 +25,6 @@ abstract class CSValueStoreProperty<T>(
     )
 
     open fun onLoadedValueChanged(value: T?) = Unit
-
-    init {
-        later { if (parent != null) listenStoreLoad() }
-    }
 
     override fun listenStoreLoad() {
         this + ("store.eventLoaded.listen" to store.eventLoaded.listen {
