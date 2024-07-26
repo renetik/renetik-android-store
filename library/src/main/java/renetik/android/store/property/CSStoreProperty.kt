@@ -14,6 +14,7 @@ interface CSStoreProperty<T> : CSProperty<T> {
     val isSaved get() = store.has(key)
     fun listenStoreLoad()
     fun trackModified(track: Boolean = true): CSStoreProperty<T> = this
+    fun clear() = store.clear(key)
 }
 
 inline fun <T : CSStoreProperty<*>> T.listenStore() = apply { listenStoreLoad() }
