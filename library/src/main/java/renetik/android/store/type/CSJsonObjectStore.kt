@@ -18,27 +18,26 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore {
     open fun onChanged() = eventChanged.fire(this)
 
     override fun onChange() {
-        if (!isBulkSave) onChanged()
-        else isBulkSaveDirty = true
+        if (!isPausedOnChange) onChanged()
+        else isChangeWhilePaused = true
     }
 
-    private var isBulkSaveDirty = false
-    var isBulkSave = false
-        private set
+    private var isChangeWhilePaused = false
+    var isPausedOnChange = false
 
     override fun pauseOnChange(): Boolean {
-        if (!isBulkSave) {
-            isBulkSave = true
-            isBulkSaveDirty = false
+        if (!isPausedOnChange) {
+            isPausedOnChange = true
+            isChangeWhilePaused = false
             return true
         }
         return false
     }
 
     override fun resumeOnChange() {
-        isBulkSave = false
-        if (isBulkSaveDirty) onChanged()
-        isBulkSaveDirty = false
+        isPausedOnChange = false
+        if (isChangeWhilePaused) onChanged()
+        isChangeWhilePaused = false
     }
 }
 
