@@ -46,7 +46,6 @@ fun <T> CSStore.property(
 ): CSStoreProperty<T> =
     property(key, getValues = { values }, getDefault = { default }, onChange)
 
-
 fun <T> CSStore.dataProperty(
     key: String, values: List<T>, default: T,
     onChange: ArgFunc<T>? = null
@@ -63,7 +62,6 @@ fun <T> CSStore.property(
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
     property(key, list, list[defaultIndex], onChange)
-
 
 fun <T> CSStore.dataProperty(
     key: String, list: List<T>, defaultIndex: Int,
