@@ -1,6 +1,5 @@
 package renetik.android.store.property.late
 
-import renetik.android.core.kotlin.notNull
 import renetik.android.event.property.CSPropertyBase
 import renetik.android.event.registration.plus
 import renetik.android.event.util.CSLater.later
@@ -56,6 +55,6 @@ abstract class CSLateStorePropertyBase<T>(
         onValueChanged(newValue, fire)
     }
 
-    override val isLoaded get() = loadedValue.notNull
+    override val isLoaded get() = loadedValue != null
     override fun toString() = super.toString() + ":$key:$value"
 }
