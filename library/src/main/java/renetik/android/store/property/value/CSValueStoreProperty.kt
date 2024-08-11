@@ -27,19 +27,26 @@ abstract class CSValueStoreProperty<T>(
     open fun onLoadedValueChanged(value: T?) = Unit
 
     override fun listenStoreLoad() {
-        this + ("store.eventLoaded.listen" to store.eventLoaded.listen {
-            val newValue = getFiltered(store)
-            if (newValue == null) {
-                if (loadedValue != default) {
-                    loadedValue = null
-                    onValueChanged(default)
-                }
+        this + ("store.eventLoaded.listen" to store.eventLoaded.listen { update() })
+    }
+
+    private fun update() {
+        val newValue = getFiltered(store)
+        if (newValue == null) {
+            if (loadedValue != default) {
                 loadedValue = null
-            } else if (loadedValue != newValue) {
-                loadedValue = newValue
-                onValueChanged(newValue)
+                onValueChanged(default)
             }
-        })
+            loadedValue = null
+        } else if (loadedValue != newValue) {
+            loadedValue = newValue
+            onValueChanged(newValue)
+        }
+    }
+
+    override fun clear() {
+        store.clear(key)
+        update()
     }
 
     override var value: T
