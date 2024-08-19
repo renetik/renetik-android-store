@@ -35,7 +35,7 @@ class CSPreferencesStore(val context: Context, id: String = "default") : CSStore
         editor.apply()
     }
 
-    override fun has(key: String) = preferences.contains(key)
+    override fun has(key: String) = key in preferences
 
     override fun get(key: String): String? =
         catchAllWarnReturnNull { preferences.getString(key, null) }
