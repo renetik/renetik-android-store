@@ -46,7 +46,7 @@ abstract class CSValueStoreProperty<T>(
 
     override fun clear() {
         store.clear(key)
-        update()
+        if (!isDestructed) update()
     }
 
     override var value: T
