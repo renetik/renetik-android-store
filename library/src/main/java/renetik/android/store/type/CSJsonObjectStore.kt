@@ -13,7 +13,6 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore {
 
     override val eventLoaded = event<CSStore>()
     override val eventChanged = event<CSStore>()
-    override fun load(data: Map<String, Any?>) = super.load(data)
     override fun onLoaded() = eventLoaded.fire(this)
     open fun onChanged() = eventChanged.fire(this)
 
