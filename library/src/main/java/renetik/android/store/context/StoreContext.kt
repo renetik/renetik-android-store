@@ -23,6 +23,7 @@ interface StoreContext
     /**
      * Clear all data and remove stored instances, can't be used after this
      */
+    @Deprecated("Remove")
     fun destructClear()
 
     /**
