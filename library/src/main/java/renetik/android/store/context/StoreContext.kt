@@ -11,20 +11,14 @@ interface StoreContext
     : CSHasRegistrationsHasDestruct, CSHasId, CSHasChange<Unit> {
     companion object
 
-    val key: String
+    val key: String?
     override val id: String
 
-    fun appContext(parent: CSHasDestruct = this, key: String = this.key): StoreContext
+    fun appContext(parent: CSHasDestruct = this, key: String? = this.key): StoreContext
 
-    fun memoryContext(parent: CSHasDestruct = this, key: String = this.key): StoreContext
+    fun memoryContext(parent: CSHasDestruct = this, key: String? = this.key): StoreContext
 
     fun context(parent: CSHasDestruct, key: String? = null): StoreContext
-
-    /**
-     * Clear all data and remove stored instances, can't be used after this
-     */
-    @Deprecated("Remove")
-    fun destructClear()
 
     /**
      * Clear all data.
