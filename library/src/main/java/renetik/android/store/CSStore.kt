@@ -1,12 +1,11 @@
 package renetik.android.store
 
-import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.lazy.CSLazyVar.Companion.lazyVar
 import renetik.android.event.CSEvent
 import renetik.android.event.registration.CSHasChange
 import renetik.android.json.obj.CSJsonObjectInterface
 import renetik.android.store.extensions.operation
-import renetik.android.store.type.CSFileJsonStore
+import renetik.android.store.type.CSFileJsonStore.Companion.CSFileJsonStore
 import renetik.android.store.type.CSJsonObjectStore
 
 interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface,
@@ -14,7 +13,7 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface,
 
     companion object {
         //TODO: Remove completely and make it just local to app
-        var fileStore: CSStore by lazyVar { CSFileJsonStore(app, "store") }
+        var fileStore: CSStore by lazyVar { CSFileJsonStore("store") }
         val runtimeStore: CSStore by lazy { CSJsonObjectStore() }
         val EmptyStore: CSStore get() = CSJsonObjectStore()
     }

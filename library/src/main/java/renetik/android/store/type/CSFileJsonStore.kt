@@ -1,15 +1,13 @@
 package renetik.android.store.type
 
-import android.content.Context
-import kotlinx.coroutines.delay
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.event.CSBackground
 import renetik.android.event.CSBackground.background
+import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.JobRegistration
-import renetik.android.event.registration.launch
 import renetik.android.json.CSJson
 import java.io.File
 import kotlin.time.Duration.Companion.seconds
@@ -21,30 +19,16 @@ class CSFileJsonStore(
 
     companion object {
         val SAVE_DELAY = 1.seconds
+
+        fun CSFileJsonStore(
+            fileName: String,
+            isJsonPretty: Boolean = CSJson.isJsonPretty,
+            isImmediateWrite: Boolean = false
+        ) = CSFileJsonStore(
+            File(app.filesDir, "$fileName.json"),
+            isJsonPretty, isImmediateWrite
+        )
     }
-
-    constructor(
-        parent: File, fileName: String, directory: String = "",
-        isJsonPretty: Boolean = isDebug, isImmediateWrite: Boolean = false
-    ) : this(
-        File(File(parent, directory), "$fileName.json"), isJsonPretty, isImmediateWrite
-    )
-
-    //TODO... same signature without ...context...
-    constructor(
-        context: Context, fileName: String, directory: String = "",
-        isJsonPretty: Boolean = CSJson.isJsonPretty,
-        isImmediateWrite: Boolean = false
-    ) : this(
-        app.filesDir, fileName, directory, isJsonPretty, isImmediateWrite
-    )
-
-    constructor(
-        path: String, isJsonPretty: Boolean = false,
-        isImmediateWrite: Boolean = false
-    ) : this(
-        File(app.filesDir, path), isJsonPretty, isImmediateWrite
-    )
 
     override fun loadJsonString() = file.readString()
 
@@ -53,17 +37,23 @@ class CSFileJsonStore(
     }
 
     private var writeRegistration: JobRegistration? = null
+    private var registration: CSRegistration? = null
 
     override fun onSave() {
         if (isImmediateWrite || CSBackground.isOff)
             saveJsonString(createJsonString(data))
         else {
-            writeRegistration?.cancel()
             val dataCopy = data.toMap()
-            writeRegistration = background.launch {
-                delay(SAVE_DELAY)
+            registration?.cancel()
+            registration = background(SAVE_DELAY) {
                 saveJsonString(createJsonString(dataCopy))
             }
+//            background.launch {
+//                writeRegistration?.cancelAndWait()
+//                writeRegistration = it
+//                delay(SAVE_DELAY)
+//                saveJsonString(createJsonString(dataCopy))
+//            }
         }
     }
 
