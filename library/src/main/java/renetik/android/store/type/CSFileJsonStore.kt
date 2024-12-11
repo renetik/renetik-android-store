@@ -1,21 +1,27 @@
 package renetik.android.store.type
 
 import android.content.Context
+import kotlinx.coroutines.delay
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
-import renetik.android.core.kotlin.primitives.second
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.event.CSBackground
 import renetik.android.event.CSBackground.background
-import renetik.android.event.registration.CSRegistration
+import renetik.android.event.registration.JobRegistration
+import renetik.android.event.registration.launch
 import renetik.android.json.CSJson
 import java.io.File
+import kotlin.time.Duration.Companion.seconds
 
 class CSFileJsonStore(
     val file: File, isJsonPretty: Boolean = isDebug,
     val isImmediateWrite: Boolean = false
 ) : CSJsonStoreBase(isJsonPretty) {
+
+    companion object {
+        val SAVE_DELAY = 1.seconds
+    }
 
     constructor(
         parent: File, fileName: String, directory: String = "",
@@ -46,20 +52,21 @@ class CSFileJsonStore(
         file.write(json)
     }
 
-    /// This class should has paren onDestory when oparen closed this should be
-    // canceled and written to store on UI thread
-    private var backgroundWriteRegistration: CSRegistration? = null
+    private var writeRegistration: JobRegistration? = null
 
     override fun onSave() {
         if (isImmediateWrite || CSBackground.isOff)
             saveJsonString(createJsonString(data))
         else {
+            writeRegistration?.cancel()
             val dataCopy = data.toMap()
-            backgroundWriteRegistration?.cancel()
-            backgroundWriteRegistration = background(1.second) {
+            writeRegistration = background.launch {
+                delay(SAVE_DELAY)
                 saveJsonString(createJsonString(dataCopy))
             }
         }
     }
+
+    suspend fun waitForWriteFinish() = writeRegistration?.waitToFinish()
 }
 

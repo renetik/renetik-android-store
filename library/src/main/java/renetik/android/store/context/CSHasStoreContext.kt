@@ -10,8 +10,8 @@ interface CSHasStoreContext: CSHasId {
 
     companion object {
         fun <T> T.clearDestruct() where T : CSHasStoreContext, T : CSHasDestruct {
-            store.clear()
             destruct()
+            store.clear()
         }
     }
 }
