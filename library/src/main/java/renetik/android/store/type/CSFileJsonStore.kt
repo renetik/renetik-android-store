@@ -1,5 +1,6 @@
 package renetik.android.store.type
 
+import kotlinx.coroutines.delay
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
 import renetik.android.core.lang.CSEnvironment.app
@@ -8,6 +9,7 @@ import renetik.android.event.CSBackground
 import renetik.android.event.CSBackground.background
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.JobRegistration
+import renetik.android.event.registration.launch
 import renetik.android.json.CSJson
 import java.io.File
 import kotlin.time.Duration.Companion.seconds
@@ -44,16 +46,16 @@ class CSFileJsonStore(
             saveJsonString(createJsonString(data))
         else {
             val dataCopy = data.toMap()
-            registration?.cancel()
-            registration = background(SAVE_DELAY) {
-                saveJsonString(createJsonString(dataCopy))
-            }
-//            background.launch {
-//                writeRegistration?.cancelAndWait()
-//                writeRegistration = it
-//                delay(SAVE_DELAY)
+//            registration?.cancel()
+//            registration = background(SAVE_DELAY) {
 //                saveJsonString(createJsonString(dataCopy))
 //            }
+            background.launch {
+                writeRegistration?.cancelAndWait()
+                writeRegistration = it
+                delay(SAVE_DELAY)
+                saveJsonString(createJsonString(dataCopy))
+            }
         }
     }
 
