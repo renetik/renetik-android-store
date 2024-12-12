@@ -20,10 +20,9 @@ interface StoreContext
 
     fun context(parent: CSHasDestruct, key: String? = null): StoreContext
 
-    /**
-     * Clear all data.
-     */
     fun clear()
+
+    fun clean()
 
     fun property(
         key: String, default: String, onChange: ArgFunc<String>? = null,
