@@ -10,7 +10,7 @@ interface CSHasStoreContext : CSHasId {
 
     companion object {
         fun <T> T.cleanDestruct() where T : CSHasStoreContext, T : CSHasDestruct {
-            store.clean()
+            store.clean() //TODO?: Clean should not be ever called without destruct
             destruct()
         }
     }
