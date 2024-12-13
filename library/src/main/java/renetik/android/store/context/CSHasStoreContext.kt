@@ -9,7 +9,7 @@ interface CSHasStoreContext : CSHasId {
     override val id get() = store.id
 
     companion object {
-        fun <T> T.clearDestruct() where T : CSHasStoreContext, T : CSHasDestruct {
+        fun <T> T.cleanDestruct() where T : CSHasStoreContext, T : CSHasDestruct {
             store.clean()
             destruct()
         }
