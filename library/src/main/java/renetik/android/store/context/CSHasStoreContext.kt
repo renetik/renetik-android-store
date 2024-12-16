@@ -9,7 +9,9 @@ interface CSHasStoreContext : CSHasId {
     override val id get() = store.id
 
     companion object {
-        fun <T> T.destructClean() where T : CSHasStoreContext, T : CSHasDestruct {
+        // We need to be able to destroy model first so no operations
+        // happen when we clear properties to clear storage.
+        fun <T> T.destructClear() where T : CSHasStoreContext, T : CSHasDestruct {
             destruct()
             store.clear()
         }
