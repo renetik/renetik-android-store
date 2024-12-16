@@ -22,8 +22,6 @@ interface StoreContext
 
     fun clear()
 
-    fun clean()
-
     fun property(
         key: String, default: String, onChange: ArgFunc<String>? = null,
     ): CSStoreProperty<String>
