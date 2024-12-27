@@ -36,6 +36,20 @@ class CSFileJsonStore(
             parent, File(app.filesDir, "$fileName.json"),
             isJsonPretty, isImmediateWrite
         )
+
+        fun CSFileJsonStore(
+            fileName: String,
+            isJsonPretty: Boolean = CSJson.isJsonPretty,
+            isImmediateWrite: Boolean = false
+        ) = CSFileJsonStore(
+            null, File(app.filesDir, "$fileName.json"),
+            isJsonPretty, isImmediateWrite
+        )
+
+        fun CSFileJsonStore(
+            file: File, isJsonPretty: Boolean = isDebug,
+            isImmediateWrite: Boolean = false
+        ) = CSFileJsonStore(null, file, isJsonPretty, isImmediateWrite)
     }
 
     init {
