@@ -11,7 +11,7 @@ class CSJsonListLateStoreProperty<T : CSJsonObjectStore>(
     store: CSStore, override val key: String, val type: KClass<T>,
     onChange: ((value: List<T>) -> Unit)? = null
 ) : CSLateStorePropertyBase<List<T>>(store, key, onChange) {
-    override fun get(): List<T>? = store.getJsonObjectList(key, type)
+    override fun get(store: CSStore): List<T>? = store.getJsonObjectList(key, type)
     override fun set(store: CSStore, value: List<T>) = store.setJsonObjectList(key, value)
 
     private val valuesOnChanged = mutableListOf<CSRegistration>()

@@ -10,17 +10,7 @@ interface CSStoreProperty<T> : CSProperty<T> {
     val key: String
     fun set(store: CSStore, value: T)
 
-    @Deprecated("If <T : CSStoreProperty<Int>> T.max(value: Int) " +
-            "and others works this is basecally unused and makes " +
-            "things significantly more complex in multiple places",
-        ReplaceWith("Remove"))
-    var filter: ((T?) -> T?)?
-
-    @Deprecated("If <T : CSStoreProperty<Int>> T.max(value: Int) " +
-            "and others works this is basecally unused and makes " +
-            "things significantly more complex in multiple places",
-        ReplaceWith("Remove"))
-    fun getFiltered(store: CSStore): T?
+    fun get(store: CSStore): T?
 
     val isSaved get() = store.has(key)
     fun listenStoreLoad()

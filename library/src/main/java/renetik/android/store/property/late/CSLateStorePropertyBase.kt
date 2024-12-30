@@ -19,10 +19,6 @@ abstract class CSLateStorePropertyBase<T>(
 
     open fun onLoadedValueChanged(value: T?) = Unit
 
-    override var filter: ((T?) -> T?)? = null
-    override fun getFiltered(store: CSStore): T? =
-        get().let { filter?.invoke(it) ?: it }
-
     init {
         later { if (parent != null) listenStoreLoad() }
     }
@@ -30,7 +26,7 @@ abstract class CSLateStorePropertyBase<T>(
     override fun listenStoreLoad() {
         this + ("store.eventLoaded.listen" to store.eventLoaded.listen {
             if (loadedValue != null) {
-                val newValue = getFiltered(store)!!
+                val newValue = get(store)!!
                 if (loadedValue != newValue) {
                     loadedValue = newValue
                     onValueChanged(newValue)
@@ -41,12 +37,12 @@ abstract class CSLateStorePropertyBase<T>(
 
     override var value: T
         get() {
-            if (loadedValue == null) loadedValue = getFiltered(store)!!
+            if (loadedValue == null) loadedValue = get(store)!!
             return loadedValue!!
         }
         set(value) = value(value)
 
-    abstract fun get(): T?
+    abstract override fun get(store: CSStore): T?
 
     override fun value(newValue: T, fire: Boolean) {
         if (loadedValue == newValue) return

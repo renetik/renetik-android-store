@@ -15,15 +15,14 @@ fun <T> CSStore.property(
     CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange)
 
 fun <T> CSStore.property(
-    parent: CSHasDestruct, key: String, getValues: () -> Collection<T>,
+    parent: CSHasDestruct? = null, key: String, getValues: () -> Collection<T>,
     getDefault: () -> T, onChange: ArgFunc<T>? = null
-): CSStoreProperty<T> =
-    CSListItemValueStoreProperty(
-        this, key, getValues, getDefault, onChange
-    ).parent(parent).listenStore()
+): CSStoreProperty<T> = CSListItemValueStoreProperty(
+    this, key, getValues, getDefault, onChange
+).apply { parent?.also(::parent) }.listenStore()
 
 fun <T> CSStore.property(
-    parent: CSHasDestruct, key: String, getValues: () -> List<T>,
+    parent: CSHasDestruct? = null, key: String, getValues: () -> List<T>,
     default: T, onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
     property(parent, key, getValues, getDefault = { default }, onChange)

@@ -10,7 +10,7 @@ class CSJsonLateStoreProperty<T : CSJsonObjectStore>(
     store: CSStore, override val key: String, val type: KClass<T>,
     onChange: ((value: T) -> Unit)? = null
 ) : CSLateStorePropertyBase<T>(store, key, onChange) {
-    override fun get(): T? = store.getJsonObject(key, type)
+    override fun get(store: CSStore): T? = store.getJsonObject(key, type)
     override fun set(store: CSStore, value: T) = store.setJsonObject(key, value)
 
     private var onJsonObjectChanged: CSRegistration? = null

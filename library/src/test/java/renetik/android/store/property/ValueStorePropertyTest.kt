@@ -31,6 +31,8 @@ class ValueStorePropertyTest {
             eventCount += 1
         }
         assertEquals("initial", value)
+        value = "initial"
+        assertEquals(0, eventCount)
         value = "new value"
         assertEquals("""{"key":"new value"}""", store.toJson())
 
@@ -135,7 +137,7 @@ class ValueStorePropertyTest {
     fun testJsonValueProperty() {
         val value: SimpleJsonObjectStore by store.dataProperty("key")
         assertEquals("""{}""", store.toJson())
-        assertEquals("string", value.string)
+        assertEquals("defaultString", value.string)
         assertNull(value.nullString)
         assertThrows { value.lateString }
 

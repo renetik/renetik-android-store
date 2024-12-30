@@ -11,7 +11,7 @@ class SimpleJsonObjectStore(
     lateString: String? = null
 ) : CSJsonObjectStore() {
 
-    var string: String by dataProperty("stringId", "string")
+    var string: String by dataProperty("stringId", "defaultString")
     var nullString: String? by dataNullStringProperty("nullStringId")
     var lateString: String by dataLateStringProperty("lateStringId")
 

@@ -12,6 +12,6 @@ class CSListItemLateStoreProperty<T>(
                 values: Array<T>, onChange: ((value: T) -> Unit)? = null)
             : this(store, key, values.asIterable(), onChange)
 
-    override fun get(): T? = store.getValue(key, values)
+    override fun get(store: CSStore): T? = store.getValue(key, values)
     override fun set(store: CSStore, value: T) = store.set(key, value.toId())
 }
