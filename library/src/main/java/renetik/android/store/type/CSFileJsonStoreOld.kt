@@ -50,12 +50,12 @@ class CSFileJsonStoreOld(
 //            registration = background(SAVE_DELAY) {
 //                saveJsonString(createJsonString(dataCopy))
 //            }
-            CSBackground.dispatcher.launch {
-                writeRegistration?.cancelAndWait()
-                writeRegistration = it
-                delay(SAVE_DELAY)
-                saveJsonString(createJsonString(dataCopy))
-            }
+//            CSBackground.dispatcher.launch {
+//                writeRegistration?.cancelAndWait()
+//                writeRegistration = it
+//                delay(SAVE_DELAY)
+//                saveJsonString(createJsonString(dataCopy))
+//            }
         }
     }
 
