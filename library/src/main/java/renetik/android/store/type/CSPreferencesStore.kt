@@ -40,7 +40,8 @@ class CSPreferencesStore(val context: Context, id: String = "default") : CSStore
     override fun get(key: String): String? =
         catchAllWarnReturnNull { preferences.getString(key, null) }
 
-    override fun getList(key: String): List<*>? = get(key)?.parseJson<List<*>>()
+    override fun getList(key: String): List<*>? =
+        get(key)?.parseJson<List<*>>()
 
     override fun getMap(key: String): Map<String, *>? =
         get(key)?.parseJson<Map<String, *>>()
@@ -51,9 +52,6 @@ class CSPreferencesStore(val context: Context, id: String = "default") : CSStore
         eventChanged.fire(this@CSPreferencesStore)
         editor.apply()
     } ?: clear(key)
-
-    override fun set(key: String, value: Array<*>?) =
-        set(key, value?.toJson(formatted = isJsonPretty))
 
     override fun set(key: String, value: List<*>?) =
         set(key, value?.toJson(formatted = isJsonPretty))
