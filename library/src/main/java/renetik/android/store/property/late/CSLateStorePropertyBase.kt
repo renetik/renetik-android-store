@@ -2,7 +2,6 @@ package renetik.android.store.property.late
 
 import renetik.android.event.property.CSPropertyBase
 import renetik.android.event.registration.plus
-import renetik.android.event.util.CSLater.later
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSLateStoreProperty
 
@@ -19,14 +18,7 @@ abstract class CSLateStorePropertyBase<T>(
 
     open fun onLoadedValueChanged(value: T?) = Unit
 
-    init {
-        later { if (parent != null) listenStoreLoad() }
-    }
-
-    override fun listenStoreLoad() = this + ("store.eventLoaded.listen"
-            to store.eventLoaded.listen { update() })
-
-    private fun update() {
+     override fun update() {
         if (loadedValue == null) return
         val newValue = get(store)!!
         if (loadedValue != newValue) {

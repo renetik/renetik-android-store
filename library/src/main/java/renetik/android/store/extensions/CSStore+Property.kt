@@ -3,8 +3,10 @@ package renetik.android.store.extensions
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.parent
+import renetik.android.event.registration.plus
 import renetik.android.store.CSStore
 import renetik.android.store.property.listenStore
+import renetik.android.store.property.listenStoreOnce
 import renetik.android.store.property.value.CSBooleanValueStoreProperty
 import renetik.android.store.property.value.CSDoubleValueStoreProperty
 import renetik.android.store.property.value.CSFloatValueStoreProperty
@@ -20,7 +22,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: String,
     onChange: ArgFunc<String>? = null,
-) = property(key, default, onChange).listenStore()
+) = property(key, default, onChange).listenStoreOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
@@ -37,7 +39,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Boolean,
     onChange: ArgFunc<Boolean>? = null,
-) = property(key, default, onChange).listenStore()
+) = property(key, default, onChange).listenStoreOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
@@ -54,7 +56,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Int,
     onChange: ArgFunc<Int>? = null
-) = property(key, default, onChange).listenStore()
+) = property(key, default, onChange).listenStoreOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
@@ -71,7 +73,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Double,
     onChange: ArgFunc<Double>? = null,
-) = property(key, default, onChange).listenStore()
+) = property(key, default, onChange).listenStoreOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
@@ -88,7 +90,7 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Float,
     onChange: ArgFunc<Float>? = null,
-) = property(key, default, onChange).listenStore()
+) = property(key, default, onChange).listenStoreOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,

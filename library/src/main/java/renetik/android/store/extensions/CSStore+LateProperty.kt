@@ -8,6 +8,7 @@ import renetik.android.store.property.late.CSIntLateStoreProperty
 import renetik.android.store.property.late.CSListItemLateStoreProperty
 import renetik.android.store.property.late.CSStringLateStoreProperty
 import renetik.android.store.property.listenStore
+import renetik.android.store.property.listenStoreOnce
 
 fun CSStore.lateStringProperty(
     key: String,
@@ -28,7 +29,7 @@ fun CSStore.lateIntProperty(
 fun CSStore.dataLateIntProperty(
     key: String,
     onChange: ArgFunc<Int>? = null
-) = lateIntProperty(key, onChange).listenStore()
+) = lateIntProperty(key, onChange).listenStoreOnce()
 
 fun CSStore.lateBoolProperty(
     key: String,
@@ -46,7 +47,7 @@ fun <T> CSStore.dataLateListItemProperty(
     key: String, values: Iterable<T>,
     onChange: ArgFunc<T>? = null
 ): CSLateStoreProperty<T> =
-    CSListItemLateStoreProperty(this, key, values, onChange).listenStore()
+    CSListItemLateStoreProperty(this, key, values, onChange).listenStoreOnce()
 
 fun <T> CSStore.lateListItemProperty(
     key: String, values: Array<T>,

@@ -6,6 +6,7 @@ import renetik.android.event.common.parent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.listenStore
+import renetik.android.store.property.listenStoreOnce
 import renetik.android.store.property.nullable.CSBooleanNullableStoreProperty
 import renetik.android.store.property.nullable.CSFloatNullableStoreProperty
 import renetik.android.store.property.nullable.CSIntNullableStoreProperty
@@ -19,7 +20,7 @@ fun CSStore.nullStringProperty(
 fun CSStore.dataNullStringProperty(
     key: String, default: String? = null,
     onChange: ArgFunc<String?>? = null,
-) = nullStringProperty(key, default, onChange).listenStore()
+) = nullStringProperty(key, default, onChange).listenStoreOnce()
 
 fun CSStore.nullStringProperty(
     parent: CSHasDestruct,
@@ -31,26 +32,24 @@ fun CSStore.nullStringProperty(
 fun CSStore.nullBoolProperty(
     key: String, default: Boolean? = null,
     onChange: ArgFunc<Boolean?>? = null,
-): CSStoreProperty<Boolean?> =
-    CSBooleanNullableStoreProperty(this, key, default, onChange)
+) = CSBooleanNullableStoreProperty(this, key, default, onChange)
 
 fun CSStore.dataNullBoolProperty(
     key: String, default: Boolean? = null,
     onChange: ArgFunc<Boolean?>? = null,
 ): CSStoreProperty<Boolean?> =
-    nullBoolProperty(key, default, onChange).listenStore()
+    nullBoolProperty(key, default, onChange).listenStoreOnce()
 
 fun CSStore.nullIntProperty(
     key: String, default: Int? = null,
     onChange: ArgFunc<Int?>? = null,
-): CSStoreProperty<Int?> =
-    CSIntNullableStoreProperty(this, key, default, onChange)
+) = CSIntNullableStoreProperty(this, key, default, onChange)
 
 fun CSStore.dataNullIntProperty(
     key: String, default: Int? = null,
     onChange: ArgFunc<Int?>? = null,
 ): CSStoreProperty<Int?> =
-    nullIntProperty(key, default, onChange).listenStore()
+    nullIntProperty(key, default, onChange).listenStoreOnce()
 
 fun CSStore.nullIntProperty(
     parent: CSHasDestruct,

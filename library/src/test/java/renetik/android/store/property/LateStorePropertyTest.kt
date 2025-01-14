@@ -1,10 +1,12 @@
 package renetik.android.store.property
 
+import android.graphics.ColorSpace.Model
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import renetik.android.event.common.CSModel
 import renetik.android.json.CSJson.forceString
 import renetik.android.json.toJson
 import renetik.android.store.CSStore
@@ -48,9 +50,10 @@ class LateStorePropertyTest {
 
     @Test
     fun testBooleanProperty() {
+        val parent = CSModel()
         var newValue: Boolean? = null
         var value: Boolean by store.lateBoolProperty("key") { newValue = it }
-            .listenStore()
+            .listenStore(parent)
         value = false
 
         assertEquals("""{"key":false}""", store.toJson())
@@ -62,9 +65,11 @@ class LateStorePropertyTest {
 
     @Test
     fun testIntProperty() {
+        val parent = CSModel()
         forceString = true
         var newValue: Int? = null
-        var value: Int by store.lateIntProperty("key") { newValue = it }.listenStore()
+        var value: Int by store.lateIntProperty("key") { newValue = it }
+            .listenStore(parent)
         value = 34
 
         assertEquals("""{"key":"34"}""", store.toJson())
@@ -77,12 +82,13 @@ class LateStorePropertyTest {
 
     @Test
     fun testListItemValueProperty() {
+        val parent = CSModel()
         var eventCount = 0
         var newValue: TestIdItem? = null
         var value: TestIdItem by store.lateListItemProperty("key", TestIdItems) {
             newValue = it
             eventCount += 1
-        }.listenStore()
+        }.listenStore(parent)
         value = Fourth
 
         assertEquals("""{"key":"id4"}""", store.toJson())
@@ -113,10 +119,11 @@ class LateStorePropertyTest {
 
     @Test
     fun testLateJsonListProperty() {
+        val parent = CSModel()
         var newValue: List<SimpleJsonObjectStore>? = null
         var value: List<SimpleJsonObjectStore> by store.lateJsonListProperty("key") {
             newValue = it
-        }.listenStore()
+        }.listenStore(parent)
         value = listOf(
             SimpleJsonObjectStore(), SimpleJsonObjectStore(lateString = "string 1")
         )
@@ -138,7 +145,7 @@ class LateStorePropertyTest {
         var newValue: List<List<SimpleJsonObjectStore>>? = null
         var value: List<List<SimpleJsonObjectStore>> by store.lateJsonListListProperty(
             "key", onChange = { newValue = it }
-        ).listenStore()
+        ).listenStoreOnce()
         assertThrows { value.last() }
         value =
             listOf(

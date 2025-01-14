@@ -21,10 +21,7 @@ abstract class CSValueStoreProperty<T>(
 
     open fun onLoadedValueChanged(value: T?) = Unit
 
-    override fun listenStoreLoad() = this + ("store.eventLoaded.listen"
-            to store.eventLoaded.listen { update() })
-
-    private fun update() {
+     override fun update() {
         val newValue = get(store)
         if (newValue == null) {
             if (loadedValue != default) {
