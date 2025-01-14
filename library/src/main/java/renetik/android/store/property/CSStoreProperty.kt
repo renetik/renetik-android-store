@@ -3,6 +3,7 @@
 package renetik.android.store.property
 
 import renetik.android.event.property.CSProperty
+import renetik.android.event.registration.CSRegistration
 import renetik.android.store.CSStore
 
 interface CSStoreProperty<T> : CSProperty<T> {
@@ -13,7 +14,7 @@ interface CSStoreProperty<T> : CSProperty<T> {
     fun get(store: CSStore): T?
 
     val isSaved get() = store.has(key)
-    fun listenStoreLoad()
+    fun listenStoreLoad(): CSRegistration
     fun trackModified(track: Boolean = true): CSStoreProperty<T> = this
     fun clear() = store.clear(key)
 }

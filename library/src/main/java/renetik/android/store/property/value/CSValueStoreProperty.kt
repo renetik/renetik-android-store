@@ -18,11 +18,11 @@ abstract class CSValueStoreProperty<T>(
         didSet = ::onLoadedValueChanged,
         initializer = { get(store) ?: default }
     )
+
     open fun onLoadedValueChanged(value: T?) = Unit
 
-    override fun listenStoreLoad() {
-        this + ("store.eventLoaded.listen" to store.eventLoaded.listen { update() })
-    }
+    override fun listenStoreLoad() = this + ("store.eventLoaded.listen"
+            to store.eventLoaded.listen { update() })
 
     private fun update() {
         val newValue = get(store)

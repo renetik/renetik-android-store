@@ -23,16 +23,16 @@ abstract class CSLateStorePropertyBase<T>(
         later { if (parent != null) listenStoreLoad() }
     }
 
-    override fun listenStoreLoad() {
-        this + ("store.eventLoaded.listen" to store.eventLoaded.listen {
-            if (loadedValue != null) {
-                val newValue = get(store)!!
-                if (loadedValue != newValue) {
-                    loadedValue = newValue
-                    onValueChanged(newValue)
-                }
-            }
-        })
+    override fun listenStoreLoad() = this + ("store.eventLoaded.listen"
+            to store.eventLoaded.listen { update() })
+
+    private fun update() {
+        if (loadedValue == null) return
+        val newValue = get(store)!!
+        if (loadedValue != newValue) {
+            loadedValue = newValue
+            onValueChanged(newValue)
+        }
     }
 
     override var value: T
