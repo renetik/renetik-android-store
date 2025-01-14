@@ -5,7 +5,7 @@ import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.destruct
 
 interface CSHasStoreContext : CSHasId {
-    val store: StoreContext
+    val store: CSStoreContext
     override val id get() = store.id
 
     companion object {

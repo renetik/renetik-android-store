@@ -7,18 +7,18 @@ import renetik.android.event.common.CSHasRegistrationsHasDestruct
 import renetik.android.event.registration.CSHasChange
 import renetik.android.store.property.CSStoreProperty
 
-interface StoreContext
+interface CSStoreContext
     : CSHasRegistrationsHasDestruct, CSHasId, CSHasChange<Unit> {
     companion object
 
     val key: String?
     override val id: String
 
-    fun appContext(parent: CSHasDestruct = this, key: String? = this.key): StoreContext
+    fun appContext(parent: CSHasDestruct = this, key: String? = this.key): CSStoreContext
 
-    fun memoryContext(parent: CSHasDestruct = this, key: String? = this.key): StoreContext
+    fun memoryContext(parent: CSHasDestruct = this, key: String? = this.key): CSStoreContext
 
-    fun context(parent: CSHasDestruct, key: String? = null): StoreContext
+    fun context(parent: CSHasDestruct, key: String? = null): CSStoreContext
 
     fun clear()
 
