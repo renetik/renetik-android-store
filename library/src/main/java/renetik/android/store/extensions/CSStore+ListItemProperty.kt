@@ -12,8 +12,7 @@ import renetik.android.store.property.value.CSListItemValueStoreProperty
 fun <T> CSStore.property(
     key: String, getValues: () -> List<T>, getDefault: () -> T,
     onChange: ArgFunc<T>? = null
-): CSStoreProperty<T> =
-    CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange)
+) = CSListItemValueStoreProperty(this, key, getValues, getDefault, onChange)
 
 fun <T> CSStore.property(
     parent: CSHasDestruct? = null, key: String, getValues: () -> Collection<T>,
@@ -43,8 +42,7 @@ fun <T> CSStore.property(
 fun <T> CSStore.property(
     key: String, values: List<T>, default: T,
     onChange: ArgFunc<T>? = null
-): CSStoreProperty<T> =
-    property(key, getValues = { values }, getDefault = { default }, onChange)
+) = property(key, getValues = { values }, getDefault = { default }, onChange)
 
 fun <T> CSStore.dataProperty(
     key: String, values: List<T>, default: T,
