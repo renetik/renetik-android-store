@@ -9,8 +9,8 @@ import renetik.android.store.property.nullable.CSListItemNullableStoreProperty
 fun <T> CSStore.nullListItemProperty(
     key: String, getValues: () -> List<T>, getDefault: () -> T?,
     onChange: ArgFunc<T?>? = null
-) =
-    CSListItemNullableStoreProperty(this, key, getValues, getDefault, onChange)
+) = CSListItemNullableStoreProperty(
+    this, key, getValues, getDefault, onChange)
 
 fun <T> CSStore.nullListItemProperty(
     key: String, values: List<T>, getDefault: () -> T?,
