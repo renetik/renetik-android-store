@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.preference.PreferenceManager.getDefaultSharedPreferences
 import renetik.android.core.lang.catchAllWarnReturnNull
 import renetik.android.event.CSEvent.Companion.event
 import renetik.android.json.CSJson.isJsonPretty
@@ -18,9 +19,10 @@ import renetik.android.store.CSStore
 import renetik.android.store.extensions.loadAll
 import kotlin.reflect.KClass
 
-//Not used for now..
-class CSPreferencesStore(val context: Context, id: String = "default") : CSStore {
-    val preferences: SharedPreferences = context.getSharedPreferences(id, MODE_PRIVATE)
+class CSPreferencesStore(val preferences: SharedPreferences) : CSStore {
+    constructor(context: Context, id: String = "default")
+            : this(context.getSharedPreferences(id, MODE_PRIVATE))
+
     override val eventLoaded = event<CSStore>()
     override val eventChanged = event<CSStore>()
     override val data: Map<String, Any?> get() = preferences.all
