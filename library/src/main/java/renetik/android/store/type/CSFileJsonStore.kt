@@ -2,6 +2,7 @@ package renetik.android.store.type
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.delay
@@ -11,6 +12,7 @@ import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
+import renetik.android.core.lang.result.context
 import renetik.android.event.CSBackground
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.onDestructed
@@ -70,7 +72,8 @@ class CSFileJsonStore(
         while (isActive) {
             saveChannel.receive()
             delay(SAVE_DELAY)
-            if (!isSaveDisabled) saveJsonString(createJsonString(data.toMap()))
+            if (!isSaveDisabled)
+                saveJsonString(createJsonString(Main.context(data::toMap)))
         }
     }
 
