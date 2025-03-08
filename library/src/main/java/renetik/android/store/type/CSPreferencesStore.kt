@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import android.preference.PreferenceManager.getDefaultSharedPreferences
+import androidx.core.content.edit
 import renetik.android.core.lang.catchAllWarnReturnNull
 import renetik.android.event.CSEvent.Companion.event
 import renetik.android.json.CSJson.isJsonPretty
@@ -29,13 +29,9 @@ class CSPreferencesStore(val preferences: SharedPreferences) : CSStore {
     override val jsonMap: Map<String, *> by lazy { data }
 
     @SuppressLint("CommitPrefEdits")
-    override fun clear() = preferences.edit().clear().apply()
+    override fun clear() = preferences.edit { clear() }
 
-    override fun clear(key: String) {
-        val editor = preferences.edit()
-        editor.remove(key)
-        editor.apply()
-    }
+    override fun clear(key: String) = preferences.edit { remove(key) }
 
     override fun has(key: String) = key in preferences
 
@@ -49,10 +45,10 @@ class CSPreferencesStore(val preferences: SharedPreferences) : CSStore {
         get(key)?.parseJson<Map<String, *>>()
 
     override fun set(key: String, string: String?) = string?.let {
-        val editor = preferences.edit()
-        editor.putString(key, it)
-        eventChanged.fire(this@CSPreferencesStore)
-        editor.apply()
+        preferences.edit {
+            putString(key, it)
+            eventChanged.fire(this@CSPreferencesStore)
+        }
     } ?: clear(key)
 
     override fun set(key: String, value: List<*>?) =
