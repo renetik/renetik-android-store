@@ -3,14 +3,12 @@ package renetik.android.store.extensions
 import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.parent
-import renetik.android.event.registration.plus
 import renetik.android.store.CSStore
 import renetik.android.store.property.listenStore
 import renetik.android.store.property.listenStoreOnce
 import renetik.android.store.property.value.CSBooleanValueStoreProperty
 import renetik.android.store.property.value.CSDoubleValueStoreProperty
 import renetik.android.store.property.value.CSFloatValueStoreProperty
-import renetik.android.store.property.value.CSIntListValueStoreProperty
 import renetik.android.store.property.value.CSIntValueStoreProperty
 import renetik.android.store.property.value.CSLongValueStoreProperty
 import renetik.android.store.property.value.CSStringListValueStoreProperty
@@ -114,11 +112,11 @@ fun CSStore.property(
     .parent(parent).listenStore()
 
 fun CSStore.property(
-    key: String, default: List<String>, onChange: ArgFunc<List<String>>?
+    key: String, default: List<String>, onChange: ArgFunc<List<String>>? = null
 ) = CSStringListValueStoreProperty(this, key, default, onChange)
 
 fun CSStore.property(
     parent: CSHasDestruct,
-    key: String, default: List<String>, onChange: ArgFunc<List<String>>?
+    key: String, default: List<String>, onChange: ArgFunc<List<String>>? = null
 ) = CSStringListValueStoreProperty(this, key, default, onChange)
     .parent(parent).listenStore()
