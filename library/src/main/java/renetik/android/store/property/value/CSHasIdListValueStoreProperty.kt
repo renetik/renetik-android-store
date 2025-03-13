@@ -5,7 +5,7 @@ import renetik.android.core.lang.CSHasId
 import renetik.android.json.obj.getStringList
 import renetik.android.store.CSStore
 
-class CSListValueStoreProperty<T : CSHasId>(
+class CSHasIdListValueStoreProperty<T : CSHasId>(
     store: CSStore, key: String,
     val values: Iterable<T>,
     override val default: List<T> = emptyList(),
