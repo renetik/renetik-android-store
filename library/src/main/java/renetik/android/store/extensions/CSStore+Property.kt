@@ -115,6 +115,10 @@ fun CSStore.property(
     key: String, default: List<String>, onChange: ArgFunc<List<String>>? = null
 ) = CSStringListValueStoreProperty(this, key, default, onChange)
 
+fun CSStore.dataProperty(
+    key: String, default: List<String>, onChange: ArgFunc<List<String>>? = null
+) = property(key, default, onChange).listenStoreOnce()
+
 fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: List<String>, onChange: ArgFunc<List<String>>? = null
