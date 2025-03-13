@@ -9,7 +9,7 @@ class CSListValueStoreProperty<T : CSHasId>(
     store: CSStore, key: String,
     val values: Iterable<T>,
     override val default: List<T> = emptyList(),
-    val isStringList: Boolean = false,
+    val storedAsStringList: Boolean = false,
     onChange: ((value: List<T>) -> Unit)? = null
 ) : CSValueStoreProperty<List<T>>(store, key, onChange) {
 
@@ -17,10 +17,10 @@ class CSListValueStoreProperty<T : CSHasId>(
         ?.mapNotNull { id -> values.find { it.id == id } } ?: this.default
 
     private fun CSStore.getStringList() =
-        if (isStringList) getStringList(key) else get(key)?.split(",")
+        if (storedAsStringList) getStringList(key) else get(key)?.split(",")
 
     override fun set(store: CSStore, value: List<T>) {
-        if (isStringList) store.set(key, value.map { it.toId() })
+        if (storedAsStringList) store.set(key, value.map { it.toId() })
         else store.set(key, value.joinToString(",") { it.toId() })
     }
 }
