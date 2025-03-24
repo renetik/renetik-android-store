@@ -13,7 +13,7 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface,
 
     companion object {
         //TODO: Remove completely and make it just local to app
-        var fileStore by lazyVar { CSFileJsonStore( "store") }
+        var fileStore: CSStore by lazyVar { CSFileJsonStore( "store") }
         val runtimeStore: CSStore by lazy { CSJsonObjectStore() }
         val EmptyStore: CSStore get() = CSJsonObjectStore()
     }
