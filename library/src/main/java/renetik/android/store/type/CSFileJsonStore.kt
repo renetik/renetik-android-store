@@ -8,9 +8,10 @@ import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import renetik.android.core.base.CSApplication.Companion.app
+import renetik.android.core.extensions.content.CSToast.toast
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
-import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.result.context
 import renetik.android.event.CSBackground
@@ -72,8 +73,13 @@ class CSFileJsonStore(
         while (isActive) {
             saveChannel.receive()
             delay(SAVE_DELAY)
-            if (!isSaveDisabled)
+            if (!isSaveDisabled) try {
                 saveJsonString(createJsonString(Main.context(data::toMap)))
+            } catch (ex: OutOfMemoryError) {
+                saveJsonString(createJsonString(emptyMap()))
+                toast("Out of memory error due to large data, truncating and restart...")
+                Main.context { app.restart() }
+            }
         }
     }
 
