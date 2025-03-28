@@ -7,6 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment.getApplication
+import org.robolectric.annotation.Config
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.json.CSJson
 import renetik.android.json.toJson
@@ -15,6 +16,7 @@ import renetik.android.store.extensions.dataProperty
 import renetik.android.store.extensions.reload
 
 @RunWith(RobolectricTestRunner::class)
+@Config(application = TestCSApplication::class)
 class DefaultStoreTest {
 
     @Before
