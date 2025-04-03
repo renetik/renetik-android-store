@@ -95,5 +95,13 @@ class CSFileJsonStore(
     }
 
     fun close() = writerJob.cancel()
+
+    override fun clear() {
+        if (data.isEmpty()) return
+        file.delete()
+        data.clear()
+        onLoaded()
+        onChange()
+    }
 }
 
