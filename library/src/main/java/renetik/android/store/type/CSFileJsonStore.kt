@@ -14,9 +14,14 @@ import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.result.context
+import renetik.android.core.lang.variable.setFalse
+import renetik.android.core.lang.variable.setTrue
+import renetik.android.core.logging.CSLog.logError
 import renetik.android.event.CSBackground
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.onDestructed
+import renetik.android.event.property.CSAtomicProperty
+import renetik.android.event.registration.waitIsTrue
 import renetik.android.json.CSJson
 import java.io.File
 import kotlin.time.Duration.Companion.seconds
@@ -66,20 +71,26 @@ class CSFileJsonStore(
     }
 
     private var isSaveDisabled: Boolean = false
+    private var isWriteFinished = CSAtomicProperty(parent, false)
 
     private val saveChannel = Channel<Unit>(capacity = CONFLATED)
 
     private val writerJob = CoroutineScope(Dispatchers.IO).launch {
         while (isActive) {
             saveChannel.receive()
+            isWriteFinished.setFalse()
             delay(SAVE_DELAY)
             if (!isSaveDisabled) try {
                 saveJsonString(createJsonString(Main.context(data::toMap)))
             } catch (ex: OutOfMemoryError) {
                 saveJsonString(createJsonString(emptyMap()))
+                logError(ex)
                 toast("Out of memory error due to large data, truncating and restart...")
                 Main.context { app.restart() }
+            } catch (ex: Exception) {
+                logError(ex)
             }
+            isWriteFinished.setTrue()
         }
     }
 
@@ -89,10 +100,7 @@ class CSFileJsonStore(
         } else saveChannel.trySend(Unit)
     }
 
-    suspend fun waitForWriteFinish() {
-        saveChannel.send(Unit)
-        writerJob.join()
-    }
+    suspend fun waitForWriteFinish() = isWriteFinished.waitIsTrue()
 
     fun close() = writerJob.cancel()
 
@@ -100,7 +108,6 @@ class CSFileJsonStore(
         if (data.isEmpty()) return
         file.delete()
         data.clear()
-        onLoaded()
         onChange()
     }
 }
