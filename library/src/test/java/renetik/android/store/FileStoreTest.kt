@@ -11,18 +11,34 @@ import org.robolectric.annotation.Config
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.json.CSJson
 import renetik.android.json.toJson
-import renetik.android.store.CSStore.Companion.fileStore
 import renetik.android.store.extensions.dataProperty
 import renetik.android.store.extensions.reload
+import renetik.android.store.type.CSFileJsonStore.Companion.CSFileJsonStore
 
 @RunWith(RobolectricTestRunner::class)
 @Config(application = TestCSApplication::class)
-class DefaultStoreTest {
+class FileStoreTest {
+
+    val fileStore = CSFileJsonStore("store")
 
     @Before
     fun prepare() {
         app = getApplication()
         CSJson.forceString = true
+    }
+
+    @Test
+    fun defaultStoreEventTest() {
+        var loaded = 0
+        var changed = 0
+        fileStore.eventLoaded.onChange { loaded += 1 }
+        fileStore.eventChanged.onChange { changed += 1 }
+        fileStore.clear()
+        assertEquals("loaded:0, changed:0", "loaded:$loaded, changed:$changed")
+        fileStore.reload("""{"string":"new value 2"}""")
+        assertEquals("loaded:1, changed:1", "loaded:$loaded, changed:$changed")
+        fileStore.clear()
+        assertEquals("loaded:1, changed:2", "loaded:$loaded, changed:$changed")
     }
 
     @Test
