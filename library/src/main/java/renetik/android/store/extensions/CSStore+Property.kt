@@ -19,6 +19,11 @@ fun CSStore.property(
     onChange: ArgFunc<String>? = null,
 ) = CSStringValueStoreProperty(this, key, default, onChange)
 
+fun CSStore.property(
+    key: String, default: () -> String,
+    onChange: ArgFunc<String>? = null,
+) = CSStringValueStoreProperty(this, key, default, onChange)
+
 fun CSStore.dataProperty(
     key: String, default: String,
     onChange: ArgFunc<String>? = null,
