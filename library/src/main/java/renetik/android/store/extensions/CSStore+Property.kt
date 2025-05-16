@@ -71,6 +71,13 @@ fun CSStore.property(
     .parent(parent).listenStore()
 
 fun CSStore.property(
+    parent: CSHasDestruct,
+    key: String, default: ()->Int,
+    onChange: ArgFunc<Int>? = null,
+) = CSIntValueStoreProperty(this, key, default, onChange)
+    .parent(parent).listenStore()
+
+fun CSStore.property(
     key: String, default: Double,
     onChange: ArgFunc<Double>? = null,
 ) = CSDoubleValueStoreProperty(this, key, default, onChange)

@@ -38,6 +38,10 @@ interface CSStoreContext
         key: String, default: Int, onChange: ArgFunc<Int>? = null
     ): CSStoreProperty<Int>
 
+    fun property(
+        key: String, default: () -> Int, onChange: ArgFunc<Int>? = null
+    ): CSStoreProperty<Int>
+
     fun nullIntProperty(
         key: String, default: Int? = null, onChange: ((value: Int?) -> Unit)? = null
     ): CSStoreProperty<Int?>
