@@ -12,3 +12,14 @@ class CSIntNullableStoreProperty(
     override fun set(store: CSStore, value: Int?) =
         value?.let { store.set(key, value) } ?: store.clear(key)
 }
+
+
+class CSDoubleNullableStoreProperty(
+    store: CSStore, key: String,
+    override val default: Double? = null,
+    onChange: ((value: Double?) -> Unit)? = null)
+    : CSValueStoreProperty<Double?>(store, key, onChange) {
+    override fun get(store: CSStore): Double? = store.getDouble(key)
+    override fun set(store: CSStore, value: Double?) =
+        value?.let { store.set(key, value) } ?: store.clear(key)
+}
