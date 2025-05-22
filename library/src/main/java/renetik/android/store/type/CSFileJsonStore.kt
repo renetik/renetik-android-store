@@ -107,8 +107,7 @@ class CSFileJsonStore(
     override fun clear() {
         if (data.isEmpty()) return
         file.delete()
-        data.clear()
-        onChange()
+        super.clear()
     }
 }
 
