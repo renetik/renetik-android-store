@@ -38,7 +38,7 @@ class FileStoreTest {
         fileStore.reload("""{"string":"new value 2"}""")
         assertEquals("loaded:1, changed:1", "loaded:$loaded, changed:$changed")
         fileStore.clear()
-        assertEquals("loaded:1, changed:2", "loaded:$loaded, changed:$changed")
+        assertEquals("loaded:2, changed:2", "loaded:$loaded, changed:$changed")
     }
 
     @Test

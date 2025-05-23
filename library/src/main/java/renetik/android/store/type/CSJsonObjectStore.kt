@@ -13,30 +13,38 @@ open class CSJsonObjectStore : CSJsonObject(), CSStore {
 
     override val eventLoaded = event<CSStore>()
     override val eventChanged = event<CSStore>()
-    override fun onLoaded() = eventLoaded.fire(this)
+    open fun onLoaded() = eventLoaded.fire(this)
     open fun onChanged() = eventChanged.fire(this)
+    var isOperation = false
+    private var isLoadWhenOperation = false
+    private var isChangeWhenOperation = false
 
-    override fun onChange() {
-        if (!isPausedOnChange) onChanged()
-        else isChangeWhilePaused = true
+    override fun onLoad() {
+        if (!isOperation) onLoaded()
+        else isLoadWhenOperation = true
     }
 
-    private var isChangeWhilePaused = false
-    var isPausedOnChange = false
+    override fun onChange() {
+        if (!isOperation) onChanged()
+        else isChangeWhenOperation = true
+    }
 
-    override fun pauseOnChange(): Boolean {
-        if (!isPausedOnChange) {
-            isPausedOnChange = true
-            isChangeWhilePaused = false
+    override fun startOperation(): Boolean {
+        if (!isOperation) {
+            isOperation = true
+            isLoadWhenOperation = false
+            isChangeWhenOperation = false
             return true
         }
         return false
     }
 
-    override fun resumeOnChange() {
-        isPausedOnChange = false
-        if (isChangeWhilePaused) onChanged()
-        isChangeWhilePaused = false
+    override fun stopOperation() {
+        isOperation = false
+        if (isLoadWhenOperation) onLoaded()
+        isLoadWhenOperation = false
+        if (isChangeWhenOperation) onChanged()
+        isChangeWhenOperation = false
     }
 }
 

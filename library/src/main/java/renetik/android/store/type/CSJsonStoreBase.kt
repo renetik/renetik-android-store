@@ -20,7 +20,7 @@ abstract class CSJsonStoreBase(
         save()
     }
 
-    fun save() = isPausedOnChange.isFalse { onSave() }
+    fun save() = isOperation.isFalse { onSave() }
 
     protected open fun onSave() = saveJsonString(createJsonString(data))
 

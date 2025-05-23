@@ -23,8 +23,8 @@ interface CSStore : Iterable<Map.Entry<String, Any?>>, CSJsonObjectInterface,
     override fun onChange(function: (CSStore) -> Unit) = eventChanged.onChange(function)
     val data: Map<String, Any?>
 
-    fun pauseOnChange(): Boolean = false
-    fun resumeOnChange() = Unit
+    fun startOperation(): Boolean = false
+    fun stopOperation() = Unit
 
     fun load(data: Map<String, Any?>)
     fun reload(data: Map<String, Any?>) = operation {
