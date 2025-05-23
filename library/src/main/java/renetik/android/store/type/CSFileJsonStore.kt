@@ -83,9 +83,8 @@ class CSFileJsonStore(
             if (!isSaveDisabled) try {
                 saveJsonString(createJsonString(Main.context(data::toMap)))
             } catch (ex: OutOfMemoryError) {
-                saveJsonString(createJsonString(emptyMap()))
                 logError(ex)
-                toast("Out of memory error due to large data, truncating and restart...")
+                toast("Critical error: Out of memory when saving data, restart...")
                 Main.context { app.restart() }
             } catch (ex: Exception) {
                 logError(ex)
