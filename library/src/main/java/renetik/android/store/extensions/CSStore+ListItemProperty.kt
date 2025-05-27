@@ -5,8 +5,8 @@ import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.parent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
-import renetik.android.store.property.listenStore
-import renetik.android.store.property.listenStoreOnce
+import renetik.android.store.property.listenLoad
+import renetik.android.store.property.listenLoadOnce
 import renetik.android.store.property.value.CSListItemValueStoreProperty
 
 fun <T> CSStore.property(
@@ -19,7 +19,7 @@ fun <T> CSStore.property(
     getDefault: () -> T, onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> = CSListItemValueStoreProperty(
     this, key, getValues, getDefault, onChange
-).apply { parent?.also(::parent) }.listenStore()
+).apply { parent?.also(::parent) }.listenLoad()
 
 fun <T> CSStore.property(
     parent: CSHasDestruct? = null, key: String, getValues: () -> List<T>,
@@ -47,7 +47,7 @@ fun <T> CSStore.property(
 fun <T> CSStore.dataProperty(
     key: String, values: List<T>, default: T,
     onChange: ArgFunc<T>? = null
-): CSStoreProperty<T> = property(key, values, default, onChange).listenStoreOnce()
+): CSStoreProperty<T> = property(key, values, default, onChange).listenLoadOnce()
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, values: List<T>, default: T,
@@ -65,7 +65,7 @@ fun <T> CSStore.dataProperty(
     key: String, list: List<T>, defaultIndex: Int,
     onChange: ArgFunc<T>? = null
 ): CSStoreProperty<T> =
-    property(key, list, list[defaultIndex], onChange).listenStoreOnce()
+    property(key, list, list[defaultIndex], onChange).listenLoadOnce()
 
 fun <T> CSStore.property(
     parent: CSHasDestruct, key: String, list: List<T>, defaultIndex: Int,

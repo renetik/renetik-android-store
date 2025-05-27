@@ -5,8 +5,8 @@ import renetik.android.event.common.CSHasRegistrationsHasDestruct
 import renetik.android.event.common.parent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
-import renetik.android.store.property.listenStore
-import renetik.android.store.property.listenStoreOnce
+import renetik.android.store.property.listenLoad
+import renetik.android.store.property.listenLoadOnce
 import renetik.android.store.property.value.CSJsonListValueStoreProperty
 import renetik.android.store.property.value.CSJsonMutableListValueStoreProperty
 import renetik.android.store.type.CSJsonObjectStore
@@ -19,13 +19,13 @@ inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
 
 inline fun <reified T : CSJsonObjectStore> CSStore.dataListProperty(
     key: String, noinline onChange: ArgFunc<List<T>>? = null
-): CSStoreProperty<List<T>> = listProperty(key, onChange).listenStoreOnce()
+): CSStoreProperty<List<T>> = listProperty(key, onChange).listenLoadOnce()
 
 inline fun <reified T : CSJsonObjectStore> CSStore.listProperty(
     parent: CSHasRegistrationsHasDestruct, key: String,
     noinline onChange: ArgFunc<List<T>>? = null
 ) = CSJsonListValueStoreProperty(this, key, T::class, onChange)
-    .parent(parent).listenStore()
+    .parent(parent).listenLoad()
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
@@ -36,7 +36,7 @@ inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
 
 inline fun <reified T : CSJsonObjectStore> CSStore.dataMutableListProperty(
     key: String, noinline onChange: ArgFunc<MutableList<T>>? = null
-) = mutableListProperty(key, onChange).listenStoreOnce()
+) = mutableListProperty(key, onChange).listenLoadOnce()
 
 @JvmName("propertyMutableList")
 inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
@@ -44,4 +44,4 @@ inline fun <reified T : CSJsonObjectStore> CSStore.mutableListProperty(
     noinline onChange: ArgFunc<MutableList<T>>? = null
 ): CSStoreProperty<MutableList<T>> = CSJsonMutableListValueStoreProperty(
     this, key, T::class, onChange
-).parent(parent).listenStore()
+).parent(parent).listenLoad()

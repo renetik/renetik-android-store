@@ -22,14 +22,14 @@ interface CSStoreProperty<T> : CSProperty<T> {
     fun clear() = store.clear(key)
 }
 
-inline fun <T, V> T.listenStore() where T : CSStoreProperty<V>, T : CSHasRegistrations = apply {
+inline fun <T, V> T.listenLoad() where T : CSStoreProperty<V>, T : CSHasRegistrations = apply {
     this + store.eventLoaded.onChange(::update)
 }
 
-inline fun <T : CSStoreProperty<*>> T.listenStore(parent: CSHasRegistrations) = apply {
+inline fun <T : CSStoreProperty<*>> T.listenLoad(parent: CSHasRegistrations) = apply {
     parent + store.eventLoaded.onChange(::update)
 }
 
-inline fun <T : CSStoreProperty<*>> T.listenStoreOnce() = apply {
+inline fun <T : CSStoreProperty<*>> T.listenLoadOnce() = apply {
     store.eventLoaded.onChangeOnce(::update)
 }

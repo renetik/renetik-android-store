@@ -4,8 +4,8 @@ import renetik.android.core.lang.ArgFunc
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.parent
 import renetik.android.store.CSStore
-import renetik.android.store.property.listenStore
-import renetik.android.store.property.listenStoreOnce
+import renetik.android.store.property.listenLoad
+import renetik.android.store.property.listenLoadOnce
 import renetik.android.store.property.value.CSBooleanValueStoreProperty
 import renetik.android.store.property.value.CSDoubleValueStoreProperty
 import renetik.android.store.property.value.CSFloatValueStoreProperty
@@ -27,14 +27,14 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: String,
     onChange: ArgFunc<String>? = null,
-) = property(key, default, onChange).listenStoreOnce()
+) = property(key, default, onChange).listenLoadOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: String,
     onChange: ArgFunc<String>? = null,
 ) = CSStringValueStoreProperty(this, key, default, onChange)
-    .parent(parent).listenStore()
+    .parent(parent).listenLoad()
 
 fun CSStore.property(
     key: String, default: Boolean,
@@ -44,14 +44,14 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Boolean,
     onChange: ArgFunc<Boolean>? = null,
-) = property(key, default, onChange).listenStoreOnce()
+) = property(key, default, onChange).listenLoadOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: Boolean,
     onChange: ArgFunc<Boolean>? = null,
 ) = CSBooleanValueStoreProperty(this, key, default, onChange)
-    .parent(parent).listenStore()
+    .parent(parent).listenLoad()
 
 fun CSStore.property(
     key: String, default: Int,
@@ -61,21 +61,21 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Int,
     onChange: ArgFunc<Int>? = null
-) = property(key, default, onChange).listenStoreOnce()
+) = property(key, default, onChange).listenLoadOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: Int,
     onChange: ArgFunc<Int>? = null,
 ) = CSIntValueStoreProperty(this, key, default, onChange)
-    .parent(parent).listenStore()
+    .parent(parent).listenLoad()
 
 fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: ()->Int,
     onChange: ArgFunc<Int>? = null,
 ) = CSIntValueStoreProperty(this, key, default, onChange)
-    .parent(parent).listenStore()
+    .parent(parent).listenLoad()
 
 fun CSStore.property(
     key: String, default: Double,
@@ -85,14 +85,14 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Double,
     onChange: ArgFunc<Double>? = null,
-) = property(key, default, onChange).listenStoreOnce()
+) = property(key, default, onChange).listenLoadOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: Double,
     onChange: ArgFunc<Double>? = null,
 ) = CSDoubleValueStoreProperty(this, key, default, onChange)
-    .parent(parent).listenStore()
+    .parent(parent).listenLoad()
 
 fun CSStore.property(
     key: String, default: Float,
@@ -102,14 +102,14 @@ fun CSStore.property(
 fun CSStore.dataProperty(
     key: String, default: Float,
     onChange: ArgFunc<Float>? = null,
-) = property(key, default, onChange).listenStoreOnce()
+) = property(key, default, onChange).listenLoadOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: Float,
     onChange: ArgFunc<Float>? = null,
 ) = CSFloatValueStoreProperty(this, key, default, onChange)
-    .parent(parent).listenStore()
+    .parent(parent).listenLoad()
 
 fun CSStore.property(
     key: String, default: Long,
@@ -121,7 +121,7 @@ fun CSStore.property(
     key: String, default: Long,
     onChange: ArgFunc<Long>? = null,
 ) = CSLongValueStoreProperty(this, key, default, onChange)
-    .parent(parent).listenStore()
+    .parent(parent).listenLoad()
 
 fun CSStore.property(
     key: String, default: List<String>, onChange: ArgFunc<List<String>>? = null
@@ -129,10 +129,10 @@ fun CSStore.property(
 
 fun CSStore.dataProperty(
     key: String, default: List<String>, onChange: ArgFunc<List<String>>? = null
-) = property(key, default, onChange).listenStoreOnce()
+) = property(key, default, onChange).listenLoadOnce()
 
 fun CSStore.property(
     parent: CSHasDestruct,
     key: String, default: List<String>, onChange: ArgFunc<List<String>>? = null
 ) = CSStringListValueStoreProperty(this, key, default, onChange)
-    .parent(parent).listenStore()
+    .parent(parent).listenLoad()
