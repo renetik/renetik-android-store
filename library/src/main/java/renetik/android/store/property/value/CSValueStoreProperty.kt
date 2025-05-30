@@ -13,7 +13,6 @@ abstract class CSValueStoreProperty<T>(
     onChange: ((value: T) -> Unit)? = null
 ) : CSPropertyBase<T>(onChange), CSStoreProperty<T> {
 
-    val onValueChange = event()
     abstract val default: T
     abstract override fun get(store: CSStore): T?
     protected var loadedValue: T? by lazyNullableVar(
@@ -35,11 +34,6 @@ abstract class CSValueStoreProperty<T>(
             loadedValue = newValue
             onValueChanged(newValue)
         }
-    }
-
-    override fun onValueChanged(newValue: T, fire: Boolean) {
-        super.onValueChanged(newValue, fire)
-        onValueChange()
     }
 
     override fun clear() {
