@@ -19,13 +19,13 @@ class SimpleJsonObjectStoreTest {
         instance.string = "string"
         assertEquals("""{"stringId":"string"}""", instance.toJson())
         instance.lateString = "lateString"
-        assertEquals("""{"stringId":"string","lateStringId":"lateString"}""", instance.toJson())
+        assertEquals("""{"lateStringId":"lateString","stringId":"string"}""", instance.toJson())
         instance.nullString = "nullString"
         assertEquals(
-            """{"stringId":"string","lateStringId":"lateString","nullStringId":"nullString"}""",
+            """{"lateStringId":"lateString","nullStringId":"nullString","stringId":"string"}""",
             instance.toJson())
         instance.nullString = null
-        assertEquals("""{"stringId":"string","lateStringId":"lateString"}""", instance.toJson())
+        assertEquals("""{"lateStringId":"lateString","stringId":"string"}""", instance.toJson())
     }
 
     @Test
