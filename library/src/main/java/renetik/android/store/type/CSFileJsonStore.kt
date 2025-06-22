@@ -12,6 +12,7 @@ import renetik.android.core.base.CSApplication.Companion.app
 import renetik.android.core.extensions.content.CSToast.toast
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
+import renetik.android.core.kotlin.onFailureOf
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.result.context
 import renetik.android.core.lang.variable.setFalse
@@ -80,15 +81,12 @@ class CSFileJsonStore(
             saveChannel.receive()
             isWriteFinished.setFalse()
             delay(SAVE_DELAY)
-            if (!isSaveDisabled) try {
-                saveJsonString(createJsonString(Main.context(data::toMap)))
-            } catch (ex: OutOfMemoryError) {
-                logError(ex)
-                toast("Critical error: Out of memory when saving data, exit...")
+            if (!isSaveDisabled) runCatching {
+                saveJsonString(createJsonString(data))
+            }.onFailure(::logError).onFailureOf<OutOfMemoryError> {
+                toast("Out of memory, exit...")
                 close()
                 Main.context { app.exit() }
-            } catch (ex: Exception) {
-                logError(ex)
             }
             isWriteFinished.setTrue()
         }
