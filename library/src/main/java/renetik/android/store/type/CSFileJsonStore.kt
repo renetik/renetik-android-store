@@ -29,7 +29,7 @@ import kotlin.time.Duration.Companion.seconds
 class CSFileJsonStore(
     parent: CSHasDestruct? = null,
     val file: File, isJsonPretty: Boolean = isDebug,
-    val isImmediateWrite: Boolean = false
+    private val isImmediateWrite: Boolean = false
 ) : CSJsonStoreBase(isJsonPretty) {
 
     companion object {
@@ -84,8 +84,9 @@ class CSFileJsonStore(
                 saveJsonString(createJsonString(Main.context(data::toMap)))
             } catch (ex: OutOfMemoryError) {
                 logError(ex)
-                toast("Critical error: Out of memory when saving data, restart...")
-                Main.context { app.restart() }
+                toast("Critical error: Out of memory when saving data, exit...")
+                close()
+                Main.context { app.exit() }
             } catch (ex: Exception) {
                 logError(ex)
             }
@@ -101,7 +102,7 @@ class CSFileJsonStore(
 
     suspend fun waitForWriteFinish() = isWriteFinished.waitIsTrue()
 
-    fun close() = writerJob.cancel()
+    fun close(): Unit = writerJob.cancel()
 
     override fun clear() {
         if (data.isEmpty()) return
