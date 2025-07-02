@@ -3,15 +3,17 @@ package renetik.android.store.type
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import renetik.android.core.base.CSApplication.Companion.app
 import renetik.android.core.extensions.content.CSToast.toast
 import renetik.android.core.java.io.readString
-import renetik.android.core.java.io.write
+import renetik.android.core.java.io.writeAtomic
 import renetik.android.core.kotlin.onFailureOf
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.result.context
@@ -66,14 +68,9 @@ class CSFileJsonStore(
     }
 
     override fun loadJsonString() = file.readString()
-
-    override fun saveJsonString(json: String) {
-        file.write(json)
-    }
-
+    override fun saveJsonString(json: String) = file.writeAtomic(json)
     private var isSaveDisabled: Boolean = false
     private var isWriteFinished = CSAtomicProperty(parent, false)
-
     private val saveChannel = Channel<Unit>(capacity = CONFLATED)
 
     private val writerJob = CoroutineScope(Dispatchers.IO).launch {
