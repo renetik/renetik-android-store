@@ -7,6 +7,7 @@ fun <T : CSStore> T.load(store: CSStore) = apply { load(store.data) }
 fun <T : CSStore> T.reload(store: CSStore) = apply { reload(store.data) }
 fun <T : CSStore> T.reload(json: String) = apply { reload(json.parseJsonMap()!!) }
 val <T : CSStore> T.isEmpty get() = data.isEmpty()
+val <T : CSStore> T.isNotEmpty get() = data.isNotEmpty()
 
 inline fun <T : CSStore, R> T.operation(func: (T) -> R) {
     if (!startOperation()) {
