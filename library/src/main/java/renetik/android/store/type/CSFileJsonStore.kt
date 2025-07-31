@@ -14,7 +14,7 @@ import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.writeAtomic
 import renetik.android.core.kotlin.onFailureOf
 import renetik.android.core.lang.CSEnvironment.isDebug
-import renetik.android.core.lang.result.context
+import renetik.android.core.lang.result.invoke
 import renetik.android.core.lang.variable.setFalse
 import renetik.android.core.lang.variable.setTrue
 import renetik.android.core.logging.CSLog.logError
@@ -77,9 +77,7 @@ class CSFileJsonStore(
             runCatching {
                 saveJsonString(createJsonString(data))
             }.onFailure(::logError).onFailureOf<OutOfMemoryError> {
-                toast("Out of memory, exit...")
-                close()
-                Main.context { app.exit() }
+                toast("Out of memory, exit..."); close(); Main(app::exit)
             }
             isWriteFinished.setTrue()
         }
