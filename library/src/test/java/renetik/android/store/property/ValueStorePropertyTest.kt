@@ -5,6 +5,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import renetik.android.core.lang.variable.assign
 import renetik.android.json.toJson
 import renetik.android.store.CSStore
 import renetik.android.store.SimpleJsonObjectStore
@@ -16,6 +17,7 @@ import renetik.android.store.TestIdItem.Third
 import renetik.android.store.extensions.dataListProperty
 import renetik.android.store.extensions.dataMutableListProperty
 import renetik.android.store.extensions.dataProperty
+import renetik.android.store.extensions.property
 import renetik.android.store.extensions.reload
 import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.testing.CSAssert.assertThrows
@@ -199,6 +201,17 @@ class ValueStorePropertyTest {
         assertEquals(
             """{"key":[{},{},{"lateStringId":"new string 2"}]}""", store.toJson()
         )
+    }
+
+    @Test
+    fun testClearProperty() {
+        val property = store.property("key", default = 13)
+        assertEquals(13, property.value)
+        property assign 5
+        assertEquals("""{"key":5}""", store.toJson())
+        property.clear()
+        assertEquals(13, property.value)
+        assertEquals("""{}""", store.toJson())
     }
 }
 
