@@ -14,6 +14,7 @@ class CSIntNullableStoreProperty(
 }
 
 
+// TODO mode to separate file
 class CSDoubleNullableStoreProperty(
     store: CSStore, key: String,
     override val default: Double? = null,
