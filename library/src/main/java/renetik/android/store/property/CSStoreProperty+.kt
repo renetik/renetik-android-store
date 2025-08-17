@@ -25,5 +25,5 @@ inline fun <T : CSStoreProperty<*>> T.listenLoad(parent: CSHasRegistrations) = a
 }
 
 inline fun <T : CSStoreProperty<*>> T.listenLoadOnce() = apply {
-    store.eventLoaded.onChangeOnce(::update)
+    store.eventLoaded.onChangeOnce(parent = null, ::update)
 }
