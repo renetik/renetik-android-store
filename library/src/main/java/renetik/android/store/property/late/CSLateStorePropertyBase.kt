@@ -44,5 +44,5 @@ abstract class CSLateStorePropertyBase<T>(
     }
 
     override val isLoaded get() = loadedValue != null
-    override fun toString() = super.toString() + ":$key:$value"
+    override fun toString() = super.toString() + ":$key:$loadedValue"
 }
