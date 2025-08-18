@@ -9,7 +9,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import renetik.android.core.base.CSApplication.Companion.app
-import renetik.android.core.extensions.content.CSToast.toast
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.writeAtomic
 import renetik.android.core.kotlin.onFailureOf
@@ -71,15 +70,17 @@ class CSFileJsonStore(
     private val saveChannel = Channel<Unit>(capacity = CONFLATED)
 
     private val writerJob = CoroutineScope(Dispatchers.IO).launch {
-        for (signal in saveChannel) {
-            isWriteFinished.setFalse()
-            delay(SAVE_DELAY)
-            runCatching {
-                saveJsonString(createJsonString(data))
-            }.onFailure(::logError).onFailureOf<OutOfMemoryError> {
-                toast("Out of memory, exit..."); close(); Main(app::exit)
+        runCatching {
+            for (signal in saveChannel) {
+                isWriteFinished.setFalse()
+                delay(SAVE_DELAY)
+                runCatching {
+                    saveJsonString(createJsonString(data))
+                }.onFailure(::logError).onFailureOf<OutOfMemoryError> { throw it }
+                isWriteFinished.setTrue()
             }
-            isWriteFinished.setTrue()
+        }.onFailure(::logError).onFailureOf<OutOfMemoryError> {
+            runCatching { close(wait = false) }; Main(app::exit)
         }
     }
 
@@ -91,9 +92,10 @@ class CSFileJsonStore(
 
     suspend fun waitForWriteFinish() = isWriteFinished.waitIsTrue()
 
-    fun close() {
+    fun close(wait: Boolean = true) {
         saveChannel.close()
-        runBlocking { writerJob.join() }
+        if (wait) runBlocking { writerJob.join() }
+        else writerJob.cancel()
     }
 
     override fun clear() {
