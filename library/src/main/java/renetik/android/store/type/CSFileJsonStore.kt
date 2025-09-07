@@ -21,7 +21,7 @@ import renetik.android.event.CSBackground
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.onDestructed
 import renetik.android.event.property.CSAtomicProperty
-import renetik.android.event.registration.waitIsTrue
+import renetik.android.event.registration.waitForTrue
 import renetik.android.json.CSJson
 import java.io.File
 import kotlin.time.Duration.Companion.seconds
@@ -90,7 +90,7 @@ class CSFileJsonStore(
         } else saveChannel.trySend(Unit)
     }
 
-    suspend fun waitForWriteFinish() = isWriteFinished.waitIsTrue()
+    suspend fun waitForWriteFinish() = isWriteFinished.waitForTrue()
 
     fun close(wait: Boolean = true) {
         saveChannel.close()
