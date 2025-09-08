@@ -10,7 +10,7 @@ abstract class CSJsonStoreBase(
     protected val isPretty: Boolean = isJsonPretty
 ) : CSJsonObjectStore() {
 
-    override val data: MutableMap<String, Any?> by lazy { load() }
+    override val data: MutableMap<String, Any?> = load()
     abstract fun loadJsonString(): String?
     abstract fun saveJsonString(json: String)
     protected fun load() = loadJsonString()?.parseJsonMap() ?: mutableMapOf()
