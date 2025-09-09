@@ -6,11 +6,15 @@ class CSStringJsonStore(jsonString: String = "{}") : CSJsonStoreBase() {
     var jsonString: String = jsonString
         set(value) {
             field = value
-            data.reload(load())
+            load()
         }
 
     override fun loadJsonString() = jsonString
     override fun saveJsonString(json: String) {
         jsonString = json
+    }
+
+    init {
+        load()
     }
 }

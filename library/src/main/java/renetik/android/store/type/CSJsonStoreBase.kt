@@ -1,6 +1,7 @@
 package renetik.android.store.type
 
 import renetik.android.core.kotlin.changeIf
+import renetik.android.core.kotlin.collections.reload
 import renetik.android.core.kotlin.primitives.isFalse
 import renetik.android.json.CSJson.isJsonPretty
 import renetik.android.json.parseJsonMap
@@ -10,10 +11,10 @@ abstract class CSJsonStoreBase(
     protected val isPretty: Boolean = isJsonPretty
 ) : CSJsonObjectStore() {
 
-    override val data: MutableMap<String, Any?> = load()
+    override val data: MutableMap<String, Any?> = mutableMapOf()
     abstract fun loadJsonString(): String?
     abstract fun saveJsonString(json: String)
-    protected fun load() = loadJsonString()?.parseJsonMap() ?: mutableMapOf()
+    fun load() = loadJsonString()?.parseJsonMap()?.also { data.reload(it) }
 
     override fun onChanged() {
         super.onChanged()

@@ -3,6 +3,7 @@ package renetik.android.store.type
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import renetik.android.core.kotlin.collections.reload
 
 class CSPreferencesJsonStore(
     context: Context,
@@ -14,4 +15,8 @@ class CSPreferencesJsonStore(
     override fun loadJsonString() = preferences.getString(key, "{}")
 
     override fun saveJsonString(json: String) = preferences.edit().putString(key, json).apply()
+
+    init {
+        load()
+    }
 }

@@ -11,6 +11,7 @@ import kotlinx.coroutines.runBlocking
 import renetik.android.core.base.CSApplication.Companion.app
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.writeAtomic
+import renetik.android.core.kotlin.collections.reload
 import renetik.android.core.kotlin.onFailureOf
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.result.invoke
@@ -61,6 +62,7 @@ class CSFileJsonStore(
     }
 
     init {
+        load()
         parent?.onDestructed(::close)
     }
 
