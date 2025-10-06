@@ -17,6 +17,6 @@ class CSSimpleFileJsonStore(
         file.readString()?.parseJsonMap() ?: mutableMapOf()
     }
 
-    fun save() = file.write(data.changeIf(isJsonPretty) { it.toSortedMap() }
+    fun save() = file.write(data.changeIf(isJsonPretty) { toSortedMap() }
         .toJson(formatted = isJsonPretty))
 }
