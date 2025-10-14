@@ -1,6 +1,6 @@
 package renetik.android.store.extensions
 
-import renetik.android.core.lang.ArgFunc
+import renetik.android.core.lang.ArgFun
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.nullable.CSJsonListNullableStoreProperty
@@ -10,12 +10,12 @@ import kotlin.reflect.KClass
 
 fun <T : CSJsonObjectStore> CSStore.nullJsonProperty(
     key: String, type: KClass<T>, default: T? = null,
-    onChange: ArgFunc<T?>? = null
+    onChange: ArgFun<T?>? = null
 ): CSStoreProperty<T?> =
     CSJsonNullableStoreProperty(this, key, type, default, onChange)
 
 inline fun <reified T : CSJsonObjectStore> CSStore.nullJsonProperty(
-    key: String, default: T? = null, noinline onChange: ArgFunc<T?>? = null
+    key: String, default: T? = null, noinline onChange: ArgFun<T?>? = null
 ): CSStoreProperty<T?> = nullJsonProperty(key, T::class, default, onChange)
 
 fun <T : CSJsonObjectStore> CSStore.nullJsonListProperty(
@@ -25,5 +25,5 @@ fun <T : CSJsonObjectStore> CSStore.nullJsonListProperty(
     CSJsonListNullableStoreProperty(this, key, listType, onChange)
 
 inline fun <reified T : CSJsonObjectStore> CSStore.nullJsonListProperty(
-    key: String, noinline onChange: ArgFunc<List<T>?>? = null
+    key: String, noinline onChange: ArgFun<List<T>?>? = null
 ): CSStoreProperty<List<T>?> = nullJsonListProperty(key, T::class, onChange)

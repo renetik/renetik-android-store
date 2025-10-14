@@ -1,6 +1,6 @@
 package renetik.android.store.extensions
 
-import renetik.android.core.lang.ArgFunc
+import renetik.android.core.lang.ArgFun
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSLateStoreProperty
 import renetik.android.store.property.late.CSBooleanLateStoreProperty
@@ -12,45 +12,45 @@ import renetik.android.store.property.listenLoadOnce
 
 fun CSStore.lateStringProperty(
     key: String,
-    onChange: ArgFunc<String>? = null
+    onChange: ArgFun<String>? = null
 ) = CSStringLateStoreProperty(this, key, onChange)
 
 fun CSStore.dataLateStringProperty(
     key: String,
-    onChange: ArgFunc<String>? = null
+    onChange: ArgFun<String>? = null
 ) = lateStringProperty(key, onChange).listenLoad()
 
 fun CSStore.lateIntProperty(
     key: String,
-    onChange: ArgFunc<Int>? = null
+    onChange: ArgFun<Int>? = null
 ): CSLateStoreProperty<Int> =
     CSIntLateStoreProperty(this, key, onChange)
 
 fun CSStore.dataLateIntProperty(
     key: String,
-    onChange: ArgFunc<Int>? = null
+    onChange: ArgFun<Int>? = null
 ) = lateIntProperty(key, onChange).listenLoadOnce()
 
 fun CSStore.lateBoolProperty(
     key: String,
-    onChange: ArgFunc<Boolean>? = null
+    onChange: ArgFun<Boolean>? = null
 ): CSLateStoreProperty<Boolean> =
     CSBooleanLateStoreProperty(this, key, onChange)
 
 fun <T> CSStore.lateListItemProperty(
     key: String, values: Iterable<T>,
-    onChange: ArgFunc<T>? = null
+    onChange: ArgFun<T>? = null
 ): CSLateStoreProperty<T> =
     CSListItemLateStoreProperty(this, key, values, onChange)
 
 fun <T> CSStore.dataLateListItemProperty(
     key: String, values: Iterable<T>,
-    onChange: ArgFunc<T>? = null
+    onChange: ArgFun<T>? = null
 ): CSLateStoreProperty<T> =
     CSListItemLateStoreProperty(this, key, values, onChange).listenLoadOnce()
 
 fun <T> CSStore.lateListItemProperty(
     key: String, values: Array<T>,
-    onChange: ArgFunc<T>? = null
+    onChange: ArgFun<T>? = null
 ): CSLateStoreProperty<T> =
     lateListItemProperty(key, values.asIterable(), onChange)

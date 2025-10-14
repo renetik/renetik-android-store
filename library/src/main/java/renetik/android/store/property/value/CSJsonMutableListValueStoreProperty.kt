@@ -1,7 +1,7 @@
 package renetik.android.store.property.value
 
 import renetik.android.core.kotlin.collections.reload
-import renetik.android.core.lang.ArgFunc
+import renetik.android.core.lang.ArgFun
 import renetik.android.store.CSStore
 import renetik.android.store.type.CSJsonObjectStore
 import kotlin.reflect.KClass
@@ -11,7 +11,7 @@ class CSJsonMutableListValueStoreProperty<T : CSJsonObjectStore>(
     store: CSStore,
     key: String,
     val type: KClass<T>,
-    onChange: ArgFunc<MutableList<T>>? = null
+    onChange: ArgFun<MutableList<T>>? = null
 ) : CSValueStoreProperty<MutableList<T>>(store, key, onChange) {
 
     override val default: MutableList<T> = mutableListOf()

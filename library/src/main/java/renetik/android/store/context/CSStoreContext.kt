@@ -1,6 +1,6 @@
 package renetik.android.store.context
 
-import renetik.android.core.lang.ArgFunc
+import renetik.android.core.lang.ArgFun
 import renetik.android.core.lang.CSHasId
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.CSHasRegistrationsHasDestruct
@@ -23,23 +23,23 @@ interface CSStoreContext
     fun clear()
 
     fun property(
-        key: String, default: String, onChange: ArgFunc<String>? = null,
+        key: String, default: String, onChange: ArgFun<String>? = null,
     ): CSStoreProperty<String>
 
     fun property(
-        key: String, default: Boolean, onChange: ArgFunc<Boolean>? = null,
+        key: String, default: Boolean, onChange: ArgFun<Boolean>? = null,
     ): CSStoreProperty<Boolean>
 
     fun property(
-        key: String, default: Float, onChange: ArgFunc<Float>? = null,
+        key: String, default: Float, onChange: ArgFun<Float>? = null,
     ): CSStoreProperty<Float>
 
     fun property(
-        key: String, default: Int, onChange: ArgFunc<Int>? = null
+        key: String, default: Int, onChange: ArgFun<Int>? = null
     ): CSStoreProperty<Int>
 
     fun property(
-        key: String, default: () -> Int, onChange: ArgFunc<Int>? = null
+        key: String, default: () -> Int, onChange: ArgFun<Int>? = null
     ): CSStoreProperty<Int>
 
     fun nullIntProperty(
@@ -55,7 +55,7 @@ interface CSStoreContext
     ): CSStoreProperty<String?>
 
     fun <T> property(
-        key: String, values: () -> List<T>, default: () -> T, onChange: ArgFunc<T>? = null
+        key: String, values: () -> List<T>, default: () -> T, onChange: ArgFun<T>? = null
     ): CSStoreProperty<T>
 
     fun <T> nullListItemProperty(
@@ -64,6 +64,6 @@ interface CSStoreContext
     ): CSStoreProperty<T?>
 
     fun property(
-        key: String, default: List<Int>, onChange: ArgFunc<List<Int>>? = null
+        key: String, default: List<Int>, onChange: ArgFun<List<Int>>? = null
     ): CSStoreProperty<List<Int>>
 }

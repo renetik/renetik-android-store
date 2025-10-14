@@ -1,7 +1,7 @@
 package renetik.android.store.property.value
 
 import renetik.android.core.kotlin.kClass
-import renetik.android.core.lang.ArgFunc
+import renetik.android.core.lang.ArgFun
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.register
 import renetik.android.store.CSStore
@@ -10,7 +10,7 @@ import renetik.android.store.type.CSJsonObjectStore
 class CSJsonValueStoreProperty<T : CSJsonObjectStore>(
     store: CSStore, key: String,
     override val default: T,
-    onChange: ArgFunc<T>? = null
+    onChange: ArgFun<T>? = null
 ) : CSValueStoreProperty<T>(store, key, onChange) {
 
     override fun get(store: CSStore) = store.getJsonObject(key, default.kClass)

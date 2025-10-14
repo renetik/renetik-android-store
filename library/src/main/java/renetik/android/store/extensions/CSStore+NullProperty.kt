@@ -1,6 +1,6 @@
 package renetik.android.store.extensions
 
-import renetik.android.core.lang.ArgFunc
+import renetik.android.core.lang.ArgFun
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.parent
 import renetik.android.store.CSStore
@@ -15,66 +15,66 @@ import renetik.android.store.property.nullable.CSStringNullableStoreProperty
 
 fun CSStore.nullStringProperty(
     key: String, default: String? = null,
-    onChange: ArgFunc<String?>? = null,
+    onChange: ArgFun<String?>? = null,
 ) = CSStringNullableStoreProperty(this, key, default, onChange)
 
 fun CSStore.dataNullStringProperty(
     key: String, default: String? = null,
-    onChange: ArgFunc<String?>? = null,
+    onChange: ArgFun<String?>? = null,
 ) = nullStringProperty(key, default, onChange).listenLoadOnce()
 
 fun CSStore.nullStringProperty(
     parent: CSHasDestruct,
     key: String, default: String? = null,
-    onChange: ArgFunc<String?>? = null,
+    onChange: ArgFun<String?>? = null,
 ) = CSStringNullableStoreProperty(this, key, default, onChange)
     .parent(parent).listenLoad()
 
 fun CSStore.nullBoolProperty(
     key: String, default: Boolean? = null,
-    onChange: ArgFunc<Boolean?>? = null,
+    onChange: ArgFun<Boolean?>? = null,
 ) = CSBooleanNullableStoreProperty(this, key, default, onChange)
 
 fun CSStore.dataNullBoolProperty(
     key: String, default: Boolean? = null,
-    onChange: ArgFunc<Boolean?>? = null,
+    onChange: ArgFun<Boolean?>? = null,
 ): CSStoreProperty<Boolean?> =
     nullBoolProperty(key, default, onChange).listenLoadOnce()
 
 fun CSStore.nullIntProperty(
     key: String, default: Int? = null,
-    onChange: ArgFunc<Int?>? = null,
+    onChange: ArgFun<Int?>? = null,
 ) = CSIntNullableStoreProperty(this, key, default, onChange)
 
 fun CSStore.nullDoubleProperty(
     key: String, default: Double? = null,
-    onChange: ArgFunc<Double?>? = null,
+    onChange: ArgFun<Double?>? = null,
 ) = CSDoubleNullableStoreProperty(this, key, default, onChange)
 
 fun CSStore.dataNullIntProperty(
     key: String, default: Int? = null,
-    onChange: ArgFunc<Int?>? = null,
+    onChange: ArgFun<Int?>? = null,
 ): CSStoreProperty<Int?> =
     nullIntProperty(key, default, onChange).listenLoadOnce()
 
 fun CSStore.nullIntProperty(
     parent: CSHasDestruct,
     key: String, default: Int? = null,
-    onChange: ArgFunc<Int?>? = null,
+    onChange: ArgFun<Int?>? = null,
 ): CSStoreProperty<Int?> =
     CSIntNullableStoreProperty(this, key, default, onChange)
         .parent(parent).listenLoad()
 
 fun CSStore.nullFloatProperty(
     key: String, default: Float? = null,
-    onChange: ArgFunc<Float?>? = null,
+    onChange: ArgFun<Float?>? = null,
 ): CSStoreProperty<Float?> =
     CSFloatNullableStoreProperty(this, key, default, onChange)
 
 fun CSStore.nullFloatProperty(
     parent: CSHasDestruct,
     key: String, default: Float? = null,
-    onChange: ArgFunc<Float?>? = null,
+    onChange: ArgFun<Float?>? = null,
 ): CSStoreProperty<Float?> =
     CSFloatNullableStoreProperty(this, key, default, onChange)
         .parent(parent).listenLoad()
