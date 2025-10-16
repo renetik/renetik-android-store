@@ -1,7 +1,6 @@
 package renetik.android.store.type
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
@@ -11,7 +10,6 @@ import kotlinx.coroutines.runBlocking
 import renetik.android.core.base.CSApplication.Companion.app
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.writeAtomic
-import renetik.android.core.kotlin.collections.reload
 import renetik.android.core.kotlin.onFailureOf
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.result.invoke
@@ -71,7 +69,7 @@ class CSFileJsonStore(
     private var isWriteFinished = CSAtomicProperty(parent, false)
     private val saveChannel = Channel<Unit>(capacity = CONFLATED)
 
-    private val writerJob = CoroutineScope(Dispatchers.IO).launch {
+    private val writerJob = CoroutineScope(app.IO).launch {
         runCatching {
             for (signal in saveChannel) {
                 isWriteFinished.setFalse()
