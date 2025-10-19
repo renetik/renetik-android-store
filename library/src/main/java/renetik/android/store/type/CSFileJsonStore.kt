@@ -16,7 +16,6 @@ import renetik.android.core.lang.result.invoke
 import renetik.android.core.lang.variable.setFalse
 import renetik.android.core.lang.variable.setTrue
 import renetik.android.core.logging.CSLog.logError
-import renetik.android.event.CSBackground
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.onDestructed
 import renetik.android.event.property.CSAtomicProperty
@@ -85,9 +84,8 @@ class CSFileJsonStore(
     }
 
     override fun onSave() {
-        if (isImmediateWrite || CSBackground.isOff) {
-            saveJsonString(createJsonString(data))
-        } else saveChannel.trySend(Unit)
+        if (isImmediateWrite) saveJsonString(createJsonString(data))
+        else saveChannel.trySend(Unit)
     }
 
     suspend fun waitForWriteFinish() = isWriteFinished.waitForTrue()
