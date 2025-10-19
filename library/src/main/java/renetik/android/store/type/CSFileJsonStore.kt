@@ -75,7 +75,7 @@ class CSFileJsonStore(
                 isWriteFinished.setFalse()
                 delay(SAVE_DELAY)
                 runCatching {
-                    saveJsonString(createJsonString(data))
+                    saveJsonString(Main { createJsonString(data) })
                 }.onFailure(::logError).onFailureOf<OutOfMemoryError> { throw it }
                 isWriteFinished.setTrue()
             }
