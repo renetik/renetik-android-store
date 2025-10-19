@@ -1,11 +1,9 @@
 package renetik.android.store.type
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import renetik.android.core.base.CSApplication.Companion.app
 import renetik.android.core.java.io.readString
@@ -20,6 +18,7 @@ import renetik.android.core.logging.CSLog.logError
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.onDestructed
 import renetik.android.event.property.CSAtomicProperty
+import renetik.android.event.registration.launch
 import renetik.android.event.registration.waitForTrue
 import renetik.android.json.CSJson
 import java.io.File
@@ -69,7 +68,7 @@ class CSFileJsonStore(
     private var isWriteFinished = CSAtomicProperty(parent, false)
     private val saveChannel = Channel<Unit>(capacity = CONFLATED)
 
-    private val writerJob = CoroutineScope(app.IO).launch {
+    private val writerRegistration = app.IO.launch {
         runCatching {
             for (signal in saveChannel) {
                 isWriteFinished.setFalse()
@@ -93,8 +92,8 @@ class CSFileJsonStore(
 
     fun close(wait: Boolean = true) {
         saveChannel.close()
-        if (wait) runBlocking { writerJob.join() }
-        else writerJob.cancel()
+        if (wait) runBlocking { writerRegistration.waitToFinish() }
+        else writerRegistration.cancel()
     }
 
     override fun clear() {
