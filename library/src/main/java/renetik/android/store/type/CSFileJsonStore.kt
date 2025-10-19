@@ -10,6 +10,8 @@ import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.writeAtomic
 import renetik.android.core.kotlin.onFailureOf
 import renetik.android.core.lang.CSEnvironment.isDebug
+import renetik.android.core.lang.CSLang
+import renetik.android.core.lang.CSLang.ExitStatus.Error
 import renetik.android.core.lang.CSLang.exit
 import renetik.android.core.lang.result.invoke
 import renetik.android.core.lang.variable.setFalse
@@ -79,7 +81,7 @@ class CSFileJsonStore(
                 isWriteFinished.setTrue()
             }
         }.onFailure(::logError).onFailureOf<OutOfMemoryError> {
-            runCatching { close(wait = false) }; exit(status = 0)
+            runCatching { close(wait = false) }; exit(Error)
         }
     }
 
