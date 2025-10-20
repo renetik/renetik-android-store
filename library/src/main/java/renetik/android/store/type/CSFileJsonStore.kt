@@ -1,5 +1,6 @@
 package renetik.android.store.type
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
@@ -10,7 +11,6 @@ import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.writeAtomic
 import renetik.android.core.kotlin.onFailureOf
 import renetik.android.core.lang.CSEnvironment.isDebug
-import renetik.android.core.lang.CSLang
 import renetik.android.core.lang.CSLang.ExitStatus.Error
 import renetik.android.core.lang.CSLang.exit
 import renetik.android.core.lang.result.invoke
@@ -78,11 +78,19 @@ class CSFileJsonStore(
                 runCatching {
                     saveJsonString(Main { createJsonString(data) })
                 }.onFailure(::logError).onFailureOf<OutOfMemoryError> { throw it }
+                    .onFailureOf<CancellationException> { throw it }
                 isWriteFinished.setTrue()
             }
-        }.onFailure(::logError).onFailureOf<OutOfMemoryError> {
-            runCatching { close(wait = false) }; exit(Error)
-        }
+        }.onFailure(::logError)
+            .onFailureOf<CancellationException> {
+                runCatching {
+                    saveJsonString(createJsonString(data))
+                }.onFailure(::logError).onFailureOf<OutOfMemoryError> {
+                    runCatching { close(wait = false) }; exit(Error)
+                }
+            }.onFailureOf<OutOfMemoryError> {
+                runCatching { close(wait = false) }; exit(Error)
+            }
     }
 
     override fun onSave() {
