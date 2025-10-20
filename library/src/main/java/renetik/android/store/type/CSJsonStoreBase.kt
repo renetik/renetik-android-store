@@ -23,8 +23,8 @@ abstract class CSJsonStoreBase(
 
     fun save() = isOperation.isFalse { onSave() }
 
-    protected open fun onSave() = saveJson(createJsonString(data))
+    protected open fun onSave() = saveJson(createJson(data))
 
-    fun createJsonString(data: Map<String, Any?>): String =
+    fun createJson(data: Map<String, Any?>): String =
         data.changeIf(isPretty) { toSortedMap() }.toJson(formatted = isPretty)
 }

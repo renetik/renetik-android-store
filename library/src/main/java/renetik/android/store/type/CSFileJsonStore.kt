@@ -75,7 +75,7 @@ class CSFileJsonStore(
             for (signal in saveChannel) {
                 isWriteFinished.setFalse()
                 delay(SAVE_DELAY)
-                runCatching { saveJson(Main { createJsonString(data) }) }.onFailure {
+                runCatching { saveJson(Main { createJson(data) }) }.onFailure {
                     if (it is OutOfMemoryError || it is CancellationException) throw it
                     else logError(it)
                 }
@@ -83,7 +83,7 @@ class CSFileJsonStore(
             }
         }.onFailure {
             if (it is CancellationException)
-                runCatching { saveJson(createJsonString(data)) }.onFailure(::onFailure)
+                runCatching { saveJson(createJson(data)) }.onFailure(::onFailure)
             else onFailure(it)
         }
     }
@@ -101,7 +101,7 @@ class CSFileJsonStore(
     }
 
     override fun onSave() {
-        if (isImmediateWrite) saveJson(createJsonString(data))
+        if (isImmediateWrite) saveJson(createJson(data))
         else saveChannel.trySend(Unit)
     }
 
