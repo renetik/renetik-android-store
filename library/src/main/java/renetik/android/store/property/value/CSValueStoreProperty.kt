@@ -54,4 +54,7 @@ abstract class CSValueStoreProperty<T>(
     }
 
     override fun toString() = "key:$key ${super.toString()}"
+
+    val isModified
+        get() = if (store.has(key)) value != get(store) else value != default
 }
