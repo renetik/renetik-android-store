@@ -12,9 +12,9 @@ class CSPreferencesJsonStore(
 
     val preferences: SharedPreferences = context.getSharedPreferences(id, MODE_PRIVATE)
 
-    override fun loadJsonString() = preferences.getString(key, "{}")
+    override fun loadJson() = preferences.getString(key, "{}")
 
-    override fun saveJsonString(json: String) = preferences.edit().putString(key, json).apply()
+    override fun saveJson(json: String) = preferences.edit().putString(key, json).apply()
 
     init {
         load()

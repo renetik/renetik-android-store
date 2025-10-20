@@ -65,8 +65,8 @@ class CSFileJsonStore(
         parent?.onDestructed(::close)
     }
 
-    override fun loadJsonString() = file.readString()
-    override fun saveJsonString(json: String) = file.writeAtomic(json)
+    override fun loadJson() = file.readString()
+    override fun saveJson(json: String) = file.writeAtomic(json)
     private var isWriteFinished = CSAtomicProperty(parent, false)
     private val saveChannel = Channel<Unit>(capacity = CONFLATED)
 
@@ -75,7 +75,7 @@ class CSFileJsonStore(
             for (signal in saveChannel) {
                 isWriteFinished.setFalse()
                 delay(SAVE_DELAY)
-                runCatching { saveJsonString(Main { createJsonString(data) }) }.onFailure {
+                runCatching { saveJson(Main { createJsonString(data) }) }.onFailure {
                     if (it is OutOfMemoryError || it is CancellationException) throw it
                     else logError(it)
                 }
@@ -83,8 +83,7 @@ class CSFileJsonStore(
             }
         }.onFailure {
             if (it is CancellationException)
-                runCatching { saveJsonString(createJsonString(data)) }
-                    .onFailure(::onFailure)
+                runCatching { saveJson(createJsonString(data)) }.onFailure(::onFailure)
             else onFailure(it)
         }
     }
@@ -102,7 +101,7 @@ class CSFileJsonStore(
     }
 
     override fun onSave() {
-        if (isImmediateWrite) saveJsonString(createJsonString(data))
+        if (isImmediateWrite) saveJson(createJsonString(data))
         else saveChannel.trySend(Unit)
     }
 

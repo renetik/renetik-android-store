@@ -9,9 +9,9 @@ class CSBundleJsonStore(
     isPretty: Boolean = false
 ) : CSJsonStoreBase(isPretty) {
 
-    override fun loadJsonString(): String = bundle.getString(key, "{}")
+    override fun loadJson(): String = bundle.getString(key, "{}")
 
-    override fun saveJsonString(json: String) = bundle.putString(key, json)
+    override fun saveJson(json: String) = bundle.putString(key, json)
 
     init {
         load()

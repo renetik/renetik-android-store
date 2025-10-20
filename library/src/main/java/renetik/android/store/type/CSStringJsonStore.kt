@@ -9,8 +9,8 @@ class CSStringJsonStore(jsonString: String = "{}") : CSJsonStoreBase() {
             load()
         }
 
-    override fun loadJsonString() = jsonString
-    override fun saveJsonString(json: String) {
+    override fun loadJson() = jsonString
+    override fun saveJson(json: String) {
         jsonString = json
     }
 

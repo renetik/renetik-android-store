@@ -12,9 +12,9 @@ abstract class CSJsonStoreBase(
 ) : CSJsonObjectStore() {
 
     override val data: MutableMap<String, Any?> = mutableMapOf()
-    abstract fun loadJsonString(): String?
-    abstract fun saveJsonString(json: String)
-    fun load() = loadJsonString()?.parseJsonMap()?.also { data.reload(it) }
+    abstract fun loadJson(): String?
+    abstract fun saveJson(json: String)
+    fun load() = loadJson()?.parseJsonMap()?.also { data.reload(it) }
 
     override fun onChanged() {
         super.onChanged()
@@ -23,7 +23,7 @@ abstract class CSJsonStoreBase(
 
     fun save() = isOperation.isFalse { onSave() }
 
-    protected open fun onSave() = saveJsonString(createJsonString(data))
+    protected open fun onSave() = saveJson(createJsonString(data))
 
     fun createJsonString(data: Map<String, Any?>): String =
         data.changeIf(isPretty) { toSortedMap() }.toJson(formatted = isPretty)
