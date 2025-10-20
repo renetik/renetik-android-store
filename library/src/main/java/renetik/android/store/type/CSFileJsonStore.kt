@@ -75,22 +75,30 @@ class CSFileJsonStore(
             for (signal in saveChannel) {
                 isWriteFinished.setFalse()
                 delay(SAVE_DELAY)
-                runCatching {
-                    saveJsonString(Main { createJsonString(data) })
-                }.onFailure(::logError).onFailureOf<OutOfMemoryError> { throw it }
-                    .onFailureOf<CancellationException> { throw it }
+                runCatching { saveJsonString(Main { createJsonString(data) }) }.onFailure {
+                    if (it is OutOfMemoryError || it is CancellationException) throw it
+                    else logError(it)
+                }
                 isWriteFinished.setTrue()
             }
-        }.onFailure(::logError)
-            .onFailureOf<CancellationException> {
-                runCatching {
-                    saveJsonString(createJsonString(data))
-                }.onFailure(::logError).onFailureOf<OutOfMemoryError> {
-                    runCatching { close(wait = false) }; exit(Error)
-                }
-            }.onFailureOf<OutOfMemoryError> {
-                runCatching { close(wait = false) }; exit(Error)
-            }
+        }.onFailure {
+            if (it is CancellationException)
+                runCatching { saveJsonString(createJsonString(data)) }
+                    .onFailure(::onFailure)
+            else onFailure(it)
+        }
+    }
+
+    private fun onFailure(it: Throwable) {
+        logError(it)
+        if (it is OutOfMemoryError) {
+            runCatching { close(wait = false) }
+            exit(Error)
+        }
+    }
+
+    fun Result<*>.handleOutOfMemory() = onFailureOf<OutOfMemoryError> {
+        runCatching { close(wait = false) }; exit(Error)
     }
 
     override fun onSave() {
