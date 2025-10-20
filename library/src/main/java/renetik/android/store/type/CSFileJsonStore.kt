@@ -9,7 +9,6 @@ import kotlinx.coroutines.runBlocking
 import renetik.android.core.base.CSApplication.Companion.app
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.writeAtomic
-import renetik.android.core.kotlin.onFailureOf
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.CSLang.ExitStatus.Error
 import renetik.android.core.lang.CSLang.exit
@@ -94,10 +93,6 @@ class CSFileJsonStore(
             runCatching { close(wait = false) }
             exit(Error)
         }
-    }
-
-    fun Result<*>.handleOutOfMemory() = onFailureOf<OutOfMemoryError> {
-        runCatching { close(wait = false) }; exit(Error)
     }
 
     override fun onSave() {
