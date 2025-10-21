@@ -19,6 +19,7 @@ import renetik.android.core.logging.CSLog.logError
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.onDestructed
 import renetik.android.event.property.CSAtomicProperty
+import renetik.android.event.registration.JobRegistration
 import renetik.android.event.registration.launch
 import renetik.android.event.registration.waitForTrue
 import renetik.android.json.CSJson
@@ -69,21 +70,26 @@ class CSFileJsonStore(
     private var isWriteFinished = CSAtomicProperty(parent, false)
     private val saveChannel = Channel<Unit>(capacity = CONFLATED)
 
-    private val writerRegistration = app.IO.launch {
-        runCatching {
-            for (signal in saveChannel) {
-                isWriteFinished.setFalse()
-                delay(SAVE_DELAY)
-                runCatching { saveJson(Main { createJson(data) }) }.onFailure {
-                    if (it is OutOfMemoryError || it is CancellationException) throw it
-                    else logError(it)
+    private var writerRegistration: JobRegistration? = null
+
+    fun restart() {
+        writerRegistration?.cancel()
+        writerRegistration = app.IO.launch {
+            runCatching {
+                for (signal in saveChannel) {
+                    isWriteFinished.setFalse()
+                    delay(SAVE_DELAY)
+                    runCatching { saveJson(Main { createJson(data) }) }.onFailure {
+                        if (it is OutOfMemoryError || it is CancellationException) throw it
+                        else logError(it)
+                    }
+                    isWriteFinished.setTrue()
                 }
-                isWriteFinished.setTrue()
+            }.onFailure {
+                if (it is CancellationException)
+                    runCatching { saveJson(createJson(data)) }.onFailure(::onFailure)
+                else onFailure(it)
             }
-        }.onFailure {
-            if (it is CancellationException)
-                runCatching { saveJson(createJson(data)) }.onFailure(::onFailure)
-            else onFailure(it)
         }
     }
 
@@ -104,8 +110,8 @@ class CSFileJsonStore(
 
     fun close(wait: Boolean = true) {
         saveChannel.close()
-        if (wait) runBlocking { writerRegistration.waitToFinish() }
-        else writerRegistration.cancel()
+        if (wait) runBlocking { writerRegistration?.waitToFinish() }
+        else writerRegistration?.cancel()
     }
 
     override fun clear() {
