@@ -62,6 +62,7 @@ class CSFileJsonStore(
 
     init {
         load()
+        start()
         parent?.onDestructed(::close)
     }
 
@@ -74,6 +75,10 @@ class CSFileJsonStore(
 
     fun restart() {
         writerRegistration?.cancel()
+        start()
+    }
+
+    fun start() {
         writerRegistration = app.IO.launch {
             runCatching {
                 for (signal in saveChannel) {
