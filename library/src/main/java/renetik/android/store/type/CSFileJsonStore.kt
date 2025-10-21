@@ -1,7 +1,10 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package renetik.android.store.type
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.delay
@@ -13,6 +16,7 @@ import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.CSLang.ExitStatus.Error
 import renetik.android.core.lang.CSLang.exit
 import renetik.android.core.lang.result.invoke
+import renetik.android.core.lang.value.isFalse
 import renetik.android.core.lang.variable.setFalse
 import renetik.android.core.lang.variable.setTrue
 import renetik.android.core.logging.CSLog.logError
@@ -60,18 +64,17 @@ class CSFileJsonStore(
         ) = CSFileJsonStore(null, file, isJsonPretty, isImmediateWrite)
     }
 
+    override fun loadJson() = file.readString()
+    override fun saveJson(json: String) = file.writeAtomic(json)
+    private var isWriteFinished = CSAtomicProperty(parent, false)
+    private val saveChannel = Channel<Unit>(capacity = CONFLATED)
+    private var writerRegistration: JobRegistration? = null
+
     init {
         load()
         start()
         parent?.onDestructed(::close)
     }
-
-    override fun loadJson() = file.readString()
-    override fun saveJson(json: String) = file.writeAtomic(json)
-    private var isWriteFinished = CSAtomicProperty(parent, false)
-    private val saveChannel = Channel<Unit>(capacity = CONFLATED)
-
-    private var writerRegistration: JobRegistration? = null
 
     fun restart() {
         writerRegistration?.cancel()
@@ -91,7 +94,7 @@ class CSFileJsonStore(
                     isWriteFinished.setTrue()
                 }
             }.onFailure {
-                if (it is CancellationException)
+                if (it is CancellationException && (!saveChannel.isEmpty || isWriteFinished.isFalse))
                     runCatching { saveJson(createJson(data)) }.onFailure(::onFailure)
                 else onFailure(it)
             }
