@@ -104,7 +104,7 @@ class CSFileJsonStore(
     }
 
     private fun onFailure(it: Throwable) {
-        logError(it)
+        if (it !is CancellationException) logError(it)
         if (it is OutOfMemoryError) {
             runCatching { close(wait = false) }
             exit(Error)
