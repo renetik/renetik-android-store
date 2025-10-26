@@ -20,6 +20,7 @@ import renetik.android.core.lang.value.isFalse
 import renetik.android.core.lang.variable.setFalse
 import renetik.android.core.lang.variable.setTrue
 import renetik.android.core.logging.CSLog.logError
+import renetik.android.core.logging.CSLog.logInfo
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.onDestructed
 import renetik.android.event.property.CSAtomicProperty
@@ -77,6 +78,7 @@ class CSFileJsonStore(
     }
 
     fun restart() {
+        logInfo()
         writerRegistration?.cancel()
         start()
     }
