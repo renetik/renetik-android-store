@@ -55,7 +55,7 @@ interface CSStoreContext
     ): CSStoreProperty<String?>
 
     fun <T> property(
-        key: String, values: () -> List<T>, default: () -> T, onChange: ArgFun<T>? = null
+        key: String, values: () -> Collection<T>, default: () -> T, onChange: ArgFun<T>? = null
     ): CSStoreProperty<T>
 
     fun <T> nullListItemProperty(
