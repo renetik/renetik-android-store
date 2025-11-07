@@ -66,4 +66,9 @@ interface CSStoreContext
     fun property(
         key: String, default: List<Int>, onChange: ArgFun<List<Int>>? = null
     ): CSStoreProperty<List<Int>>
+
+    fun <T : CSHasId> property(
+        key: String, values: List<T>,
+        default: List<T> = emptyList(), onChange: ArgFun<List<T>>? = null
+    ): CSStoreProperty<List<T>>
 }
