@@ -26,7 +26,7 @@ class CSPreferencesStore(val preferences: SharedPreferences) : CSStore {
     override val eventLoaded = event<CSStore>()
     override val eventChanged = event<CSStore>()
     override val data: Map<String, Any?> get() = preferences.all
-    override val jsonMap: Map<String, *> by lazy { data }
+    override val jsonMap: Map<String, *> get() = data
 
     @SuppressLint("CommitPrefEdits")
     override fun clear() = preferences.edit { clear() }

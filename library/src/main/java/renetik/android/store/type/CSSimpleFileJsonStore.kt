@@ -13,9 +13,8 @@ class CSSimpleFileJsonStore(
     private val isJsonPretty: Boolean = CSEnvironment.isDebug
 ) : CSJsonObjectStore() {
 
-    override val data: MutableMap<String, Any?> by lazy {
+    override val data: MutableMap<String, Any?> =
         file.readString()?.parseJsonMap() ?: mutableMapOf()
-    }
 
     fun save() = file.write(data.changeIf(isJsonPretty) { toSortedMap() }
         .toJson(formatted = isJsonPretty))
