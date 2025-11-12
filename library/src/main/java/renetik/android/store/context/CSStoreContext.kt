@@ -17,9 +17,9 @@ interface CSStoreContext
 
     val data: CSJsonObjectInterface
 
-    fun appContext(parent: CSHasDestruct = this, key: String? = this.key): CSStoreContext
+    fun appContext(parent: CSHasDestruct = this, key: String? = null): CSStoreContext
 
-    fun memoryContext(parent: CSHasDestruct = this, key: String? = this.key): CSStoreContext
+    fun memoryContext(parent: CSHasDestruct = this, key: String? = null): CSStoreContext
 
     fun context(parent: CSHasDestruct, key: String? = null): CSStoreContext
 
