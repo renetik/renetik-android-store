@@ -5,6 +5,7 @@ import renetik.android.core.lang.CSHasId
 import renetik.android.event.common.CSHasDestruct
 import renetik.android.event.common.CSHasRegistrationsHasDestruct
 import renetik.android.event.registration.CSHasChange
+import renetik.android.json.obj.CSJsonObjectInterface
 import renetik.android.store.property.CSStoreProperty
 
 interface CSStoreContext
@@ -13,6 +14,8 @@ interface CSStoreContext
 
     val key: String?
     override val id: String
+
+    val data: CSJsonObjectInterface
 
     fun appContext(parent: CSHasDestruct = this, key: String? = this.key): CSStoreContext
 
