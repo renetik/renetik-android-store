@@ -22,3 +22,7 @@ fun <T> CSStoreContext.property(
 fun <T> CSStoreContext.property(
     key: String, values: List<T>, default: () -> T, onChange: ArgFun<T>? = null
 ) = property(key, { values }, default, onChange)
+
+inline fun <reified T> CSStoreContext.property(
+    key: String, default: T, noinline onChange: ArgFun<T>? = null
+) where T : Enum<T> = property(key, enumValues<T>().toList(), default, onChange)
