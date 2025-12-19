@@ -7,7 +7,6 @@ import renetik.android.json.CSJson.isJsonPretty
 import renetik.android.json.parseJsonMap
 import renetik.android.json.toJson
 
-//TODO: Inline use extensions instead..
 abstract class CSJsonStoreBase(
     protected val isPretty: Boolean = isJsonPretty
 ) : CSJsonObjectStore() {
@@ -15,15 +14,20 @@ abstract class CSJsonStoreBase(
     override val data: MutableMap<String, Any?> = mutableMapOf()
     abstract fun loadJson(): String?
     abstract fun saveJson(json: String)
-    fun load() = loadJson()?.parseJsonMap()?.also { data.reload(it) }
+    fun load() = loadJson()?.also(::loadJsonString)
 
     override fun onChanged() {
         super.onChanged()
         isOperation.isFalse { onSave() }
     }
 
-    protected open fun onSave() = saveJson(createJson(data))
+    protected open fun onSave() = saveJson(getJsonString(isPretty))
+}
 
-    fun createJson(data: Map<String, Any?>): String =
-        data.changeIf(isPretty) { toSortedMap() }.toJson(formatted = isPretty)
+fun CSJsonObjectStore.getJsonString(isPretty: Boolean): String =
+    data.changeIf(isPretty) { toSortedMap() }
+        .toJson(formatted = isPretty)
+
+fun CSJsonObjectStore.loadJsonString(value: String) {
+    value.parseJsonMap()?.also { data.reload(it) }
 }
