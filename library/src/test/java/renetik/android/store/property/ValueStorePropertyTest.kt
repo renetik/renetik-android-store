@@ -123,7 +123,7 @@ class ValueStorePropertyTest {
             "key",
             TestIdItems, default = listOf(First)
         )
-        assertEquals(null, store.get("key"))
+        assertEquals(null, store.getString("key"))
         value = listOf(First, Third)
         assertEquals("""{"key":"id1,id3"}""", store.toJson())
 

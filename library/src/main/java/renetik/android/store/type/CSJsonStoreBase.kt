@@ -18,10 +18,8 @@ abstract class CSJsonStoreBase(
 
     override fun onChanged() {
         super.onChanged()
-        save()
+        isOperation.isFalse { onSave() }
     }
-
-    fun save() = isOperation.isFalse { onSave() }
 
     protected open fun onSave() = saveJson(createJson(data))
 

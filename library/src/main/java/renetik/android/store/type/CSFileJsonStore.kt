@@ -3,21 +3,20 @@
 package renetik.android.store.type
 
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import renetik.android.core.base.CSApplication.Companion.app
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.writeAtomic
+import renetik.android.core.kotlin.collections.reload
 import renetik.android.core.lang.CSEnvironment.isDebug
 import renetik.android.core.lang.CSLang.ExitStatus.Error
 import renetik.android.core.lang.CSLang.exit
-import renetik.android.core.lang.result.invoke
 import renetik.android.core.lang.value.isFalse
 import renetik.android.core.lang.variable.setFalse
 import renetik.android.core.lang.variable.setTrue
@@ -67,12 +66,20 @@ class CSFileJsonStore(
 
     override fun loadJson() = file.readString()
     override fun saveJson(json: String) = file.writeAtomic(json)
+    override fun save(key: String, value: Any?) {
+        super.save(key, value)
+        dispatcher.launch { saveData[key] = value }
+    }
+
+    private val dispatcher = Dispatchers.IO.limitedParallelism(1)
+    private val saveData: MutableMap<String, Any?> = mutableMapOf()
     private var writerRegistration: JobRegistration? = null
     private var isWriteFinished = CSAtomicProperty(parent, false)
     private val saveChannel = Channel<Unit>(capacity = CONFLATED)
 
     init {
         load()
+        saveData.reload(data)
         start()
         parent?.onDestructed(::close)
     }
@@ -87,12 +94,10 @@ class CSFileJsonStore(
     fun start() {
         writerRegistration = app.IO.launch {
             runCatching {
-                for (signal in saveChannel) saveMutex.withLock {
+                for (signal in saveChannel) {
                     isWriteFinished.setFalse()
                     delay(SAVE_DELAY)
-                    runCatching {
-                        saveJson(Main { createJson(data) })
-                    }.onFailure {
+                    saveJsonData().onFailure {
                         if (it is OutOfMemoryError || it is CancellationException) throw it
                         else logError(it)
                     }
@@ -100,14 +105,14 @@ class CSFileJsonStore(
                 }
             }.onFailure {
                 if (it is CancellationException &&
-                    (!saveChannel.isEmpty || isWriteFinished.isFalse))
-                    saveMutex.withLock {
-                        runCatching { saveJson(createJson(data)) }.onFailure(::onFailure)
-                    }
-                else onFailure(it)
+                    (!saveChannel.isEmpty || isWriteFinished.isFalse)) {
+                    saveJsonData().onFailure(::onFailure)
+                } else onFailure(it)
             }
         }
     }
+
+    private fun saveJsonData() = runCatching { saveJson(createJson(saveData)) }
 
     private fun onFailure(it: Throwable) {
         if (it !is CancellationException) logError(it)
@@ -123,6 +128,7 @@ class CSFileJsonStore(
     }
 
     suspend fun waitForWriteFinish() = isWriteFinished.waitForTrue()
+
     fun close(wait: Boolean = true) {
         saveChannel.close()
         if (wait) runBlocking { writerRegistration?.waitToFinish() }

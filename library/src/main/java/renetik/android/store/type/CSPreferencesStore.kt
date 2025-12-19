@@ -35,14 +35,14 @@ class CSPreferencesStore(val preferences: SharedPreferences) : CSStore {
 
     override fun has(key: String) = key in preferences
 
-    override fun get(key: String): String? =
+    override fun getString(key: String): String? =
         catchAllWarnReturnNull { preferences.getString(key, null) }
 
     override fun getList(key: String): List<*>? =
-        get(key)?.parseJson<List<*>>()
+        getString(key)?.parseJson<List<*>>()
 
     override fun getMap(key: String): Map<String, *>? =
-        get(key)?.parseJson<Map<String, *>>()
+        getString(key)?.parseJson<Map<String, *>>()
 
     override fun set(key: String, string: String?) = string?.let {
         preferences.edit {
@@ -59,14 +59,14 @@ class CSPreferencesStore(val preferences: SharedPreferences) : CSStore {
 
     @Suppress("unchecked_cast")
     override fun <T : CSJsonObject> getJsonObjectList(key: String, type: KClass<T>) =
-        (get(key)?.parseJsonList() as? List<MutableMap<String, Any?>>)
+        (getString(key)?.parseJsonList() as? List<MutableMap<String, Any?>>)
             ?.let(type::createJsonObjectList)
 
     override fun <T : CSJsonObject> setJsonObjectList(key: String, list: List<T>?) =
         set(key, list?.toJson(formatted = isJsonPretty))
 
     override fun <T : CSJsonObject> getJsonObject(key: String, type: KClass<T>) =
-        get(key)?.parseJsonMap()?.let(type::createJsonObject)
+        getString(key)?.parseJsonMap()?.let(type::createJsonObject)
 
     override fun <T : CSJsonObject> setJsonObject(key: String, value: T?) =
         set(key, value?.toJson(formatted = isJsonPretty))

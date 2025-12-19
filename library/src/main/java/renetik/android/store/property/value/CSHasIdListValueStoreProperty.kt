@@ -17,7 +17,7 @@ class CSHasIdListValueStoreProperty<T : CSHasId>(
         ?.mapNotNull { id -> values.find { it.id == id } } ?: this.default
 
     private fun CSStore.getStringList() =
-        if (storedAsStringList) getStringList(key) else get(key)?.split(",")
+        if (storedAsStringList) getStringList(key) else getString(key)?.split(",")
 
     override fun set(store: CSStore, value: List<T>) {
         if (storedAsStringList) store.set(key, value.map { it.toId() })
