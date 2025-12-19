@@ -5,6 +5,7 @@ package renetik.android.store.type
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.delay
@@ -85,22 +86,31 @@ class CSFileJsonStore(
 
     fun start() {
         writerRegistration = app.IO.launch {
-            runCatching {
-                for (signal in saveChannel) {
-                    isWriteFinished.setFalse()
-                    delay(SAVE_DELAY)
-                    runCatching { saveJson(Main { createJson(data) }) }.onFailure {
-                        if (it is OutOfMemoryError || it is CancellationException) throw it
-                        else logError(it)
-                    }
-                    isWriteFinished.setTrue()
+            try {
+                for (signal in saveChannel) executeSaveCycle()
+            } catch (e: Throwable) {
+                onFailure(e)
+                if (e is OutOfMemoryError) throw e
+            } finally {
+                if (!saveChannel.isEmpty || isWriteFinished.isFalse) {
+                    NonCancellable { saveJson().onFailure(::onFailure) }
                 }
-            }.onFailure {
-                if (it is CancellationException && (!saveChannel.isEmpty || isWriteFinished.isFalse))
-                    runCatching { saveJson(createJson(data)) }.onFailure(::onFailure)
-                else onFailure(it)
             }
         }
+    }
+
+    private suspend fun executeSaveCycle() {
+        isWriteFinished.setFalse()
+        delay(SAVE_DELAY)
+        saveJson().onFailure {
+            if (it is OutOfMemoryError || it is CancellationException) throw it
+            else logError(it)
+        }
+        isWriteFinished.setTrue()
+    }
+
+    private suspend fun saveJson() = runCatching {
+        saveJson(Main { createJson(data) })
     }
 
     private fun onFailure(it: Throwable) {
