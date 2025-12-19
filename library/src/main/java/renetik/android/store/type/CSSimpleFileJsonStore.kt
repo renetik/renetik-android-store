@@ -5,7 +5,6 @@ import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.write
 import renetik.android.core.kotlin.changeIf
 import renetik.android.core.lang.CSEnvironment
-import renetik.android.core.lang.result.invoke
 import renetik.android.json.CSJson
 import renetik.android.json.parseJsonMap
 import renetik.android.json.toJson
@@ -29,8 +28,6 @@ class CSSimpleFileJsonStore(
     override val data: MutableMap<String, Any?> =
         file.readString()?.parseJsonMap() ?: mutableMapOf()
 
-    suspend fun save() = app.IO {
-        file.write(data.changeIf(isJsonPretty) { toSortedMap() }
-            .toJson(formatted = isJsonPretty))
-    }
+    fun save() = file.write(data.changeIf(isJsonPretty) { toSortedMap() }
+        .toJson(formatted = isJsonPretty))
 }
