@@ -2,21 +2,25 @@ package renetik.android.store.type
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
-import renetik.android.core.kotlin.collections.reload
+import renetik.android.core.kotlin.primitives.isFalse
 
 class CSPreferencesJsonStore(
     context: Context,
     val key: String = "store",
-    id: String = "default", isPretty: Boolean = false) : CSJsonStoreBase(isPretty) {
-
-    val preferences: SharedPreferences = context.getSharedPreferences(id, MODE_PRIVATE)
-
-    override fun loadJson() = preferences.getString(key, "{}")
-
-    override fun saveJson(json: String) = preferences.edit().putString(key, json).apply()
+    id: String = "default",
+    private val isPretty: Boolean = false
+) : CSJsonObjectStore() {
+    override val data: MutableMap<String, Any?> = mutableMapOf()
+    private val preferences = context.getSharedPreferences(id, MODE_PRIVATE)
 
     init {
-        load()
+        preferences.getString(key, "{}")?.also(::loadJson)
+    }
+
+    override fun onChanged() {
+        super.onChanged()
+        isOperation.isFalse {
+            preferences.edit().putString(key, toJson(isPretty)).apply()
+        }
     }
 }

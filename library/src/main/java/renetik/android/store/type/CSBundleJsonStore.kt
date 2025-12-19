@@ -1,19 +1,22 @@
 package renetik.android.store.type
 
 import android.os.Bundle
-import renetik.android.core.kotlin.collections.reload
+import renetik.android.core.kotlin.primitives.isFalse
 
 class CSBundleJsonStore(
     private val bundle: Bundle = Bundle(),
     val key: String = "store",
-    isPretty: Boolean = false
-) : CSJsonStoreBase(isPretty) {
+    private val isPretty: Boolean = false
+) : CSJsonObjectStore() {
 
-    override fun loadJson(): String = bundle.getString(key, "{}")
-
-    override fun saveJson(json: String) = bundle.putString(key, json)
+    override val data: MutableMap<String, Any?> = mutableMapOf()
 
     init {
-        load()
+        loadJson(bundle.getString(key, "{}"))
+    }
+
+    override fun onChanged() {
+        super.onChanged()
+        isOperation.isFalse { bundle.putString(key, toJson(isPretty)) }
     }
 }
