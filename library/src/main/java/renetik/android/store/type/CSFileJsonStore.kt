@@ -9,14 +9,12 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.sync.Mutex
 import renetik.android.core.base.CSApplication.Companion.app
 import renetik.android.core.java.io.readString
 import renetik.android.core.java.io.writeAtomic
+import renetik.android.core.kotlin.changeIf
 import renetik.android.core.kotlin.collections.reload
 import renetik.android.core.lang.CSEnvironment.isDebug
-import renetik.android.core.lang.CSLang.ExitStatus.Error
-import renetik.android.core.lang.CSLang.exit
 import renetik.android.core.lang.value.isFalse
 import renetik.android.core.lang.variable.setFalse
 import renetik.android.core.lang.variable.setTrue
@@ -29,75 +27,96 @@ import renetik.android.event.registration.JobRegistration
 import renetik.android.event.registration.launch
 import renetik.android.event.registration.waitForTrue
 import renetik.android.json.CSJson
+import renetik.android.json.parseJsonMap
+import renetik.android.json.toJson
 import java.io.File
 import kotlin.time.Duration.Companion.seconds
 
 class CSFileJsonStore(
     parent: CSHasDestruct? = null,
-    val file: File, isJsonPretty: Boolean = isDebug,
-    private val isImmediateWrite: Boolean = false
-) : CSJsonStoreBase(isJsonPretty) {
+    val file: File,
+    private val isPretty: Boolean = isDebug,
+) : CSJsonObjectStore() {
     companion object {
         val SAVE_DELAY = 1.seconds
         fun CSFileJsonStore(
             parent: CSHasDestruct? = null,
             fileName: String,
             isJsonPretty: Boolean = CSJson.isJsonPretty,
-            isImmediateWrite: Boolean = false
         ) = CSFileJsonStore(
             parent, File(app.filesDir, "$fileName.json"),
-            isJsonPretty, isImmediateWrite
+            isJsonPretty
         )
 
         fun CSFileJsonStore(
             fileName: String,
             isJsonPretty: Boolean = CSJson.isJsonPretty,
-            isImmediateWrite: Boolean = false
         ) = CSFileJsonStore(
             null, File(app.filesDir, "$fileName.json"),
-            isJsonPretty, isImmediateWrite
+            isJsonPretty
         )
 
         fun CSFileJsonStore(
             file: File, isJsonPretty: Boolean = isDebug,
-            isImmediateWrite: Boolean = false
-        ) = CSFileJsonStore(null, file, isJsonPretty, isImmediateWrite)
+        ) = CSFileJsonStore(null, file, isJsonPretty)
     }
 
-    override fun loadJson() = file.readString()
-    override fun saveJson(json: String) = file.writeAtomic(json)
+    override val data: MutableMap<String, Any?> = mutableMapOf()
+
     override fun save(key: String, value: Any?) {
         super.save(key, value)
-        dispatcher.launch { saveData[key] = value }
+        dispatcher.launch {
+            dataToSave[key] = value
+            saveChannel.trySend(Unit)
+        }
+    }
+
+    override fun clear(key: String) {
+        super.clear(key)
+        dispatcher.launch {
+            dataToSave.remove(key)
+            saveChannel.trySend(Unit)
+        }
+    }
+
+    override fun clear() {
+        if (data.isEmpty()) return
+        file.delete()
+        super.clear()
+        dispatcher.launch {
+            dataToSave.clear()
+            saveChannel.trySend(Unit)
+        }
     }
 
     private val dispatcher = Dispatchers.IO.limitedParallelism(1)
-    private val saveData: MutableMap<String, Any?> = mutableMapOf()
+    private val dataToSave: MutableMap<String, Any?> = mutableMapOf()
     private var writerRegistration: JobRegistration? = null
     private var isWriteFinished = CSAtomicProperty(parent, false)
     private val saveChannel = Channel<Unit>(capacity = CONFLATED)
 
     init {
-        load()
-        saveData.reload(data)
-        start()
+        file.readString()?.parseJsonMap()?.also {
+            data.reload(it)
+            dataToSave.reload(it)
+        }
+        startSaving()
         parent?.onDestructed(::close)
     }
 
     fun restart() {
         logInfo()
         writerRegistration?.cancel()
-        start()
+        startSaving()
     }
 
-    private val saveMutex = Mutex()
-    fun start() {
-        writerRegistration = app.IO.launch {
+    private fun startSaving() {
+        writerRegistration = dispatcher.launch {
             runCatching {
                 for (signal in saveChannel) {
                     isWriteFinished.setFalse()
                     delay(SAVE_DELAY)
-                    saveJsonData().onFailure {
+                    saveData().onFailure {
                         if (it is OutOfMemoryError || it is CancellationException) throw it
                         else logError(it)
                     }
@@ -106,38 +125,29 @@ class CSFileJsonStore(
             }.onFailure {
                 if (it is CancellationException &&
                     (!saveChannel.isEmpty || isWriteFinished.isFalse)) {
-                    saveJsonData().onFailure(::onFailure)
+                    saveData().onFailure(::onFailure)
                 } else onFailure(it)
             }
         }
     }
 
-    private fun saveJsonData() = runCatching { saveJson(createJson(saveData)) }
+
+    private fun saveData() = runCatching {
+        val data = dataToSave.changeIf(isPretty) { toSortedMap() }
+        val string = data.toJson(formatted = isPretty)
+        file.writeAtomic(string)
+    }
 
     private fun onFailure(it: Throwable) {
         if (it !is CancellationException) logError(it)
-        if (it is OutOfMemoryError) {
-            runCatching { close(wait = false) }
-            exit(Error)
-        }
     }
 
-    override fun onSave() {
-        if (isImmediateWrite) saveJson(createJson(data))
-        else saveChannel.trySend(Unit)
-    }
-
+    @Suppress("unused")
     suspend fun waitForWriteFinish() = isWriteFinished.waitForTrue()
 
     fun close(wait: Boolean = true) {
         saveChannel.close()
         if (wait) runBlocking { writerRegistration?.waitToFinish() }
         else writerRegistration?.cancel()
-    }
-
-    override fun clear() {
-        if (data.isEmpty()) return
-        file.delete()
-        super.clear()
     }
 }

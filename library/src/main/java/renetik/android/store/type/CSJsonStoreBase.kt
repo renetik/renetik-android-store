@@ -7,6 +7,7 @@ import renetik.android.json.CSJson.isJsonPretty
 import renetik.android.json.parseJsonMap
 import renetik.android.json.toJson
 
+//TODO: Inline use extensions instead..
 abstract class CSJsonStoreBase(
     protected val isPretty: Boolean = isJsonPretty
 ) : CSJsonObjectStore() {
