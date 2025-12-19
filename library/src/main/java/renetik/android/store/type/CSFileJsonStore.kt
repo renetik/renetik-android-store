@@ -97,7 +97,7 @@ class CSFileJsonStore(
                 }
             }.onFailure {
                 if (it is CancellationException && (!saveChannel.isEmpty || isWriteFinished.isFalse))
-                    runCatching { saveJson(Main { createJson(data) }) }.onFailure(::onFailure)
+                    runCatching { saveJson(createJson(data)) }.onFailure(::onFailure)
                 else onFailure(it)
             }
         }
