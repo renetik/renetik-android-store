@@ -78,3 +78,12 @@ fun CSStore.nullFloatProperty(
 ): CSStoreProperty<Float?> =
     CSFloatNullableStoreProperty(this, key, default, onChange)
         .parent(parent).listenLoad()
+
+
+fun CSStore.nullDoubleProperty(
+    parent: CSHasDestruct,
+    key: String, default: Double? = null,
+    onChange: ArgFun<Double?>? = null,
+): CSStoreProperty<Double?> =
+    CSDoubleNullableStoreProperty(this, key, default, onChange)
+        .parent(parent).listenLoad()
