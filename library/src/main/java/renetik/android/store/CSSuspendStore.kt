@@ -7,9 +7,9 @@ import renetik.android.json.obj.CSJsonObjectInterface
 interface CSSuspendStore : Iterable<Map.Entry<String, Any?>>,
     CSSuspendHasChange<CSSuspendStore> {
 
-    val jsonData: CSJsonObjectInterface
     val eventLoaded: CSSuspendEvent<CSSuspendStore>
     val eventChanged: CSSuspendEvent<CSSuspendStore>
+    val jsonData: CSJsonObjectInterface
 
     suspend fun load(data: Map<String, Any?>)
     suspend fun reload(data: Map<String, Any?>) {
