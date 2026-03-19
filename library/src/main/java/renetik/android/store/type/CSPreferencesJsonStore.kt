@@ -11,7 +11,7 @@ class CSPreferencesJsonStore(
     private val isPretty: Boolean = false
 ) : CSJsonObjectStore() {
     override val data: MutableMap<String, Any?> = mutableMapOf()
-    private val preferences = context.getSharedPreferences(id, MODE_PRIVATE)
+    internal val preferences = context.getSharedPreferences(id, MODE_PRIVATE)
 
     init {
         preferences.getString(key, "{}")?.also(::loadJson)
