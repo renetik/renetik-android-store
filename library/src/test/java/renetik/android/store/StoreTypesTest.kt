@@ -108,7 +108,7 @@ class StoreTypesTest {
 
     @Test
     fun testFileJsonStore() {
-        val store = CSFileJsonStore("file", isImmediateWrite = true)
+        val store = CSFileJsonStore("file")
         val property: StoreTypesTestData by store.property("property")
         assertEquals(5, property.int)
 
@@ -118,6 +118,7 @@ class StoreTypesTest {
 
         val expected =
             """{"property":{"key1":"new value","key2":123,"key3":{"lateStringId":"new value"}}}"""
+        store.close()
         assertEquals(expected, store.file.readString())
 
         val store2: CSStore = CSFileJsonStore("file")
