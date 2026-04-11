@@ -131,7 +131,6 @@ class CSFileJsonStore(
         }
     }
 
-
     private fun saveData() = runCatching {
         val data = dataToSave.changeIf(isPretty) { toSortedMap() }
         val string = data.toJson(formatted = isPretty)
