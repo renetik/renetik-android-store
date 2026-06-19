@@ -1,6 +1,8 @@
 package renetik.android.store.property
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotSame
+import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -12,7 +14,13 @@ import renetik.android.store.TestIdItem
 import renetik.android.store.TestIdItem.Companion.TestIdItems
 import renetik.android.store.TestIdItem.First
 import renetik.android.store.TestIdItem.Second
-import renetik.android.store.extensions.*
+import renetik.android.store.extensions.nullBoolProperty
+import renetik.android.store.extensions.nullFloatProperty
+import renetik.android.store.extensions.nullIntProperty
+import renetik.android.store.extensions.nullJsonProperty
+import renetik.android.store.extensions.nullListItemProperty
+import renetik.android.store.extensions.nullStringProperty
+import renetik.android.store.extensions.reload
 import renetik.android.store.type.CSJsonObjectStore
 import renetik.android.store.type.CSStringJsonStore
 import renetik.android.testing.CSAssert.assertThrows
