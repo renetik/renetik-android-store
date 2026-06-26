@@ -5,7 +5,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import renetik.android.event.common.CSModel
+import renetik.android.event.lifecycle.CSModel
 import renetik.android.json.CSJson.forceString
 import renetik.android.json.toJson
 import renetik.android.store.CSStore

@@ -1,6 +1,6 @@
 package renetik.android.store.property.late
 
-import renetik.android.event.common.onDestructed
+import renetik.android.event.lifecycle.onDestructed
 import renetik.android.event.registration.CSRegistration
 import renetik.android.event.registration.cancelRegistrations
 import renetik.android.store.CSStore

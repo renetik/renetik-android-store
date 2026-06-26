@@ -1,8 +1,8 @@
 package renetik.android.store.extensions
 
 import renetik.android.core.lang.ArgFun
-import renetik.android.event.common.CSHasRegistrationsHasDestruct
-import renetik.android.event.common.parent
+import renetik.android.event.lifecycle.CSHasRegistrationsHasDestruct
+import renetik.android.event.lifecycle.parent
 import renetik.android.store.CSStore
 import renetik.android.store.property.CSStoreProperty
 import renetik.android.store.property.listenLoad

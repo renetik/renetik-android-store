@@ -1,7 +1,7 @@
 package renetik.android.store
 
 import renetik.android.event.CSSuspendEvent
-import renetik.android.event.registration.CSSuspendHasChange
+import renetik.android.event.change.CSSuspendHasChange
 import renetik.android.json.obj.CSJsonObjectInterface
 
 interface CSSuspendStore : Iterable<Map.Entry<String, Any?>>,

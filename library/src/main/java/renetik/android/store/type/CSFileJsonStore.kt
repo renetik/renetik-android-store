@@ -20,12 +20,12 @@ import renetik.android.core.lang.variable.setFalse
 import renetik.android.core.lang.variable.setTrue
 import renetik.android.core.logging.CSLog.logError
 import renetik.android.core.logging.CSLog.logInfo
-import renetik.android.event.common.CSHasDestruct
-import renetik.android.event.common.onDestructed
+import renetik.android.event.lifecycle.CSHasDestruct
+import renetik.android.event.lifecycle.onDestructed
 import renetik.android.event.property.CSAtomicProperty
-import renetik.android.event.registration.JobRegistration
-import renetik.android.event.registration.launch
-import renetik.android.event.registration.waitForTrue
+import renetik.android.event.dispatch.JobRegistration
+import renetik.android.event.dispatch.launch
+import renetik.android.event.change.waitForTrue
 import renetik.android.json.CSJson
 import renetik.android.json.parseJsonMap
 import renetik.android.json.toJson

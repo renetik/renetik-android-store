@@ -1,8 +1,8 @@
 package renetik.android.store.context
 
 import renetik.android.core.lang.CSHasId
-import renetik.android.event.common.CSHasDestruct
-import renetik.android.event.common.destruct
+import renetik.android.event.lifecycle.CSHasDestruct
+import renetik.android.event.lifecycle.destruct
 
 interface CSHasStoreContext : CSHasId {
     val store: CSStoreContext

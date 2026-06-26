@@ -1,7 +1,7 @@
 package renetik.android.store.property
 
-import renetik.android.event.common.CSHasDestruct
-import renetik.android.event.common.parent
+import renetik.android.event.lifecycle.CSHasDestruct
+import renetik.android.event.lifecycle.parent
 import renetik.android.event.property.CSProperty
 import renetik.android.store.CSStore
 import renetik.android.store.property.value.CSBooleanValueStoreProperty
