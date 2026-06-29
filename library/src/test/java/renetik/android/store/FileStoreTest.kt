@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment.getApplication
 import org.robolectric.annotation.Config
-import renetik.android.core.base.TestCSApplication
+import renetik.android.core.base.CSTestApplication
 import renetik.android.core.lang.CSEnvironment.app
 import renetik.android.json.CSJson
 import renetik.android.json.toJson
@@ -17,7 +17,7 @@ import renetik.android.store.extensions.reload
 import renetik.android.store.type.CSFileJsonStore.Companion.CSFileJsonStore
 
 @RunWith(RobolectricTestRunner::class)
-@Config(application = TestCSApplication::class)
+@Config(application = CSTestApplication::class)
 class FileStoreTest {
 
     val fileStore = CSFileJsonStore("store")
