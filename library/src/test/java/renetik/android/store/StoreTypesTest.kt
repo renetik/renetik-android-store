@@ -7,9 +7,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import renetik.android.core.base.CSTestApplication
 import renetik.android.core.android.content.getString
 import renetik.android.core.android.content.temporaryFile
+import renetik.android.core.base.CSTestApplication
 import renetik.android.json.CSJson
 import renetik.android.json.toJson
 import renetik.android.store.extensions.load

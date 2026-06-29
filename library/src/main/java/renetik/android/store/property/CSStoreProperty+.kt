@@ -2,9 +2,9 @@
 
 package renetik.android.store.property
 
-import renetik.android.event.registration.CSHasRegistrations
 import renetik.android.event.change.onChange
 import renetik.android.event.change.onChangeOnce
+import renetik.android.event.registration.CSHasRegistrations
 import renetik.android.event.registration.plus
 import renetik.android.store.CSStore
 
