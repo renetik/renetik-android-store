@@ -28,7 +28,6 @@ dependencies {
 }
 ```
 
-## Examples
 ```kotlin
 class StoreTypesTestData : CSJsonObjectStore() {
     var string: String by property("key1", default = "initial")
